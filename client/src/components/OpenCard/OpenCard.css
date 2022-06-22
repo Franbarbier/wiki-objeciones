@@ -1,0 +1,138 @@
+#OpenCard-view{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: rgba(0,0,0,0.15);
+    backdrop-filter: blur(5px);
+}
+
+#OpenCard-view>div{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 60px;
+    padding-bottom: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    max-height: 70vh;
+    overflow: auto;
+
+}
+#OpenCard-view>div>div{
+    position: relative;
+}
+#OpenCard-view ul{
+    padding: 5%;
+    position: relative;
+}
+#OpenCard-view ul li{
+    padding: 5% 0;
+    color: rgb(91, 91, 91);
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+#OpenCard-view ul li:last-child{
+    border-bottom: none;
+}
+#OpenCard-view ul li>div{
+    position: absolute;
+    width: 16px;
+    right: 0%;
+    top: 20%;
+    opacity: 0;
+    cursor: pointer;
+}
+#OpenCard-view ul li:hover div{
+    opacity: 0.5;
+} 
+#OpenCard-view ul li>div:hover{
+    opacity: 1;
+}
+#OpenCard-view ul li>div img{
+    width: 100%;
+}
+
+#close-mod{
+    width: 24px;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+#close-mod:hover{
+    opacity: 0.9;
+}
+
+#close-mod img{
+    width: 100%;
+}
+#new-rta{
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 8px 16px;
+    color: slategray;
+    border:1px dashed slategray;
+    cursor: pointer;
+    display: block;
+    margin: 5% auto;
+}
+#new-rta:hover{
+    background-color: #f0f0f0;
+}
+
+#add-rta{
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: self-end;
+}
+#add-rta>div{ width: 100%; }
+#add-rta textarea{
+    display: block;
+    width: 60%;
+    margin: auto;
+    margin-bottom: 5%;
+    padding: 3%;
+    resize: none;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    border-radius: 7px;
+    height: 90px;
+    color: slategray;
+}
+.cancel-newrta{
+    display: block;
+    margin: 5% auto;
+    background: transparent;
+    border: 1px solid #ddd;
+    color: slategray;
+    padding: 8px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.cancel-newrta:hover{
+    background: #f0f0f0;
+}
+.send-newrta{
+    color: var(--violeta);
+    background: #7f45c42e;
+    border: var(--violeta) 1px solid;
+    border-radius: 5px;
+    padding: 8px 15px;
+    margin: 5% auto 0;
+    display: block;
+    transition: .2s;
+}
+.send-newrta:hover{
+    background: #7e45c469;
+    font-weight: 500;
+    cursor: pointer;
+}

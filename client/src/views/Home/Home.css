@@ -1,0 +1,157 @@
+#Home-view{
+    background-color: #f0f0f0;
+    min-height: 100vh;
+}
+
+/* ?token=exp=1654889023~hmac=52d4d78e368634e9cab854437091d933 */
+
+#top-bar{
+    padding: 5% 0;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin: auto;
+}
+#buscador{
+    width: 80%;
+}
+#buscador>div:first-child{
+    margin: auto;
+    width: 100%;
+    /* padding: 0 40px; */
+    background: white;
+    box-shadow: 0px 6px 10px 0px #dbdbdb;
+    position: relative;
+    border-radius: 55px;
+
+}
+#buscador label{
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+}
+#buscador label img{
+    filter: invert(0.5);
+}
+#buscador input{
+    padding: 15px 15%;
+    border: none;
+    border-radius: 55px;
+    width: 70%;
+    position: relative;
+    background: none;
+}
+#notifications>div{
+    border-radius: 55px;
+    background: white;
+    /* width: 50px; */
+    height: 100%;
+    width: 50px;
+    /* padding-right: 143%; */
+    position: relative;
+    box-shadow: 0px 6px 10px 0px #dbdbdb;
+    display: block;
+    cursor: pointer;
+}
+
+#notifications>div img{
+    position: absolute;
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: invert(0.4);
+}
+#notifications>div:hover img{
+    filter: invert(0.2);
+}
+#resultados-cont{
+    width: 60%;
+    margin: auto;
+}
+#resultados-cont>div{
+    display: grid;
+    grid-auto-columns: column;
+    grid-template-columns: 45% 45%;
+    grid-template-rows: 35vh;
+    grid-gap: 7vh 7vh;
+    gap: 11vh 10%;
+}
+#resultados-cont>div>div{
+    /* height: ; */
+}
+.objecion-card{
+    padding: 11%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px 0px #dbdbdb;
+    cursor: pointer;
+    transition: .2s;
+    position: relative;
+    height: 70%;
+}
+.objecion-card:hover{
+    box-shadow: 0px 6px 15px 3px #dbdbdb;
+    transform: scale(1.05);
+}
+.objecion-card h4{
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+.objecion-card li{
+    font-size: 0.8em;
+    color: #1c1c1c;
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+
+}
+.objecion-card li p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2; 
+    -webkit-box-orient: vertical;
+
+}
+.objecion-card li:last-child{
+    border-bottom: none
+}
+.rtas-option{
+    position: absolute;
+    width: 16px;
+    right: 0%;
+    top: 10%;
+    transition: .2s;
+    opacity: 0;
+}
+.rta:hover .rtas-option{
+    opacity: 0.6;
+}
+.rtas-option:hover{
+    opacity: 1!important;
+}
+.rtas-option img{
+    transition: .2s;
+    width: 100%;
+}
+.mas-rtas{
+    position: absolute;
+    font-size: 0.8em;
+    padding: 2px 8px;
+    background-color: #b79bd9;
+    color: var(--violeta);
+    border-radius: 50px;
+    right: 5%;
+    bottom: 5%;
+    font-weight: 600;
+}
+.agrandado{
+    
+}
