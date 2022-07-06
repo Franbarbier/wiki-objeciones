@@ -1,4 +1,4 @@
-import Objecion from '../models/Objecion.js';
+import Objecion from '../models/objecion.js';
 
 
 
