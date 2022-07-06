@@ -7,6 +7,7 @@ import Home from './views/Home/Home'
 import { AppProvider } from './contexts/AppContext';
 
  import './css-gral.css';
+import Panel from './views/Panel/Panel';
 
 
 // import { verifyUser } from './api';
@@ -21,9 +22,9 @@ const App = () => {
     // verifyUser().then((res)=>setUser(res))
   }, [])
 
-  useEffect(()=>{
-    console.log(user)
-  })
+  // useEffect(()=>{
+  //   console.log(user)
+  // })
 
 
   function render(){
@@ -38,6 +39,7 @@ const App = () => {
           <ScrollToTop/>
             <Routes>
                 <Route exact path="/" element={<Home setActiveTab={setActiveTab} />}/>
+                <Route exact path="/admin-panel" element={<Panel /> }/>
                
             </Routes>
             </AppProvider>

@@ -42,7 +42,7 @@ const OpenCard = ({ objecion, setOpenObjecion }) => {
                     <div>
                         <h3>{objecion.objecion}</h3>
                         <ul>
-                          {objecion.respuestas.map((rta)=>(
+                          {objecion.rtas.map((rta)=>(
                             <li>
                               <p>{rta}</p>
                               <div>
@@ -52,7 +52,12 @@ const OpenCard = ({ objecion, setOpenObjecion }) => {
                           ))}
                           { newRta && <AddRta setNewRta={setNewRta} />}
                         </ul>
-                        { !newRta &&  <button id="new-rta" onClick={ ()=>{ setNewRta(true) } }>Sugerir nueva respuesta</button>}
+                        { !newRta &&  <button id="new-rta" onClick={ ()=>{
+                                    setNewRta(true)
+                                    setTimeout(() => {
+                                      document.querySelector('#OpenCard-view>div').scroll({ top: document.querySelector('#OpenCard-view>div').scrollHeight, behavior: 'smooth' });
+                                    }, 200);
+                          } }>Sugerir nueva respuesta</button>}
 
                        
                         <div id="close-mod" onClick={ ()=>{ setOpenObjecion(null) } }> 

@@ -3,7 +3,7 @@ import React, {useState, useMemo, useEffect, useRef} from 'react';
 import { useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 
-// import { getProjects } from '../actions/projects';
+import { getObjeciones } from '../actions/objeciones';
 
 
 const AppContext = React.createContext();
@@ -13,15 +13,24 @@ export function AppProvider(props){
     const dispatch = useDispatch()
     const { pathname } = useLocation()
     
-    const [loadingProjects, setLoadingProjects] = useState(true) 
+    const [loadingObjeciones, setLoadingObjeciones] = useState(false) 
     
-    const setters = [setLoadingProjects]
+    const [notifications, setNotifications] = useState([])
+    
+    const setters = [setLoadingObjeciones]
 
     
     useEffect(()=>{
+        setNotifications([])
+    }, [pathname])
+
+
+    useEffect(()=>{
         setAllLoading()
+        if(!window.location.href.includes('login')){
             setAllLoading(true)
-            // dispatch( getProjects() ).then(()=>setLoadingProjects(false))
+            dispatch(getObjeciones()).then(()=>setLoadingObjeciones(false))        
+        }
     }, [pathname])
 
     function setAllLoading(){
@@ -32,11 +41,13 @@ export function AppProvider(props){
 
     const value = useMemo(()=>{
         return ({
-            loading: {projects: loadingProjects}
+            loading: {objeciones: loadingObjeciones},
+            notifications,
+            setNotifications
         })
-    }, [loadingProjects])
-    
-    console.log(value)
+    }, [loadingObjeciones, notifications])
+
+    // console.log(value)
 
     return <AppContext.Provider value={value} {...props} />
 

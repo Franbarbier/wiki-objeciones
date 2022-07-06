@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import users from './DReducers/users';
+import objeciones from './DReducers/objeciones';
 
 
 export default combineReducers({
-    users
+    objeciones
 })

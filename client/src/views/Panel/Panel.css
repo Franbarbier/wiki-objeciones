@@ -1,0 +1,27 @@
+#Panel-view{
+    background-color: #f0f0f0;
+    min-height: 100vh;
+}
+#Panel-view>div{
+    padding: 5% 0%;
+}
+#tab-selection>ul{
+    display: flex;
+    padding: 0 10%;
+    border-bottom: 1px solid #ccc;
+
+}
+#tab-selection li{
+    padding: 4px 3%;
+    margin-right: 2%;
+    font-weight: 300;
+    color: #1c1c1c;
+    cursor: pointer;
+}
+.selectedTab{
+    font-weight: 500!important;
+    border-bottom: 1px solid #1c1c1c;
+}
+#table-cont{
+    padding: 3% 10%;
+}

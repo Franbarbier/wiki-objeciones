@@ -1,0 +1,15 @@
+#Notifications-view{
+    width: 200px!important;
+    position: absolute!important;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 120%;
+    z-index: 99;
+    border-radius: 10px!important;
+    padding: 17px 25px;
+}
+#Notifications-view li{
+    font-size: 0.9em;
+    color: #1c1c1c;
+    text-align: center;
+}

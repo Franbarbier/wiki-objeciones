@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 
 import './Home.css';
 import OpenCard from '../../components/OpenCard/OpenCard';
+import Notifications from '../../components/Notificactions/Notifications';
 
 
 const Home = ({setActiveTab }) => {
@@ -16,9 +17,8 @@ const Home = ({setActiveTab }) => {
     const dispatch = useDispatch()
 
     const [openObjecion, setOpenObjecion] = useState(null)
+    const [openNotifications, setOpenNotifications] = useState(false)
 
-    var projects = useSelector(state => state.projects)
-    
 
     function changeBsucador(e){ 
         setBuscador(e.target.value)
@@ -33,32 +33,7 @@ const Home = ({setActiveTab }) => {
     }, [openObjecion])
 
 
-    const objeciones = [
-        {
-            id: 1,
-            objecion: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-            respuestas : ['Llamalo en 15 minutos', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indus standard dummy text ever since the 1500s'],
-            key_word : ['reunion', 'mas tarde', 'agenda']
-        },
-        {
-            id: 2,
-            objecion: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been',
-            respuestas : ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it'],
-            key_word : ['reunion', 'mas tarde', 'agenda']
-        },
-        {
-            id: 3,
-            objecion: 'Lorem Ipsum is simply dummy text',
-            respuestas : ['It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don look even slightly believable', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'],
-            key_word : ['reunion', 'mas tarde', 'agenda']
-        },
-        {
-            id: 4,
-            objecion: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been',
-            respuestas : ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industr standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries'],
-            key_word : ['reunion', 'mas tarde', 'agenda']
-        }
-    ]
+    const objeciones = useSelector(state => state.objeciones)
 
 
     
@@ -101,9 +76,12 @@ const Home = ({setActiveTab }) => {
                             </div>
                         </div>
                         <div id="notifications">
-                            <div>
+                            <div onClick={()=>{ setOpenNotifications(!openNotifications) }}>
                                 <img src= "/assets/bell.png"/>
                             </div>
+                            {openNotifications &&
+                                <Notifications setOpenNotifications={setOpenNotifications} openNotifications={openNotifications} />
+                            }
                         </div>
                     </div>
                     <div id="resultados-cont">
@@ -119,7 +97,7 @@ const Home = ({setActiveTab }) => {
                                         </div>
                                         <div>
                                             <ul>
-                                                {obj.respuestas.map((rta, index)=>(
+                                                {obj.rtas.map((rta, index)=>(
                                                     <>
                                                     {index < 2 &&
                                                         <li className="rta">
@@ -132,8 +110,8 @@ const Home = ({setActiveTab }) => {
                                                     </>
                                                 ))}
                                             </ul>
-                                            {obj.respuestas.length > 2 &&
-                                                <span className="mas-rtas">+{obj.respuestas.length -2}</span>
+                                            {obj.rtas.length > 2 &&
+                                                <span className="mas-rtas">+{obj.rtas.length -2}</span>
                                             }
                                         </div>
                                     </div>
