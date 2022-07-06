@@ -23,6 +23,7 @@ const NewObj = ({ setNewRta }) => {
     const [category, setCategory] = useState('')
 
     
+    const dispatch2 = useDispatch()
 
 
     function hagaseLaObj(e){
@@ -38,7 +39,7 @@ const NewObj = ({ setNewRta }) => {
         setCategory('')
 
 
-        createObjecion({final_objecion}, dispatch).then(
+        createObjecion({final_objecion}, dispatch2).then(
                 (e)=> 
                   console.log(e)      
                 ).catch( (e) =>{
