@@ -21,6 +21,11 @@ app.use(cors({
 
 app.use('/objeciones', objecionesRoutes)
 
+app.get('/', (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send({ "msg": "This has CORS enabled 🎈" })
+})
+
 
 const CONNECTION_URL = 'mongodb+srv://wiki-admin:wikiadmin123@cluster0.83weg.mongodb.net/?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000

@@ -5,7 +5,12 @@
   "main": "index.js",
   "type":"module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "heroku-postbuild": "npm run build"
+  },
+  "engines": {
+      "npm": "8.5.5",
+      "node": "v14.16.1"
   },
   "keywords": [],
   "author": "",
