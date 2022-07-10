@@ -22,11 +22,11 @@ export const getObjeciones = async (req, res)=>{
 }
 
 export const createObjecion = async(req, res) =>{
-    const obj = req.body;
+    const obj = req.body.final_objecion;
     const newObj = new Objecion(obj);
     try{
         await newObj.save();
-        console.log('pareciera que se subio')
+        console.log('pareciera que se subio', newObj)
         res.status(201).json({newObj})
     }catch(error){
         res.status(409).json({message: error.message})

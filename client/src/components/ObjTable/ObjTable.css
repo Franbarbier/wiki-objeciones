@@ -120,6 +120,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 #ObjTable-view .tr:nth-child(odd){
     background-color: #e7e7e7;
@@ -139,8 +140,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    font-size: 0.8em;
 }
 .id-cell{
     width: 3%;
@@ -151,14 +153,39 @@
 .cant-cell{
     width: 5%;
 }
+.th.rtas-cell{
+    height: auto!important;
+}
 .rtas-cell{
     width: 28%;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 .key-cell{
     width: 12%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    overflow: hidden;
+    align-items: center;
+}
+.key-cell p{
+    display: inline-block!important;
+    width: fit-content!important;
+    font-size: 0.8em!important;
+    margin: 2px 2px;
+    background-color: #d2b9f0;
+    border-radius: 5px;
+    padding: 2px;
 }
 .cat-cell{
     width: 8%;
+}
+.cant-cell p{
+    text-align: center;
 }
 .delete-btn{
     position: absolute;

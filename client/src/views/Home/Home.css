@@ -158,3 +158,12 @@
 .agrandado{
     
 }
+
+#no-search{
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    transform: translateY(-100%);
+    font-size: 2em;
+    color: #b9b9b9;
+}

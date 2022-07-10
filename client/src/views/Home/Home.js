@@ -13,27 +13,65 @@ import Notifications from '../../components/Notificactions/Notifications';
 const Home = ({setActiveTab }) => {
     
     const [selectedId, setSelectedId] = useState(null)
-    const[ buscador, setBuscador ] = useState('')
+    const[ buscador, setBuscador ] = useState([])
     const dispatch = useDispatch()
 
     const [openObjecion, setOpenObjecion] = useState(null)
     const [openNotifications, setOpenNotifications] = useState(false)
+    
+    const objeciones = useSelector(state => state.objeciones)
+
+    useEffect(()=>{
+        setBuscador(objeciones)
+    }, [])
+
+    function handleBuscador(e) {
+        let serchWord = e.target.value;
+        let newFilterObj = objeciones.filter((value)=>{
+                return value.objecion.toLowerCase().includes( serchWord.toLowerCase() )
+            })
+            
+           var searchResult = []
 
 
-    function changeBsucador(e){ 
-        setBuscador(e.target.value)
+           for (let index = 0; index < objeciones.length; index++) {
+                const element = objeciones[index];
+
+                var tieneObj = false
+                if(element.objecion.toLowerCase().includes(serchWord.toLowerCase()) ){
+                    tieneObj = true
+                }
+
+                var tieneTag = false
+                element.tags.find(element => {
+                    if (element.toLowerCase().includes(serchWord.toLowerCase())) {
+                        tieneTag = true
+                    }
+                });
+                // console.log( element.tags )
+
+                var tieneRta = false
+                element.rtas.find(element => {
+                    if (element.toLowerCase().includes(serchWord.toLowerCase())) {
+                        tieneRta = true
+                    }
+                });
+
+                if (tieneObj || tieneTag || tieneRta) {
+                    // return element
+                    searchResult.push(element);
+
+                }
+                
+            }
+
+            setBuscador(searchResult)
+
     }
 
     useEffect(()=>{
         console.log(buscador)
-    })
-
-    useEffect(()=>{
-        console.log(openObjecion)
-    }, [openObjecion])
-
-
-    const objeciones = useSelector(state => state.objeciones)
+    }, [buscador])
 
 
     
@@ -72,7 +110,7 @@ const Home = ({setActiveTab }) => {
                                     <img src= "/assets/lupa.png"/>
                                     <span>🔥</span>
                                 </label>
-                                <input type="text" placeholder='Buscar objeción'/>
+                                <input type="text" onChange={ handleBuscador } placeholder='Buscar objeción'/>
                             </div>
                         </div>
                         <div id="notifications">
@@ -86,7 +124,7 @@ const Home = ({setActiveTab }) => {
                     </div>
                     <div id="resultados-cont">
                         <div>
-                            {objeciones.map((obj)=>(
+                            {buscador.map((obj)=>(
                                 <div>
                                     <div onClick={(e)=>{
                                         e.target.classList.add("agrandado")
@@ -123,6 +161,11 @@ const Home = ({setActiveTab }) => {
                         <OpenCard setOpenObjecion={setOpenObjecion} objecion={openObjecion}/>
                     }
                 </div>
+                    {buscador.length == 0 &&
+                        <div>
+                            <p id="no-search">Buscá una objeción que tengas. (◍•ᴗ•◍)✧*。</p>
+                        </div>
+                    }
 
                 <div id="new-objecion">
                     <div>

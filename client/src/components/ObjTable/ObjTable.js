@@ -37,7 +37,7 @@ const NewObj = ({ setNewRta }) => {
         setTags([])
         setObjecion('')
         setCategory('')
-
+        setNewRta(false)
 
         createObjecion({final_objecion}, dispatch2).then(
                 (e)=> 
@@ -95,6 +95,7 @@ const NewObj = ({ setNewRta }) => {
                         <div>
                             <label>Categoría</label>
                             <select onChange={(e)=>{ setCategory(e.target.value) } } >
+                                <option value="">Seleccionar categoría</option>
                                 <option value="Prueba1">Prueba1</option>
                                 <option value="Prueba2">Prueba2</option>
                                 <option value="Prueba3">Prueba3</option>
@@ -120,18 +121,32 @@ const ObjTable = ({ objeciones }) => {
     
     // const dispatch = useDispatch()
     const [newObj, setNewRta] = useState(false)
+    const [objetas, setObjetas] = useState(objeciones)
+    //     objecion : '',
+    //     rtas : [],
+    //     tags : [],
+    //     category : ''
+
+    // }])
     
 
     const dispatch = useDispatch()
 
     useEffect(()=>{
+        setObjetas(objeciones)
         console.log(objeciones)
-    })
+    } )
+
+    // useEffect(()=>{
+    //    console.log(objetas)
+    // }, [objetas])
 
   function render(){
       return  <div id="ObjTable-view">
                 <div className="table-config">
-                    <button id="add-new-obj" onClick={()=>{setNewRta(true)}}>Crear nueva objecion</button>
+                    {!newObj &&
+                        <button id="add-new-obj" onClick={()=>{setNewRta(true)}}>Crear nueva objecion</button>
+                    }
                     <div>
 
                     </div>
@@ -146,10 +161,11 @@ const ObjTable = ({ objeciones }) => {
                         <div className="key-cell th">Keywords</div>
                         <div className="cat-cell th">Categoría</div>
                     </div>
-                    {objeciones.map((obj, index)=>(
+                    {objetas.map((obj, index)=>(
                         <div className='tr'>
                             <div className="id-cell td"><p>{index + 1}</p></div>
                             <div className="obj-cell td"><p title={obj.objecion}>{obj.objecion}</p></div>
+                            
                             <div className="cant-cell td"><p>{obj.rtas.length}</p></div>
                             <div className="rtas-cell td">
                                 {obj.rtas.map((rta)=>(

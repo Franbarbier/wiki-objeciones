@@ -15,7 +15,7 @@ export const getObjeciones = (filtros=null) => async (dispatch) => {
 export const createObjecion = async (objecion, dispatch) => {
     try{
         const{data} = await api.createObjecion(objecion)
-        // dispatch({type: CREATE_PROJECT, payload:data})
+        dispatch({type: CREATE_OBJECION, payload:data})
         console.log(data)
         return data
     }catch(error){
