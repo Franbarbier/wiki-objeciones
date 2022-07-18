@@ -23,13 +23,13 @@ export const createObjecion = async (objecion, dispatch) => {
     }
 }
 
-export const updateObjeciones = async (objeciones, dispatch) => {
-    // try{
-    //     const {data} = await api.updateCliente(cliente)
-    //     dispatch({type: UPDATE_CLIENTE, payload:data})
-    // }catch(error){
-    //     console.log(error)
-    // }
+export const updateObjeciones = async (objecion, dispatch) => {
+    try{
+        const {data} = await api.updateObjecion(objecion)
+        dispatch({type: UPDATE_OBJECION, payload:data})
+    }catch(error){
+        console.log(error)
+    }
 }
 
 export const deleteObjeciones = async (id_objeciones, dispatch) => {

@@ -16,6 +16,14 @@ export default (state=[], action) => {
             //     // window.location = "/"
             // }
             // return {...state, login:response}
+        case 'UPDATE_OBJECION':
+            return state.map(objecion => {
+                if (objecion._id !== action.payload._id) {
+                    return objecion
+                }else{
+                    return action.payload
+                }})
+    
 
         case 'DELETE_OBJECION':
             var id_deleted = action.payload.id

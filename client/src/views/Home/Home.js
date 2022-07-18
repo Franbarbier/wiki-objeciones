@@ -33,7 +33,6 @@ const Home = ({setActiveTab }) => {
             
            var searchResult = []
 
-
            for (let index = 0; index < objeciones.length; index++) {
                 const element = objeciones[index];
 
@@ -65,6 +64,12 @@ const Home = ({setActiveTab }) => {
                 
             }
 
+            if (serchWord == "") {
+                setBuscador([])
+                return false;
+            }
+    
+
             setBuscador(searchResult)
 
     }
@@ -75,30 +80,7 @@ const Home = ({setActiveTab }) => {
 
 
     
-    // function checkBuscador(proyecto){
-        
-    //     function ifIsInTag(proyecto){
-    //         for (let index = 0; index < proyecto.tags.length; index++) {
-    //             const element = proyecto.tags[index];
 
-    //             if (element.toLowerCase().includes(buscador.toLowerCase())) {
-    //                 return true
-    //             }
-                
-    //         }
-    //         return false
-    //     }
-        
-        
-    //     // console.log(ifIsInTag(proyecto))
-
-    //     if (buscador == '' || proyecto.name.toLowerCase().includes(buscador.toLowerCase()) || ifIsInTag(proyecto) ) {
-    //         return true
-    //     }else{
-    //         console.log()
-    //         return false
-    //     }
-    // }
 
   function render(){
       return  <div id="Home-view">
@@ -140,7 +122,25 @@ const Home = ({setActiveTab }) => {
                                                     {index < 2 &&
                                                         <li className="rta">
                                                             <p>{rta}</p>
-                                                            <div className='rtas-option'>
+                                                            <div className='rtas-option'
+                                                            onClick={ (e)=>{ 
+                                                                e.stopPropagation()
+                                                                var clicked;
+                                                                if (e.target.tagName == "IMG") {
+                                                                  clicked = e.target
+                                                                }else{
+                                                                  clicked = e.target.querySelector('img')
+                                                                }
+                                                                clicked.style.filter = "drop-shadow(0px 0 5px green)"
+                                                                clicked.style.transform = "scale(1.2)"
+                                                                navigator.clipboard.writeText(rta)
+                              
+                                                                setTimeout(() => {
+                                                                clicked.style.filter = "none"
+                                                                clicked.style.transform = "scale(1)"
+                                                                  
+                                                                }, 1000);
+                                                                } }>
                                                                 <img src="/assets/copy.png" />
                                                             </div>
                                                         </li>

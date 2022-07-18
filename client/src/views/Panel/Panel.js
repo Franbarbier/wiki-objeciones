@@ -12,7 +12,13 @@ import ObjTable from '../../components/ObjTable/ObjTable';
 
 const Panel = ({setActiveTab }) => {
 
+// const objeciones = useSelector(state => state.objeciones)
 const objeciones = useSelector(state => state.objeciones)
+
+
+const tester = useSelector(state => state.objeciones)
+console.log(tester)
+
   function render(){
       return  <div id="Panel-view">
                     <div>

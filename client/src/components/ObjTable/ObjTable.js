@@ -10,6 +10,7 @@ import { createObjecion, deleteObjeciones } from '../../actions/objeciones';
 
 
 import './ObjTable.css';
+import ObjInfo from '../ObjInfo/ObjInfo';
 
 const NewObj = ({ setNewRta }) => {
 
@@ -122,12 +123,9 @@ const ObjTable = ({ objeciones }) => {
     // const dispatch = useDispatch()
     const [newObj, setNewRta] = useState(false)
     const [objetas, setObjetas] = useState(objeciones)
-    //     objecion : '',
-    //     rtas : [],
-    //     tags : [],
-    //     category : ''
-
-    // }])
+    const [modalObj, setModalObj] = useState(false)
+   
+    const [objSelected, setObjSelected] = useState(false)
     
 
     const dispatch = useDispatch()
@@ -162,10 +160,10 @@ const ObjTable = ({ objeciones }) => {
                         <div className="cat-cell th">Categoría</div>
                     </div>
                     {objetas.map((obj, index)=>(
-                        <div className='tr'>
+                       <div className='tr' onClick={()=>{setObjSelected(obj)}}>
                             <div className="id-cell td"><p>{index + 1}</p></div>
                             <div className="obj-cell td"><p title={obj.objecion}>{obj.objecion}</p></div>
-                            
+                        
                             <div className="cant-cell td"><p>{obj.rtas.length}</p></div>
                             <div className="rtas-cell td">
                                 {obj.rtas.map((rta)=>(
@@ -179,11 +177,14 @@ const ObjTable = ({ objeciones }) => {
                             </div>
                             <div className="cat-cell td"><p>{obj.category}</p></div>
 
-                            {/* <div className='delete-btn' onClick={()=>{ deleteObjeciones([obj._id], dispatch) }}>DELETE</div> */}
+                            <div className='delete-btn' onClick={()=>{ deleteObjeciones([obj._id], dispatch) }}>DELETE</div>
+                    </div>
 
-                        </div>
                     ))}
 
+                    {objSelected &&
+                        <ObjInfo objecion={objSelected} setObjSelected={setObjSelected}/>
+                    }
 
                 </div>
               </div>

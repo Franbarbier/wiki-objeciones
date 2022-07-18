@@ -133,6 +133,7 @@
     top: 10%;
     transition: .2s;
     opacity: 0;
+    transition: .2s;
 }
 .rta:hover .rtas-option{
     opacity: 0.6;

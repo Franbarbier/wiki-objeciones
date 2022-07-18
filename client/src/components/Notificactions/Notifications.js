@@ -11,10 +11,19 @@ import './Notifications.css';
 
 
 
-const Notifications = ({ objecion, setOpenObjecion }) => {
+const Notifications = ({ objecion, setOpenNotifications }) => {
     
 
     console.log(objecion)
+    document.addEventListener( "click",
+        function(event) {
+          // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
+          if (!event.target.closest("#notifications")  ) {
+            setOpenNotifications(false)
+          }
+        },
+        false
+      )
 
 
   function render(){

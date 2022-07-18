@@ -9,6 +9,6 @@ const router = express.Router()
 router.get('/', getObjeciones)
 router.post('/', createObjecion)
 router.delete('/:id', deleteObjecion)
-// router.patch('/', updatePlataforma)
+router.patch('/', updateObjecion)
 
 export default router
