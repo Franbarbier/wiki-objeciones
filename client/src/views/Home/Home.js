@@ -3,16 +3,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // import {motion} from 'framer-motion/dist/es/index'
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
 import './Home.css';
 import OpenCard from '../../components/OpenCard/OpenCard';
 import Notifications from '../../components/Notificactions/Notifications';
+import ModalNewObj from '../../components/ModalNewObj/ModalNewObj';
 
 
 const Home = ({setActiveTab }) => {
     
     const [selectedId, setSelectedId] = useState(null)
+    const [hovered, setHovered] = useState(false)
+    const [modalNewObj, setModalNewObj] = useState(false)
     const[ buscador, setBuscador ] = useState([])
     const dispatch = useDispatch()
 
@@ -167,13 +170,30 @@ const Home = ({setActiveTab }) => {
                         </div>
                     }
 
-                <div id="new-objecion">
+                <div id="new-objecion"
+                onMouseEnter={() => setHovered("new-obj")}
+                onMouseLeave={() => setHovered(false)}
+                onClick={ ()=>{ setModalNewObj(true) } }>
                     <div>
+                        <AnimatePresence>
+                        {hovered == "new-obj" &&
+                            <motion.aside
+                            initial={{opacity : 0, y: 30}}
+                            exit={{opacity : 0, y: 30}}
+                            animate={{opacity : 1, y: 0}}>
+                                <p>Sugerir una nueva objeción</p>
+                            </motion.aside>
+                        }
+                        </AnimatePresence>
+
                         <div>
-                            <button>+</button>
+                            <span>+</span>
                         </div>
                     </div>
                 </div>
+                {modalNewObj &&
+                    <ModalNewObj setModalNewObj={setModalNewObj}/>
+                }
               </div>
 
        }

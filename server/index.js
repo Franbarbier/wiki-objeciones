@@ -7,6 +7,7 @@ import cors from 'cors';
 
 
 import objecionesRoutes from './routes/objeciones.js';
+import sugerenciasRoutes from './routes/sugerencias.js';
 
 
 const app = express()
@@ -19,6 +20,7 @@ app.use(cors({
     origin: '*'
 }));
 
+app.use('/sugerencias', sugerenciasRoutes)
 app.use('/objeciones', objecionesRoutes)
 
 app.get('/', (req, res) => {

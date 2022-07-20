@@ -39,8 +39,9 @@ const NewObj = ({ setNewRta }) => {
         setObjecion('')
         setCategory('')
         setNewRta(false)
-
-        createObjecion({final_objecion}, dispatch2).then(
+        
+        
+        createObjecion(final_objecion, dispatch2).then(
                 (e)=> 
                   console.log(e)      
                 ).catch( (e) =>{
@@ -67,9 +68,21 @@ const NewObj = ({ setNewRta }) => {
                         </div>
                         <div>
                             <label>Respuestas</label>
-                            <ul>
+                            <ul className='ul-editable'>
                                 {rtas.map((rta, index)=>(
-                                    <li data-index={index}>{rta}</li>
+                                <li>
+                                    <textarea data-index={index} value={rta}
+                                            key={`rats${index}`}
+                                            onChange={(e)=>{
+                                              let newrtas = [...rtas]
+                                              newrtas[index] = e.target.value
+                                              setRtas(newrtas)
+                                            } } ></textarea>
+                                    <div onClick={()=>{ 
+                                      setRtas( rtas.filter(rtita =>  rtita != rta ) )
+                                    }}><img src="/assets/close.png" /></div>
+                                    {/* <div onClick={()=>{setRtas(rtas.filter(rtita => rtita[index] ))}}><img src="/assets/close.png" /></div> */}
+                                  </li>
                                 ))}
                             </ul>
                             <textarea onChange={(e)=>{ setCurrentRta(e.target.value) } } value={currentRta}></textarea>
@@ -81,9 +94,24 @@ const NewObj = ({ setNewRta }) => {
                         </div>
                         <div>
                             <label>Key words</label>
-                            <ul>
+                            <ul className='ul-editable'>
                                 {tags.map((tag, index)=>(
-                                    <li data-index={index}>{tag}</li>
+                                    <li>
+                                      <input data-index={index}
+                                        onChange={ (e)=>{
+                                          let newtags = [...tags];
+                                          newtags[index] = e.target.value
+                                          console.log(newtags)
+                                          setTags(newtags)
+
+                                        } }
+                                        value={tag}
+                                        key={`tags${index}`}
+                                      />
+                                      <div onClick={()=>{ 
+                                        setTags( tags.filter(tagi =>  tagi != tag ) )
+                                      }}><img src="/assets/close.png" /></div>
+                                    </li>
                                 ))}
                             </ul>
                             <input type="text" onChange={(e)=>{ setCurrentTag(e.target.value) } } value={currentTag} />
@@ -177,7 +205,10 @@ const ObjTable = ({ objeciones }) => {
                             </div>
                             <div className="cat-cell td"><p>{obj.category}</p></div>
 
-                            <div className='delete-btn' onClick={()=>{ deleteObjeciones([obj._id], dispatch) }}>DELETE</div>
+                            <div className='delete-btn' onClick={(e)=>{
+                                e.stopPropagation()
+                                deleteObjeciones([obj._id], dispatch) 
+                                }}>DELETE</div>
                     </div>
 
                     ))}

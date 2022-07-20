@@ -4,6 +4,7 @@ import { useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 
 import { getObjeciones } from '../actions/objeciones';
+import { getSugerencias } from '../actions/sugerencias';
 
 
 const AppContext = React.createContext();
@@ -13,11 +14,12 @@ export function AppProvider(props){
     const dispatch = useDispatch()
     const { pathname } = useLocation()
     
-    const [loadingObjeciones, setLoadingObjeciones] = useState(false) 
+    const [loadingObjeciones, setLoadingObjeciones] = useState(false)
+    const [loadingSugerencias, setLoadingSugerencias] = useState(false)
     
     const [notifications, setNotifications] = useState([])
     
-    const setters = [setLoadingObjeciones]
+    const setters = [setLoadingObjeciones, setLoadingSugerencias]
 
     
     useEffect(()=>{
@@ -30,6 +32,7 @@ export function AppProvider(props){
         if(!window.location.href.includes('login')){
             setAllLoading(true)
             dispatch(getObjeciones()).then(()=>setLoadingObjeciones(false))        
+            dispatch(getSugerencias()).then(()=>setLoadingSugerencias(false))     
         }
     }, [pathname])
 
@@ -41,11 +44,11 @@ export function AppProvider(props){
 
     const value = useMemo(()=>{
         return ({
-            loading: {objeciones: loadingObjeciones},
+            loading: {objeciones: loadingObjeciones, sugerencias: loadingSugerencias},
             notifications,
             setNotifications
         })
-    }, [loadingObjeciones, notifications])
+    }, [loadingObjeciones, notifications, loadingSugerencias])
 
     // console.log(value)
 

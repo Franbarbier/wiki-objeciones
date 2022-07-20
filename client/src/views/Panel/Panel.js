@@ -8,28 +8,35 @@ import { motion } from "framer-motion"
 import './Panel.css';
 import Notifications from '../../components/Notificactions/Notifications';
 import ObjTable from '../../components/ObjTable/ObjTable';
+import SugTable from '../../components/SugTable/SugTable';
 
 
 const Panel = ({setActiveTab }) => {
 
+
+    const [panelInfo, setPanelInfo] = useState("objeciones")
 // const objeciones = useSelector(state => state.objeciones)
 const objeciones = useSelector(state => state.objeciones)
+const sugerencias = useSelector(state => state.sugerencias)
 
-
-const tester = useSelector(state => state.objeciones)
-console.log(tester)
+console.log(sugerencias)
 
   function render(){
       return  <div id="Panel-view">
                     <div>
                         <div id="tab-selection">
                             <ul>
-                                <li className='selectedTab'>OBJECIONES</li>
-                                <li>SUGERENCIAS</li>
+                                <li onClick={ ()=>{setPanelInfo("objeciones")} } className={ panelInfo == "objeciones" && 'selectedTab'} >OBJECIONES</li>
+                                <li onClick={ ()=>{setPanelInfo("sugerencias")} } className={ panelInfo == "sugerencias" && 'selectedTab'} >SUGERENCIAS</li>
                             </ul>
                         </div>
                         <div id="table-cont">
-                            <ObjTable objeciones={objeciones} />
+                            {panelInfo == "objeciones" ?
+
+                                <ObjTable objeciones={objeciones} />
+                            :
+                                <SugTable sugerencias={sugerencias} />
+                            }
 
                         </div>
 

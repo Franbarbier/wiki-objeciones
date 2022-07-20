@@ -22,7 +22,8 @@ export const getObjeciones = async (req, res)=>{
 }
 
 export const createObjecion = async(req, res) =>{
-    const obj = req.body.final_objecion;
+    const obj = req.body;
+    console.log(obj)
     const newObj = new Objecion(obj);
     try{
         await newObj.save();
@@ -44,8 +45,7 @@ export const deleteObjecion = async (req, res)=>{
 
 export const updateObjecion = async (req, res) =>{
 
-    console.log('testing')
-    const objecion = req.body.objecion;
+    const objecion = req.body.objecionObj;
     const filter = {_id: objecion._id}
     var objecionToUpdate = await Objecion.findOneAndUpdate(filter, objecion, {new: true})
 

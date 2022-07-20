@@ -168,3 +168,45 @@
     font-size: 2em;
     color: #b9b9b9;
 }
+
+#new-objecion{
+    position: fixed;
+    bottom: 3%;
+    right: 2%
+}
+#new-objecion>div{
+    border-radius: 100px;
+    width: 64px;
+    height: 64px;
+    background-color: var(--violeta);
+    position: relative;
+    cursor: pointer;
+}
+#new-objecion>div span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 500;
+    font-size: 24px;
+    transition: 0.6s;
+}
+#new-objecion>div:hover span{
+    transform: translate(-50%, -50%) rotate(360deg);
+}
+
+#new-objecion>div aside{
+    position: absolute;
+    bottom: 120%;
+    right: 0%;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    box-shadow: 0px 0px 7px 1px #ddd;
+    padding: 10px 14px;
+    width: fit-content;
+    min-width: 200%;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-align: right;
+}

@@ -5,19 +5,45 @@ import { Link } from 'react-router-dom';
 // import {motion} from 'framer-motion/dist/es/index'
 import { motion } from "framer-motion"
 
+import { createSugerencia } from '../../actions/sugerencias'
+
 import './OpenCard.css';
 
 
 
 
-const AddRta = ({ setNewRta }) => {
- 
+const AddRta = ({ setNewRta, id_objecion }) => {
+  
+  const [rtaSugerida, setRtaSugerida] = useState('')
+
+  const useDispatch2 = useDispatch()
+
+  async function handleSendSugerencia(){
+
+        if(rtaSugerida != ''){
+          const onSuccess = () => ( 
+            alert("Gracias por sugerir una respuesta! La vamos a ver cuanto antes."),
+            setNewRta(false) )
+          await createSugerencia({
+            objecionId: id_objecion,
+            rtas: [rtaSugerida],
+            type: 1
+          }, useDispatch2)
+          onSuccess()
+        }else{
+          alert('No puedes enviar una sugerencia vacía!')
+        }
+  }
+
+
 function render(){
     return  <div id="add-rta">
               <div>
-                  <textarea placeholder="Envianos tu sugerencia para agregarla a esta objeción"></textarea>
-                  <button className="cancel-newrta" onClick={ ()=>{ setNewRta(false) } }>Cancelar</button>
-                  <button className="send-newrta">Enviar sugerencia</button>
+                  <textarea onChange={(e)=>{ setRtaSugerida(e.target.value) }} placeholder="Envianos tu sugerencia para agregarla a esta objeción"></textarea>
+                  <>
+                    <button className="cancel-newrta" onClick={ ()=>{ setNewRta(false) } }>Cancelar</button>
+                    <button className="send-newrta" onClick={(e)=>{ handleSendSugerencia() }}>Enviar sugerencia</button>
+                  </>
               </div>             
             </div>
 
@@ -68,7 +94,7 @@ const OpenCard = ({ objecion, setOpenObjecion }) => {
                               </div>
                             </li>
                           ))}
-                          { newRta && <AddRta setNewRta={setNewRta} />}
+                          { newRta && <AddRta id_objecion={objecion._id} setNewRta={setNewRta} />}
                         </ul>
                         { !newRta &&  <button id="new-rta" onClick={ ()=>{
                                     setNewRta(true)

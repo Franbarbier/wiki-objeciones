@@ -6,41 +6,68 @@ import { Link } from 'react-router-dom';
 import { motion } from "framer-motion"
 
 import './ObjInfo.css';
-import { updateObjeciones } from '../../actions/objeciones';
+import { createObjecion, updateObjeciones } from '../../actions/objeciones';
 
 
 
 
 
-const NewObj = ({ obj, setObjSelected }) => {
+const NewObj = ({ obj, setObjSelected, suge }) => {
 
 
   const [currentRta, setCurrentRta] = useState('')
-  const [rtas, setRtas] = useState()
+  const [rtas, setRtas] = useState([])
   const [currentTag, setCurrentTag] = useState('')
-  const [tags, setTags] = useState()
+  const [tags, setTags] = useState([])
   
-  const [objecion, setObjecion] = useState(obj.objecion)
-  const [category, setCategory] = useState(obj.category)
-
-  useEffect(()=>{
-      console.log(rtas)
-      console.log(tags)
-    },[rtas, tags,objecion])
+  const [objecion, setObjecion] = useState()
+  const [category, setCategory] = useState()
+  
+  const [rtaSugerida, setRtaSugerida] = useState()
+  
+    useEffect(()=>{
+        console.log(tags)
+        console.log(obj)
+    })
 
     useEffect(()=>{
-      setTags(obj.tags)
-      setRtas(obj.rtas)
+      
+      if (obj.objecionId) {
+          setTags(obj.objecionId.tags)
+          setObjecion(obj.objecionId.objecion)
+          setCategory(obj.objecionId.category)
+          setRtas(obj.objecionId.rtas)
+
+        console.log('estoy alla')
+          setRtaSugerida(obj.rtas[0])
+          
+      }else{
+        if(obj.tags){
+          setTags(obj.tags)
+        }
+        if (obj.category) {
+          setCategory(obj.category)
+        }
+        setRtas(obj.rtas)
+        setObjecion(obj.objecion)
+      }
+
     },[])
     
 
   const dispatch2 = useDispatch()
 
 
-  function editObjecion(e){
+  function handleEditObj(e){
+
+      var thisID = obj._id
+
+      if (suge) { thisID = obj.objecionId._id }
+
       e.preventDefault()
-      let objecion = {
-          objecion, rtas, tags, category, _id: obj._id
+
+      let objecionObj = {
+          objecion, rtas, tags, category, _id: thisID
       }
       setCurrentRta('')
       setRtas([])
@@ -50,8 +77,8 @@ const NewObj = ({ obj, setObjSelected }) => {
       setCategory('')
       setObjSelected(false)
 
-      console.log(objecion)
-      updateObjeciones({objecion}, dispatch2).then(
+      console.log(objecionObj)
+      updateObjeciones({objecionObj}, dispatch2).then(
               (e)=> 
                 console.log(e)      
               ).catch( (e) =>{
@@ -60,6 +87,30 @@ const NewObj = ({ obj, setObjSelected }) => {
 
   }
 
+  function handleCreateObj(e){
+    e.preventDefault()
+    
+    let final_objecion = {
+        objecion, rtas, tags, category
+    }
+    setCurrentRta('')
+    setRtas([])
+    setCurrentTag('')
+    setTags([])
+    setObjecion('')
+    setCategory('')
+    setObjSelected(false)
+
+    console.log(final_objecion)
+
+    createObjecion(final_objecion, dispatch2).then(
+            (e)=> 
+              console.log(e)
+            ).catch( (e) =>{
+              console.log('error:::', e.error)
+          } )
+
+}
  
 
   
@@ -75,7 +126,7 @@ const NewObj = ({ obj, setObjSelected }) => {
                       <div>
                           <label>Respuestas</label>
                           <ul className='ul-editable'>
-                            {tags && 
+                            {rtas && 
                               <>
                               {rtas.map((rta, index)=>(
                                 <li>
@@ -142,10 +193,22 @@ const NewObj = ({ obj, setObjSelected }) => {
                           <label>Categoría</label>
                           <select onChange={(e)=>{ setCategory(e.target.value) } } >
                               {obj ?
-                                  <option value={obj.category}>{obj.category}</option>
+                                  
+                                  <option value={
+                                      obj.objecionId ?
+                                      obj.objecionId.category
+                                      :
+                                      obj.category
+                                    }>{
+                                      obj.objecionId ?
+                                      obj.objecionId.category
+                                      :
+                                      obj.category
+                                      }</option>
                                   :
                                   <option value="">Seleccionar categoría</option>    
                               }
+                              
                               <option value="Prueba1">Prueba1</option>
                               <option value="Prueba2">Prueba2</option>
                               <option value="Prueba3">Prueba3</option>
@@ -153,11 +216,20 @@ const NewObj = ({ obj, setObjSelected }) => {
                               <option value="Prueba5">Prueba5</option>
                           </select>
                       </div>
-                      
-                      <button onClick={editObjecion} id="create-obj">Guardar cambios</button>
+                      {suge ?
+                      <>
+                        {obj.objecionId ?
+                          <button onClick={handleEditObj} id="create-obj">Guardar cambios</button>
+                        :
+                          <button onClick={handleCreateObj} id="create-obj">Crear Objecion</button>
+                        }
+                      </>
+                        :
+                      <button onClick={handleEditObj} id="create-obj">Guardar cambios</button>
+                      }
                       <button  onClick={(e)=>{
-                                  setObjSelected(false)
                                   e.preventDefault()
+                                  setObjSelected(false)
                                 } } id="rene">Descartar</button>
                     </form>
 
@@ -170,7 +242,7 @@ const NewObj = ({ obj, setObjSelected }) => {
        return ( render() )
 }
 
-const ObjInfo = ({ objecion, setObjSelected }) => {
+const ObjInfo = ({ objecion, setObjSelected, suge=false }) => {
     
     // const dispatch = useDispatch()
     console.log(objecion)
@@ -187,7 +259,7 @@ const ObjInfo = ({ objecion, setObjSelected }) => {
                             }} src="/assets/close.png"/>
                       </div>
                       <div>
-                        <NewObj setObjSelected={setObjSelected} obj={objecion} />
+                        <NewObj setObjSelected={setObjSelected} obj={objecion} suge={suge}/>
                       </div>
 
                     </div>

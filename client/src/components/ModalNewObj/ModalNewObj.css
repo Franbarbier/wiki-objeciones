@@ -1,4 +1,4 @@
-#OpenCard-view{
+#ModalNewObj-view{
     position: fixed;
     width: 100%;
     height: 100%;
@@ -7,7 +7,7 @@
     backdrop-filter: blur(5px);
 }
 
-#OpenCard-view>div{
+#ModalNewObj-view>div{
     position: absolute;
     left: 50%;
     top: 50%;
@@ -20,39 +20,26 @@
     overflow: auto;
 
 }
-#OpenCard-view>div>div{
+#ModalNewObj-view label{
+    font-size: 0.8em;
+    color: darkgray;
+    display: block;
+    margin-top: 5%;
+}
+#ModalNewObj-view textarea{
+    /* margin: 3% 0; */
+    width: 94%;
+    padding: 3%;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    resize: none;
+    border-radius: 5px;
+}
+
+#ModalNewObj-view>div>div{
     position: relative;
 }
-#OpenCard-view ul{
-    padding: 5%;
-    position: relative;
-}
-#OpenCard-view ul li{
-    padding: 5% 0;
-    color: rgb(91, 91, 91);
-    position: relative;
-    border-bottom: 1px solid #ddd;
-}
-#OpenCard-view ul li:last-child{
-    border-bottom: none;
-}
-#OpenCard-view ul li>div{
-    position: absolute;
-    width: 16px;
-    right: 0%;
-    top: 20%;
-    opacity: 0;
-    cursor: pointer;
-}
-#OpenCard-view ul li:hover div{
-    opacity: 0.5;
-} 
-#OpenCard-view ul li>div:hover{
-    opacity: 1;
-}
-#OpenCard-view ul li>div img{
-    width: 100%;
-}
+
 
 #close-mod{
     width: 24px;
@@ -77,53 +64,53 @@
     border:1px dashed slategray;
     cursor: pointer;
     display: block;
-    margin: 5% auto;
+    margin: 3% 0;
+    width: 100%;
 }
 #new-rta:hover{
     background-color: #f0f0f0;
 }
 
 #add-rta{
-    /* position: absolute; */
-    top: 0%;
-    left: 0;
+    position: relative;
     width: 100%;
     /* height: 100%; */
     background: #fff;
     display: flex;
     justify-content: center;
+    
 }
 #add-rta>div{ width: 100%; }
 #add-rta textarea{
-    display: block;
-    width: 70%;
-    padding: 3%;
-    resize: none;
-    border: 1px solid #ddd;
-    background: #fafafa;
-    border-radius: 7px;
-}
-#OpenCard-view #add-rta textarea{
-    margin: 15% auto;
-    margin-bottom: 5%;
-    height: 90px;
+    height: 55px;
     color: slategray;
-    
+    margin: 0;
 }
-#OpenCard-view #add-rta>div button{
-    margin: 3% auto;
-    display: block;    
+.deleteRta{
+    width: 16px;
+    position: absolute;
+    text-align: start;
+    top: 60%;
+    left: 102%;
+    filter: invert(0.3);
+    cursor: pointer;
+}
+.deleteRta img{
+    width: 100%;
+}
+
+.deleteRta:hover{
+    filter: invert(0);
 }
 .cancel-newrta{
     display: block;
-    margin: 5% auto;
+    margin: 0;
     background: transparent;
     border: 1px solid #ddd;
     color: slategray;
     padding: 8px 25px;
     border-radius: 5px;
     cursor: pointer;
-    width: 55%;
 }
 .cancel-newrta:hover{
     background: #f0f0f0;
@@ -134,14 +121,21 @@
     border: var(--violeta) 1px solid;
     border-radius: 5px;
     padding: 8px 15px;
-    margin: 5% auto;
     display: block;
+    margin: 0;
     transition: .2s;
-    width: 55%;
 }
 .send-newrta:hover{
     background: #7e45c469;
     font-weight: 500;
     cursor: pointer;
 }
-
+#new-obj-btns button{
+    width: 45%;
+}
+#new-obj-btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10%;
+}

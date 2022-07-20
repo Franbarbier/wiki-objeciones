@@ -21,6 +21,6 @@ const objecion = mongoose.Schema({
 }
 )
 
-const Objecion = mongoose.model('Objecions', objecion);
+const Objecion = mongoose.model('Objeciones', objecion);
 
 export default Objecion;
