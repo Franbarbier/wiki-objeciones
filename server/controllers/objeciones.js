@@ -22,7 +22,7 @@ export const getObjeciones = async (req, res)=>{
 }
 
 export const createObjecion = async(req, res) =>{
-    const obj = req.body.final_objecion;
+    const obj = req.body;
     console.log(obj)
     const newObj = new Objecion(obj);
     try{
