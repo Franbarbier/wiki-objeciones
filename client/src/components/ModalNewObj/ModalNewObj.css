@@ -5,6 +5,7 @@
     top: 0;
     background-color: rgba(0,0,0,0.15);
     backdrop-filter: blur(5px);
+    z-index: 99;
 }
 
 #ModalNewObj-view>div{
@@ -139,3 +140,19 @@
     align-items: center;
     margin-top: 10%;
 }
+
+
+@media (max-width: 800px){
+#close-mod{
+    right: -13px;
+    top: -13px;
+}
+
+#ModalNewObj-view>div{
+    padding: 25px!important;
+    width: calc(90% - 50px);
+}
+
+
+}
+    

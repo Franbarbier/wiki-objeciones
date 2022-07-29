@@ -210,3 +210,36 @@
     font-size: 0.9em;
     text-align: right;
 }
+
+@media (max-width: 800px) {
+#top-bar{
+    width: 90%;
+    position: fixed;
+    left: 5%;
+    bottom: 13%;
+    z-index: 5;
+}
+#no-search {
+    width: 90%;
+    transform: translateY(-200%);
+}
+#new-objecion {
+    top: 3%;
+    right: 3%;
+}
+#resultados-cont{
+    width: 90%;
+    padding-bottom: 25vh;
+}
+#resultados-cont>div{
+    padding-top: 12vh;
+    gap: 0 4%;
+    grid-template-rows: 30vh;
+    grid-template-columns: 48% 48%;
+}
+.objecion-card{
+    height: 78%;
+}
+
+
+}
