@@ -26,3 +26,9 @@ export const createSugerencia = (sugerencia) => axios.post(url_sugerencias, suge
 export const deleteSugerencias = (id) => axios.delete(`${url_sugerencias}/${id}`, {headers});
 // export const updateObjecion = (objecion) => axios.patch(`${url_objeciones}/`, objecion, {headers});
 
+const url_respuestas = ENDPOINT+'respuestas'
+export const getRespuestas = (filtros) => axios.get(url_respuestas, {...filtros, headers});
+export const createRespuesta = (respuesta) => axios.post(url_respuestas, respuesta );
+export const deleteRespuestas = (id) => axios.delete(`${url_respuestas}/${id}`, {headers});
+export const updateRespuesta = (respuesta) => axios.patch(`${url_respuestas}/`, respuesta, {headers});
+

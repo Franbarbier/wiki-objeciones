@@ -20,13 +20,20 @@
     max-height: 70vh;
     overflow-y : auto;
     overflow-x : hidden;
-
+    width: 50vw;
 }
 #OpenCard-view>div>div{
     position: relative;
 }
+#OpenCard-view h3{
+    font-size: 1.3em;
+    color: var(--violeta);
+    margin: 4% 0;
+    font-weight: 500;
+    font-style: italic;
+}
 #OpenCard-view ul{
-    padding: 5%;
+    /* padding: 5%; */
     position: relative;
 }
 #OpenCard-view ul li{
@@ -56,15 +63,14 @@
     width: 100%;
 }
 
-#close-mod{
+#OpenCard-view #close-mod{
     width: 24px;
     position: absolute;
     top: -40px;
     right: -40px;
     cursor: pointer;
     opacity: 0.7;
-    top: -13px;
-    right: -13px;
+
 }
 #close-mod:hover{
     opacity: 0.9;

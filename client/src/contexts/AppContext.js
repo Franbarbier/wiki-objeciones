@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { getObjeciones } from '../actions/objeciones';
 import { getSugerencias } from '../actions/sugerencias';
+import { getRespuestas } from '../actions/respuestas';
 
 
 const AppContext = React.createContext();
@@ -16,10 +17,11 @@ export function AppProvider(props){
     
     const [loadingObjeciones, setLoadingObjeciones] = useState(false)
     const [loadingSugerencias, setLoadingSugerencias] = useState(false)
+    const [loadingRespuestas, setLoadingRespuestas] = useState(false)
     
     const [notifications, setNotifications] = useState([])
     
-    const setters = [setLoadingObjeciones, setLoadingSugerencias]
+    const setters = [setLoadingObjeciones, setLoadingSugerencias, setLoadingRespuestas]
 
     
     useEffect(()=>{
@@ -32,7 +34,8 @@ export function AppProvider(props){
         if(!window.location.href.includes('login')){
             setAllLoading(true)
             dispatch(getObjeciones()).then(()=>setLoadingObjeciones(false))        
-            dispatch(getSugerencias()).then(()=>setLoadingSugerencias(false))     
+            dispatch(getSugerencias()).then(()=>setLoadingSugerencias(false))  
+            dispatch(getRespuestas()).then(()=>setLoadingRespuestas(false))  
         }
     }, [pathname])
 
@@ -44,11 +47,11 @@ export function AppProvider(props){
 
     const value = useMemo(()=>{
         return ({
-            loading: {objeciones: loadingObjeciones, sugerencias: loadingSugerencias},
+            loading: {objeciones: loadingObjeciones, sugerencias: loadingSugerencias, respuestas: loadingRespuestas},
             notifications,
             setNotifications
         })
-    }, [loadingObjeciones, notifications, loadingSugerencias])
+    }, [loadingObjeciones, notifications, loadingSugerencias, loadingRespuestas])
 
     // console.log(value)
 

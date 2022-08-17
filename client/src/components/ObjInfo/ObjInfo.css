@@ -1,27 +1,3 @@
-#ObjInfo-view{
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #fff6;
-    width: 100%;
-    z-index: 3;
-    height: 100vh;
-    backdrop-filter: blur(2px);
-    cursor: initial;
-}
-#ObjInfo-view>div{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 60vw;
-    max-height: 70vh;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 1px #cecece;
-    padding: 4%;
-    overflow: auto;
-}
 
 .close-mod{
     cursor: pointer;

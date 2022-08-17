@@ -13,7 +13,7 @@
     background: var(--violeta);
     color: #fff;
     padding: 8px 25px;
-    font-size: 1em;
+    font-size: 0.9em;
     transition: .2s;
 }
 #add-new-obj:hover{
@@ -115,18 +115,21 @@
 #ObjTable-view .table{
     margin-top: 5%;
 }
-#ObjTable-view .tr{
+#ObjTable-view .tr>div{
     height: 9vh;
     position: relative;
     display: flex;
     align-items: center;
     cursor: pointer;
+    justify-content: space-between;
+    padding: 0 2%;
 }
 #ObjTable-view .tr:nth-child(odd){
     background-color: #e7e7e7;
 }
 #ObjTable-view .th{
     padding: 0 1%;
+    font-size: 0.9em;
     text-align: left;
     font-weight: 600;
 }
@@ -148,7 +151,7 @@
     width: 3%;
 }
 .obj-cell{
-    width: 35%;
+    width: 50%;
 }
 .cant-cell{
     width: 5%;
@@ -157,15 +160,33 @@
     height: auto!important;
 }
 .rtas-cell{
-    width: 28%;
-    overflow: hidden;
-    height: 100%;
+    width: 52%!important;
+    font-size: 0.8em!important;
+    height: 100%!important;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start!important;
+    align-items: flex-start!important;
     flex-direction: column;
+    position: relative;
+    width: 50%;
+    margin-left: 10%;
+}
+.rtas-cell p{
+    margin-bottom: 4%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+}
+.rtas-cell p:before{
+    content: '·';
+    font-weight: bolder;
+    margin-right: 10px;
 }
 .key-cell{
-    width: 12%;
+    width: 15%;
     display: flex;
     flex-wrap: wrap;
     height: 100%;
@@ -175,7 +196,7 @@
 .key-cell p{
     display: inline-block!important;
     width: fit-content!important;
-    font-size: 0.8em!important;
+    font-size: 0.65em!important;
     margin: 2px 2px;
     background-color: #d2b9f0;
     border-radius: 5px;
@@ -186,6 +207,26 @@
 }
 .cant-cell p{
     text-align: center;
+}
+.arrowCerrada{
+    transform: rotate(-90deg);
+}
+.arrowAbierta{
+    transform: rotate(0deg);
+}
+.arrow-cont>img{
+    width: 100%;
+    position: absolute;
+    transition: .2s;
+    top: 38%;
+}
+.arrow-cont{
+    width: 11px;
+    height: 100%;
+    position: relative;
+    margin-right: 10px;
+    margin-left: 20px;
+    filter: invert(0.2);
 }
 .delete-btn{
     position: absolute;
@@ -204,4 +245,39 @@
 }
 .delete-btn:hover{
     opacity: 1!important;
+}
+.row-opts{
+    width: 16px;
+    opacity: 0;
+}
+.tr:hover .row-opts{
+    opacity: 0.8;
+}
+.row-opts:hover{
+    opacity: 1!important;
+}
+.row-opts>img{
+    width: 100%;
+    filter: invert(0.2);
+}
+.agregar-rta{
+    position: absolute;
+    right: -5%;
+    top: 30%;
+    transform: translateY(-50%);
+    
+}
+
+.agregar-rta>button{
+    background: var(--violeta);
+    border:none;
+    color: white;
+    font-size: 12px;
+    padding: 3px 7px;
+    cursor: pointer;
+    transition: .2s;
+    border-radius: 50px;
+}
+.agregar-rta>button:hover{
+    opacity: 0.8
 }

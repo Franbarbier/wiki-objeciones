@@ -16,72 +16,71 @@ const Home = ({setActiveTab }) => {
     const [selectedId, setSelectedId] = useState(null)
     const [hovered, setHovered] = useState(false)
     const [modalNewObj, setModalNewObj] = useState(false)
-    const[ buscador, setBuscador ] = useState([])
     const dispatch = useDispatch()
-
+    
     const [openObjecion, setOpenObjecion] = useState(null)
     const [openNotifications, setOpenNotifications] = useState(false)
     
-    const objeciones = useSelector(state => state.objeciones)
+    const respuestas = useSelector(state => state.respuestas)
+    const [buscador, setBuscador] = useState([])
 
-    useEffect(()=>{
-        setBuscador(objeciones)
-    }, [])
+    
+    // useEffect(()=>{
+    //     console.log(respuestas)
+    //     setBuscador(respuestas)
+    // }, [])
+    
+  
 
+    
     function handleBuscador(e) {
-        let serchWord = e.target.value;
-        let newFilterObj = objeciones.filter((value)=>{
-                return value.objecion.toLowerCase().includes( serchWord.toLowerCase() )
-            })
+    //     let serchWord = e.target.value;
+    //     let newFilterObj = objeciones.filter((value)=>{
+    //             return value.objecion.toLowerCase().includes( serchWord.toLowerCase() )
+    //         })
             
-           var searchResult = []
+    //        var searchResult = []
 
-           for (let index = 0; index < objeciones.length; index++) {
-                const element = objeciones[index];
+    //        for (let index = 0; index < objeciones.length; index++) {
+    //             const element = objeciones[index];
 
-                var tieneObj = false
-                if(element.objecion.toLowerCase().includes(serchWord.toLowerCase()) ){
-                    tieneObj = true
-                }
+    //             var tieneObj = false
+    //             if(element.objecion.toLowerCase().includes(serchWord.toLowerCase()) ){
+    //                 tieneObj = true
+    //             }
 
-                var tieneTag = false
-                element.tags.find(element => {
-                    if (element.toLowerCase().includes(serchWord.toLowerCase())) {
-                        tieneTag = true
-                    }
-                });
-                // console.log( element.tags )
+    //             var tieneTag = false
+    //             element.tags.find(element => {
+    //                 if (element.toLowerCase().includes(serchWord.toLowerCase())) {
+    //                     tieneTag = true
+    //                 }
+    //             });
+    //             // console.log( element.tags )
 
-                var tieneRta = false
-                element.rtas.find(element => {
-                    if (element.toLowerCase().includes(serchWord.toLowerCase())) {
-                        tieneRta = true
-                    }
-                });
+    //             var tieneRta = false
+    //             element.rtas.find(element => {
+    //                 if (element.toLowerCase().includes(serchWord.toLowerCase())) {
+    //                     tieneRta = true
+    //                 }
+    //             });
 
-                if (tieneObj || tieneTag || tieneRta) {
-                    // return element
-                    searchResult.push(element);
+    //             if (tieneObj || tieneTag || tieneRta) {
+    //                 // return element
+    //                 searchResult.push(element);
 
-                }
+    //             }
                 
-            }
+    //         }
 
-            if (serchWord == "") {
-                setBuscador([])
-                return false;
-            }
+    //         if (serchWord == "") {
+    //             setBuscador([])
+    //             return false;
+    //         }
     
 
-            setBuscador(searchResult)
+    //         setBuscador(searchResult)
 
     }
-
-    useEffect(()=>{
-        console.log(buscador)
-    }, [buscador])
-
-
     
 
 
@@ -109,18 +108,24 @@ const Home = ({setActiveTab }) => {
                     </div>
                     <div id="resultados-cont">
                         <div>
-                            {buscador.map((obj)=>(
+                            {respuestas.map((rta)=>(
                                 <div>
                                     <div onClick={(e)=>{
                                         e.target.classList.add("agrandado")
-                                        setOpenObjecion(obj)
+                                        setOpenObjecion(rta)
                                     }} className='objecion-card'>
                                         <div>
-                                            <h4>{obj.objecion}</h4>
+                                            <h5>{rta.objecion.objecion}</h5>
+                                        </div>
+                                        <div>
+                                            <h3>{rta.nombre}</h3>
+                                        </div>
+                                        <div>
+                                            <h4>{rta.rta}</h4>
                                         </div>
                                         <div>
                                             <ul>
-                                                {obj.rtas.map((rta, index)=>(
+                                                {/* {rta.rtas.map((rta, index)=>(
                                                     <>
                                                     {index < 2 &&
                                                         <li className="rta">
@@ -149,11 +154,11 @@ const Home = ({setActiveTab }) => {
                                                         </li>
                                                     }
                                                     </>
-                                                ))}
+                                                ))} */}
                                             </ul>
-                                            {obj.rtas.length > 2 &&
-                                                <span className="mas-rtas">+{obj.rtas.length -2}</span>
-                                            }
+                                            {/* {rta.rtas.length > 2 &&
+                                                <span className="mas-rtas">+{rta.rtas.length -2}</span>
+                                            } */}
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +166,7 @@ const Home = ({setActiveTab }) => {
                         </div>
                     </div>
                     { openObjecion && 
-                        <OpenCard setOpenObjecion={setOpenObjecion} objecion={openObjecion}/>
+                        <OpenCard setOpenObjecion={setOpenObjecion} rta={openObjecion}/>
                     }
                 </div>
                     {buscador.length == 0 &&

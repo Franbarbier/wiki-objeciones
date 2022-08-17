@@ -44,7 +44,7 @@ const SugTable = ({ sugerencias }) => {
                 <div className='table'>
                     <div className='tr'>
                         <div className="id-cell th">Id</div>
-                        <div className="obj-cell th">Objecion</div>
+                        <div className="sug-cell th">Objecion</div>
                         <div className="cant-cell th">Cant.</div>
                         <div className="rtas-cell th">Respuestas</div>
                         <div className="tipo-cell th">Tipo</div>
@@ -55,11 +55,11 @@ const SugTable = ({ sugerencias }) => {
                         <div className='tr' onClick={()=>{setSugSelected(suge)}}>
                             <div className="id-cell td"><p>{index + 1}</p></div>
                             {suge.type == 0 && 
-                            <div className="obj-cell td" title={suge.objecion }>{suge.objecion }</div>
+                            <div className="sug-cell td" title={suge.objecion }>{suge.objecion }</div>
                             }
 
                             {suge.type == 1 && 
-                            <div className="obj-cell td" title={ suge.objecionId.objecion }>{ suge.objecionId.objecion }</div>
+                            <div className="sug-cell td" title={ suge.objecionId.objecion }>{ suge.objecionId.objecion }</div>
                             }
 
                             <div className="cant-cell td">{ suge.rtas.length}</div>

@@ -10,7 +10,6 @@ const objecion = mongoose.Schema({
         type: String,
         default: 'Objeción sin titulo'
     },
-    rtas: Array,
     tags: Array,
     category: String,
     createdAt : {

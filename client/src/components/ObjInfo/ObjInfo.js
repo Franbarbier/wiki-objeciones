@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 
 import './ObjInfo.css';
 import { createObjecion, updateObjeciones } from '../../actions/objeciones';
+import ModalContainer from '../ModalContainer/ModalContainer';
 
 
 
@@ -250,7 +251,9 @@ const ObjInfo = ({ objecion, setObjSelected, suge=false }) => {
    
 
   function render(){
-      return  <div id="ObjInfo-view">
+      return  (
+        <ModalContainer tipo="objInfo">
+                <div id="ObjInfo-view">
                     <div>
                       <div className='close-mod'>
                         <img onClick={ (e)=>{
@@ -264,6 +267,9 @@ const ObjInfo = ({ objecion, setObjSelected, suge=false }) => {
 
                     </div>
               </div>
+        </ModalContainer>
+              
+            )
 
        }
        

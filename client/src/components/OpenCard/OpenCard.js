@@ -55,22 +55,24 @@ function render(){
 
 
 
-const OpenCard = ({ objecion, setOpenObjecion }) => {
+const OpenCard = ({ rta, setOpenObjecion }) => {
     
     // const dispatch = useDispatch()
-    console.log(objecion)
+    console.log(rta)
 
     const [newRta, setNewRta] = useState(false)
 
   function render(){
-      return  <div id="OpenCard-view" onClick={()=>{setOpenObjecion(null)}}>
+      return  (
+
+                <div id="OpenCard-view" onClick={()=>{setOpenObjecion(null)}}>
                 <div onClick={(e)=>{e.stopPropagation()}}>
                     <div>
-                        <h3>{objecion.objecion}</h3>
+                        <h5>{rta.objecion.objecion}</h5>
+                        <h3>{rta.nombre}</h3>
                         <ul>
-                          {objecion.rtas.map((rta)=>(
-                            <li>
-                              <p>{rta}</p>
+                            <li> 
+                              <p>{rta.rta}</p>
                               <div onClick={ (e)=>{ 
                                   e.stopPropagation()
                                   var clicked;
@@ -81,7 +83,32 @@ const OpenCard = ({ objecion, setOpenObjecion }) => {
                                   }
                                   clicked.style.filter = "drop-shadow(0px 0 5px green)"
                                   clicked.style.transform = "scale(1.2)"
-                                  navigator.clipboard.writeText(rta)
+                                  navigator.clipboard.writeText(rta.rta)
+
+                                  setTimeout(() => {
+                                  clicked.style.filter = "none"
+                                  clicked.style.transform = "scale(1)"
+                                    
+                                  }, 1000);
+                                  } }>
+                                
+                                <img src="/assets/copy.png"/>
+                              </div>
+                            </li>
+                          {rta.variaciones.map((variacion)=>(
+                            <li className='variaciones'>
+                              <p>{variacion}</p>
+                              <div onClick={ (e)=>{ 
+                                  e.stopPropagation()
+                                  var clicked;
+                                  if (e.target.tagName == "IMG") {
+                                    clicked = e.target
+                                  }else{
+                                    clicked = e.target.querySelector('img')
+                                  }
+                                  clicked.style.filter = "drop-shadow(0px 0 5px green)"
+                                  clicked.style.transform = "scale(1.2)"
+                                  navigator.clipboard.writeText(variacion)
 
                                   setTimeout(() => {
                                   clicked.style.filter = "none"
@@ -94,7 +121,7 @@ const OpenCard = ({ objecion, setOpenObjecion }) => {
                               </div>
                             </li>
                           ))}
-                          { newRta && <AddRta id_objecion={objecion._id} setNewRta={setNewRta} />}
+                          { newRta && <AddRta id_objecion={rta.objecion._id} setNewRta={setNewRta} />}
                         </ul>
                         { !newRta &&  <button id="new-rta" onClick={ ()=>{
                                     setNewRta(true)
@@ -110,6 +137,7 @@ const OpenCard = ({ objecion, setOpenObjecion }) => {
                     </div>  
                 </div>             
               </div>
+              )
 
        }
        
