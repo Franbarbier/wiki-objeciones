@@ -34,51 +34,49 @@ const Home = ({setActiveTab }) => {
 
     
     function handleBuscador(e) {
-    //     let serchWord = e.target.value;
-    //     let newFilterObj = objeciones.filter((value)=>{
-    //             return value.objecion.toLowerCase().includes( serchWord.toLowerCase() )
-    //         })
+        let serchWord = e.target.value;
+        let newFilterObj = respuestas.filter((value)=>{
+                return value.rta.toLowerCase().includes( serchWord.toLowerCase() )
+            })
             
-    //        var searchResult = []
+           var searchResult = []
 
-    //        for (let index = 0; index < objeciones.length; index++) {
-    //             const element = objeciones[index];
+           for (let index = 0; index < respuestas.length; index++) {
+                const element = respuestas[index];
 
-    //             var tieneObj = false
-    //             if(element.objecion.toLowerCase().includes(serchWord.toLowerCase()) ){
-    //                 tieneObj = true
-    //             }
+                var tieneRta = false
+                if(element.rta.toLowerCase().includes(serchWord.toLowerCase()) ){
+                    tieneRta = true
+                }
 
-    //             var tieneTag = false
-    //             element.tags.find(element => {
-    //                 if (element.toLowerCase().includes(serchWord.toLowerCase())) {
-    //                     tieneTag = true
-    //                 }
-    //             });
-    //             // console.log( element.tags )
+                var tieneTag = false
+                element.objecion.tags.find(element => {
+                    if (element.toLowerCase().includes(serchWord.toLowerCase())) {
+                        tieneTag = true
+                    }
+                });
+                // console.log( element.tags )
 
-    //             var tieneRta = false
-    //             element.rtas.find(element => {
-    //                 if (element.toLowerCase().includes(serchWord.toLowerCase())) {
-    //                     tieneRta = true
-    //                 }
-    //             });
+                var tieneObj = false
+                if (element.objecion.objecion.toLowerCase().includes(serchWord.toLowerCase())) {
+                    tieneRta = true
+                }
 
-    //             if (tieneObj || tieneTag || tieneRta) {
-    //                 // return element
-    //                 searchResult.push(element);
+                if (tieneRta || tieneTag || tieneObj) {
+                    // return element
+                    searchResult.push(element);
 
-    //             }
+                }
                 
-    //         }
+            }
 
-    //         if (serchWord == "") {
-    //             setBuscador([])
-    //             return false;
-    //         }
+            if (serchWord == "") {
+                setBuscador([])
+                return false;
+            }
     
 
-    //         setBuscador(searchResult)
+            setBuscador(searchResult)
 
     }
     
@@ -108,7 +106,7 @@ const Home = ({setActiveTab }) => {
                     </div>
                     <div id="resultados-cont">
                         <div>
-                            {respuestas.map((rta)=>(
+                            {buscador.map((rta)=>(
                                 <div>
                                     <div onClick={(e)=>{
                                         e.target.classList.add("agrandado")

@@ -83,9 +83,7 @@
     grid-gap: 7vh 7vh;
     gap: 11vh 10%;
 }
-#resultados-cont>div>div{
-    /* height: ; */
-}
+
 .objecion-card{
     padding: 11%;
     background: #fff;
@@ -169,9 +167,7 @@
     bottom: 5%;
     font-weight: 600;
 }
-.agrandado{
-    
-}
+
 
 #no-search{
     text-align: center;

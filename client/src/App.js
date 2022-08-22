@@ -40,7 +40,10 @@ const App = () => {
             <Routes>
                 <Route exact path="/" element={<Home setActiveTab={setActiveTab} />}/>
                 <Route exact path="/admin-panel" element={<Panel /> }/>
-                {/* <Route path="/admin-panel" render={() => <Panel/>} /> */}
+                {/* <Route exact path="/admin-panel" render={() => <Panel />} /> */}
+                {/* <Route exact path="/admin-panel">
+                    <Panel setActiveTab={setActiveTab} />
+                </Route> */}
 
                
             </Routes>
