@@ -24,11 +24,11 @@ export const getRespuestas = async (req, res)=>{
 export const createRespuesta = async(req, res) =>{
     const obj = req.body;
     console.log(obj)
-    const newObj = new Respuesta(obj);
+    const newRta = new Respuesta(obj);
     try{
-        await newObj.save();
-        console.log('pareciera que se subio', newObj)
-        res.status(201).json({newObj})
+        await newRta.save();
+        console.log('pareciera que se subio', newRta)
+        res.status(201).json({newRta})
     }catch(error){
         res.status(409).json({message: error.message})
     }

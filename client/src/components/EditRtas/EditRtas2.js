@@ -19,6 +19,7 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
   const respuestas = useSelector(state => state.respuestas.filter((rtass)=>rtass.objecion._id == objecion._id ))
 
   const [rtasDeObj, setRtasDeObj] = useState(respuestas)
+
   const [idsDeleted, setIdsDeleted] = useState([])
 
   const [variaciones, setVariaciones] = useState([])
@@ -78,11 +79,14 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
 
         if (idsDeleted.length > 0) {
           deleteRespuestas(idsDeleted, dispatch).then(
-            (e)=> 
-              console.log(e)      
-            ).catch( (e) =>{
+            (e)=> {
+              console.log(e)
+              setAddRtaModal(false)
+            }).catch( (e) =>{
               console.log('error:::', e.error)
           } )
+        }else{
+          setAddRtaModal(false)
         }
 
 
@@ -94,7 +98,6 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
 
 
   useEffect(()=>{
-    console.log(variaciones)
     console.log(rtasDeObj)
   })
 
@@ -125,7 +128,7 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
                           <span className="label-rtas">Respuestas</span>
                           {/* Map */}
                           {rtasDeObj.map((rta, index)=>(
-                              <InfoRta rta={rta} index={index} setRtasDeObj={setRtasDeObj} rtasDeObj={rtasDeObj}/>
+                              <InfoRta rta={rta} index={index} setRtasDeObj={setRtasDeObj} rtasDeObj={rtasDeObj}   idsDeleted={idsDeleted} setIdsDeleted={setIdsDeleted} />
                           ))}
                           
                             <button

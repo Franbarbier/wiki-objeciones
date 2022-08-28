@@ -9,32 +9,91 @@ import { createRespuesta, deleteRespuestas, updateRespuestas } from '../../actio
 
 
 
-const InfoRta = ({ rta, index }) => {
+const InfoRta = ({ rta, index, setRtasDeObj, rtasDeObj, setIdsDeleted, idsDeleted }) => {
 
     const [estaRta, setEstaRta] = useState(rta)
-
+        
     useEffect(()=>{
         console.log(estaRta)
-    }, [])
+    })
+   
+
+function changeVariante(val, index) {
+    
+    let newTest = {...estaRta};
+    newTest.variaciones[index] = val
+    setEstaRta(newTest)
+
+}
+
+useEffect(()=>{
+    let newRtasObj = [...rtasDeObj]
+    newRtasObj[index] = estaRta
+    setRtasDeObj(newRtasObj)
+},[estaRta])
+
 
  function render(){
       return  (
-        <div>
-            <input value={estaRta.nombre}/>
-            <input value={estaRta.rta}/>
+        <div className='info-rta'>
+             <div>
+                <span>Nombre de la respuesta</span>
+                <input onChange={(e)=>{ setEstaRta( {...estaRta, nombre: e.target.value} ) }} className='nombre-rta' value={estaRta.nombre}/>
+              </div>
+
+
+              <div>
+              <span>Respuesta</span>
+                <textarea onChange={(e)=>{ setEstaRta({...estaRta, rta: e.target.value}) }} value={estaRta.rta} className='contenido-rta'></textarea>
+
+                <div
+                   className='agregar-variante'
+                   onClick={ ()=>{
+                       let newRta = {...estaRta}
+                       newRta.variaciones.push('')
+                       setEstaRta(newRta)
+                    } }
+                >
+                  <p>+</p>
+                  
+                </div>
+              
+            
+                    {estaRta.variaciones.length > 0 && <span className='variac-tit'>Variantes</span> }
+                    {estaRta.variaciones.map((variante, index)=>(
+                        <div key={"variacion-cont"+index} className='campo-variaciones'>                        
+                            <textarea value={variante}
+                            onChange={(e)=>{ changeVariante(e.target.value, index) }}
+                            key={'variante'+index}
+                            />
+                            <img
+                                className='close-variac'
+                                onClick={()=>{
+                                    let newRta = {...estaRta}
+                                    newRta.variaciones.splice(index,1);
+                                    setEstaRta(newRta)
+                                }}
+                                src="./assets/close.png"
+                            />
+                        </div>
+                    ))}
            
-           
-                {rta.variaciones.map((variante, index)=>(
-                    <>
-                        <br />
-                        <label>Hola {index}</label>
-                        <input value={variante} />
-                    </>
-                ))}
+                </div>
                 
+                        <div className="delete-rta"
+                                onClick={()=>{
+                                setRtasDeObj( rtasDeObj.filter((rtass)=>rtass != rta ) )
+                                if (rta._id) {
+                                    setIdsDeleted( [...idsDeleted, rta._id] )
+                                }
+                                }}
+                            >
+                                <img src="/assets/trash.svg"/>
+                            </div>
+                    
                 
-            <br />
-            <br />
+            {/* <br />
+            <br /> */}
         </div>
       )
 

@@ -8,12 +8,14 @@ import { motion } from "framer-motion"
 import './ObjInfo.css';
 import { createObjecion, updateObjeciones } from '../../actions/objeciones';
 import ModalContainer from '../ModalContainer/ModalContainer';
+import { createRespuesta } from '../../actions/respuestas';
+import { deleteSugerencias } from '../../actions/sugerencias';
 
 
 
 
 
-const NewObj = ({ obj, setObjSelected, suge }) => {
+const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
 
 
   const [currentRta, setCurrentRta] = useState('')
@@ -22,9 +24,17 @@ const NewObj = ({ obj, setObjSelected, suge }) => {
   const [tags, setTags] = useState([])
   
   const [objecion, setObjecion] = useState()
+  const [autor, setAutor] = useState()
   const [category, setCategory] = useState()
-  
   const [rtaSugerida, setRtaSugerida] = useState()
+
+
+  const [createRta, setCreateRta] = useState({
+      nombre : '',
+      rta: '',
+      variaciones: []
+  })
+  const [ifCreateRta, setIfCreateRta] = useState(false)
   
     useEffect(()=>{
         console.log(tags)
@@ -36,7 +46,7 @@ const NewObj = ({ obj, setObjSelected, suge }) => {
       if (obj.objecionId) {
           setTags(obj.objecionId.tags)
           setObjecion(obj.objecionId.objecion)
-          setCategory(obj.objecionId.category)
+          setAutor(obj.objecionId.autor)
           setRtas(obj.objecionId.rtas)
 
         console.log('estoy alla')
@@ -46,8 +56,8 @@ const NewObj = ({ obj, setObjSelected, suge }) => {
         if(obj.tags){
           setTags(obj.tags)
         }
-        if (obj.category) {
-          setCategory(obj.category)
+        if (obj.autor) {
+          setAutor(obj.autor)
         }
         setRtas(obj.rtas)
         setObjecion(obj.objecion)
@@ -58,31 +68,49 @@ const NewObj = ({ obj, setObjSelected, suge }) => {
 
   const dispatch2 = useDispatch()
 
-
+  console.log(sugeId)
   function handleEditObj(e){
 
       var thisID = obj._id
 
       if (suge) { thisID = obj.objecionId._id }
+      
 
       e.preventDefault()
 
       let objecionObj = {
-          objecion, rtas, tags, category, _id: thisID
+          objecion, tags, category, _id: thisID, autor
       }
-      setCurrentRta('')
-      setRtas([])
-      setCurrentTag('')
-      setTags([])
-      setObjecion('')
-      setCategory('')
-      setObjSelected(false)
+      
 
       console.log(objecionObj)
       updateObjeciones({objecionObj}, dispatch2).then(
-              (e)=> 
-                console.log(e)      
-              ).catch( (e) =>{
+              (e)=>{ 
+              
+                if(createRta.rta.length && ifCreateRta){
+                  let newRtaACrear = {...createRta}
+                  newRtaACrear.objecion = thisID
+                  createRespuesta(newRtaACrear, dispatch2).then(
+                    (e)=>
+                        console.log(e)
+                    ).catch( (e) =>{
+                        console.log('error:::', e.error)
+                    } )
+                }
+
+                setCurrentRta('')
+                setRtas([])
+                setCurrentTag('')
+                setTags([])
+                setObjecion('')
+                setAutor('')
+                setObjSelected(false)
+                deleteSugerencias([sugeId], dispatch2).then(
+                  (e)=>console.log('se elimino la suge: ', sugeId)
+                ).catch((e)=> console.log(e.error) )
+
+
+              }).catch( (e) =>{
                 console.log('error:::', e.error)
             } )
 
@@ -92,22 +120,37 @@ const NewObj = ({ obj, setObjSelected, suge }) => {
     e.preventDefault()
     
     let final_objecion = {
-        objecion, rtas, tags, category
+        objecion, tags, category, autor
     }
-    setCurrentRta('')
-    setRtas([])
-    setCurrentTag('')
-    setTags([])
-    setObjecion('')
-    setCategory('')
-    setObjSelected(false)
+    
 
     console.log(final_objecion)
 
     createObjecion(final_objecion, dispatch2).then(
-            (e)=> 
-              console.log(e)
-            ).catch( (e) =>{
+            (e)=> {
+
+              if(createRta.rta.length && ifCreateRta){
+                let newRtaACrear = {...createRta}
+                newRtaACrear.objecion = e.newObj._id
+                createRespuesta(newRtaACrear, dispatch2).then(
+                  (e)=>
+                      console.log(e)
+                  ).catch( (e) =>{
+                      console.log('error:::', e.error)
+                  } )
+              }
+              setCurrentRta('')
+              setRtas([])
+              setCurrentTag('')
+              setTags([])
+              setObjecion('')
+              setCategory('')
+              setObjSelected(false)
+              deleteSugerencias([sugeId], dispatch2).then(
+                (e)=>console.log('se elimino la suge: ', sugeId)
+              ).catch((e)=> console.log(e.error) )
+            
+            }).catch( (e) =>{
               console.log('error:::', e.error)
           } )
 
@@ -124,36 +167,7 @@ const NewObj = ({ obj, setObjSelected, suge }) => {
                           <label>Objeción</label>
                           <textarea onChange={(e)=>{ setObjecion(e.target.value) } } value={objecion}></textarea>
                       </div>
-                      <div>
-                          <label>Respuestas</label>
-                          <ul className='ul-editable'>
-                            {rtas && 
-                              <>
-                              {rtas.map((rta, index)=>(
-                                <li>
-                                    <textarea data-index={index} value={rta}
-                                            key={`rats${index}`}
-                                            onChange={(e)=>{
-                                              let newrtas = [...rtas]
-                                              newrtas[index] = e.target.value
-                                              setRtas(newrtas)
-                                            } } ></textarea>
-                                    <div onClick={()=>{ 
-                                      setRtas( rtas.filter(rtita =>  rtita != rta ) )
-                                    }}><img src="/assets/close.png" /></div>
-                                    {/* <div onClick={()=>{setRtas(rtas.filter(rtita => rtita[index] ))}}><img src="/assets/close.png" /></div> */}
-                                  </li>
-                              ))}
-                                    </>
-                                  } 
-                          </ul>
-                          <textarea onChange={(e)=>{ setCurrentRta(e.target.value) } } value={currentRta}></textarea>
-                          <button onClick={(e)=>{
-                                              e.preventDefault()
-                                              setRtas([...rtas, currentRta])
-                                              setCurrentRta('')
-                                          }}>Agregar</button>
-                      </div>
+                      
                       <div>
                           <label>Key words</label>
                           <ul className='ul-editable'>
@@ -191,32 +205,85 @@ const NewObj = ({ obj, setObjSelected, suge }) => {
                                           }}>+</button>
                       </div>
                       <div>
-                          <label>Categoría</label>
-                          <select onChange={(e)=>{ setCategory(e.target.value) } } >
-                              {obj ?
-                                  
-                                  <option value={
-                                      obj.objecionId ?
-                                      obj.objecionId.category
-                                      :
-                                      obj.category
-                                    }>{
-                                      obj.objecionId ?
-                                      obj.objecionId.category
-                                      :
-                                      obj.category
-                                      }</option>
-                                  :
-                                  <option value="">Seleccionar categoría</option>    
-                              }
-                              
-                              <option value="Prueba1">Prueba1</option>
-                              <option value="Prueba2">Prueba2</option>
-                              <option value="Prueba3">Prueba3</option>
-                              <option value="Prueba4">Prueba4</option>
-                              <option value="Prueba5">Prueba5</option>
-                          </select>
+                          <label>Autor</label>
+                          <input onChange={(e)=>{ setAutor(e.target.value) } } value={autor}/>
                       </div>
+
+
+                      <div>
+                            {!ifCreateRta ?
+                            <button className="nueva-rta-btn" onClick={(e)=>{
+                                e.preventDefault()
+                                setIfCreateRta(true)
+                                }}>Agregarle respuesta</button>
+                            :
+                            <div className='info-rta'>
+                                    <div>
+                                        <span>Nombre de la respuesta</span>
+                                        <input value={createRta.nombre} onChange={(e)=>{ 
+                                            let newRta = {...createRta}
+                                            newRta.nombre = e.target.value
+                                            setCreateRta(newRta)
+                                         }} className='nombre-rta' />
+                                    </div>
+
+
+                                    <div>
+                                    <span>Respuesta</span>
+                                        <textarea onChange={(e)=>{ 
+                                            let newRta = {...createRta}
+                                            newRta.rta = e.target.value
+                                            setCreateRta(newRta)
+                                         }} value={createRta.rta} className='contenido-rta'></textarea>
+
+                                        <div
+                                        className='agregar-variante'
+                                        onClick={ ()=>{
+                                            let newRta = {...createRta}
+                                            newRta.variaciones.push('')  
+                                            setCreateRta(newRta)
+                                            } }
+                                        >
+                                        <p>+</p>
+                                        
+                                        </div>
+                                    
+                                    
+                                            {createRta.variaciones.length > 0 && <span className='variac-tit'>Variantes</span> }
+                                            {createRta.variaciones.map((variante, index)=>(
+                                                <div key={"variacion-cont"} className='campo-variaciones'>                        
+                                                    <textarea 
+                                                    value={variante}
+                                                    onChange={(e)=>{
+                                                        let newRta = {...createRta}
+                                                        newRta.variaciones[index] = e.target.value
+                                                        setCreateRta(newRta)
+                                                    }}
+                                                    key={'variante'+index}
+                                                    />
+                                                    <img
+                                                        className='close-variac'
+                                                        onClick={()=>{
+                                                            let newRta = {...createRta}
+                                                            newRta.variaciones.splice(index,1);
+                                                            setCreateRta(newRta)
+                                                        }}
+                                                        src="./assets/close.png"
+                                                    />
+                                                </div>
+                                            ))}
+                                
+
+                                            
+                                        </div>
+                                        {/* <p onClick={(e)=>{
+                                            setCreateRta(false)
+                                            }}>Descartar respuesta</p> */}
+                        </div>
+                        }
+                    </div>
+
+
                       {suge ?
                       <>
                         {obj.objecionId ?
@@ -243,10 +310,9 @@ const NewObj = ({ obj, setObjSelected, suge }) => {
        return ( render() )
 }
 
-const ObjInfo = ({ objecion, setObjSelected, suge=false }) => {
+const ObjInfo = ({ objecion, setObjSelected, suge=false, sugeId=null }) => {
     
     // const dispatch = useDispatch()
-    console.log(objecion)
 
    
 
@@ -262,7 +328,7 @@ const ObjInfo = ({ objecion, setObjSelected, suge=false }) => {
                             }} src="/assets/close.png"/>
                       </div>
                       <div>
-                        <NewObj setObjSelected={setObjSelected} obj={objecion} suge={suge}/>
+                        <NewObj setObjSelected={setObjSelected} obj={objecion} suge={suge} sugeId={sugeId}/>
                       </div>
 
                     </div>

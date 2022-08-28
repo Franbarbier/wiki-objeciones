@@ -27,6 +27,7 @@ export const updateRespuestas = async (respuesta, dispatch) => {
     try{
         const {data} = await api.updateRespuesta(respuesta)
         dispatch({type: UPDATE_RESPUESTA, payload:data})
+        console.log(data)
     }catch(error){
         console.log(error)
     }

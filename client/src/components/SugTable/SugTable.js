@@ -43,52 +43,49 @@ const SugTable = ({ sugerencias }) => {
                 
                 <div className='table'>
                     <div className='tr'>
-                        <div className="id-cell th">Id</div>
-                        <div className="sug-cell th">Objecion</div>
-                        <div className="cant-cell th">Cant.</div>
-                        <div className="rtas-cell th">Respuestas</div>
-                        <div className="tipo-cell th">Tipo</div>
-                        <div className="estado-cell th">Estado</div>
+                        <div>
+                            <div className="id-cell th">Id</div>
+                            <div className="sug-cell th">Objecion</div>
+                            <div className="cant-cell th">Cant.</div>
+                            <div className="rtas-cell th">Respuestas</div>
+                            <div className="tipo-cell th">Tipo</div>
+                        </div>
                     </div>
                     {sugerencias.map((suge, index)=>(
 
                         <div className='tr' onClick={()=>{setSugSelected(suge)}}>
-                            <div className="id-cell td"><p>{index + 1}</p></div>
-                            {suge.type == 0 && 
-                            <div className="sug-cell td" title={suge.objecion }>{suge.objecion }</div>
+                            <div>
+                                <div className="id-cell td"><p>{index + 1}</p></div>
+                                {suge.type == 0 && 
+                                <div className="sug-cell td" title={suge.objecion }><p>{suge.objecion }</p></div>
                             }
 
-                            {suge.type == 1 && 
-                            <div className="sug-cell td" title={ suge.objecionId.objecion }>{ suge.objecionId.objecion }</div>
-                            }
+                                {suge.type == 1 && 
+                                <div className="sug-cell td" title={ suge.objecionId.objecion }><p>{ suge.objecionId.objecion }</p></div>
+                                }
 
-                            <div className="cant-cell td">{ suge.rtas.length}</div>
-                            <div className="rtas-cell td">{suge.rtas.map((rta)=>(
-                                    <p>{rta}</p>
-                                ))}
-                            {suge.rtas.length == 0 &&  <p><i>No sugirieron respuestas.</i></p>}    
-                            </div>
-                            <div className="tipo-cell td">{suge.type == 0 ? "Objeción" : 'Respuesta'}</div>
-                            <div className="estado-cell td" onClick={(e)=>{ e.stopPropagation() }}>
-                                <select>
-                                    <option>{suge.status ? "Atendida" : "Pendiente"}</option>
-                                    <option>Atendida</option>
-                                    <option>Pendiente</option>
-                                </select>
-                            </div>
+                                <div className="cant-cell td">{ suge.rtas.length}</div>
+                                <div className="rtas-cell td">{suge.rtas.map((rta)=>(
+                                        <p>{rta}</p>
+                                    ))}
+                                    {suge.rtas.length == 0 &&  <p><i>No sugirieron respuestas.</i></p>}    
+                                </div>
+                                <div className="tipo-cell td">{suge.type == 0 ? "Objeción" : 'Respuesta'}</div>
+                               
 
-                            <div className='delete-btn' onClick={(e)=>{
-                                 e.stopPropagation() 
-                                 deleteSugerencias([suge._id], dispatch)
-                                 }}>DELETE</div>
-                            
+                                <div className='delete-btn' onClick={(e)=>{
+                                    e.stopPropagation() 
+                                    deleteSugerencias([suge._id], dispatch)
+                                    }}>DELETE</div>
+                                
+                            </div>
                         </div>
                         ))
                     }
                    
 
                     {sugSelected &&
-                        <ObjInfo objecion={sugSelected} suge={true} setObjSelected={setSugSelected}/>
+                        <ObjInfo objecion={sugSelected} suge={true} sugeId={sugSelected._id} setObjSelected={setSugSelected}/>
                     }
 
                 </div>

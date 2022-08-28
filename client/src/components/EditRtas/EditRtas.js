@@ -210,27 +210,33 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
         console.log(rta)
         if (!rta._id) {
           createRespuesta(rta, dispatch).then(
-            (e)=> 
-              console.log(e)      
-            ).catch( (e) =>{
+            (e)=> {
+              console.log(e)
+              
+            }).catch( (e) =>{
               console.log('error:::', e.error)
           } )
         } else {
           updateRespuestas(rta, dispatch).then(
-            (e)=> 
-              console.log(e)      
-            ).catch( (e) =>{
+            (e)=>{ 
+              console.log(e)
+              
+            }).catch( (e) =>{
               console.log('error:::', e.error)
           } )
         }
 
         if (idsDeleted.length > 0) {
           deleteRespuestas(idsDeleted, dispatch).then(
-            (e)=> 
-              console.log(e)      
-            ).catch( (e) =>{
+            (e)=>{ 
+              console.log(e)
+              setAddRtaModal(false)
+            }).catch( (e) =>{
               console.log('error:::', e.error)
           } )
+        }else{
+          setAddRtaModal(false)
+
         }
 
 

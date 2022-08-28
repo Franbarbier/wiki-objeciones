@@ -7,7 +7,9 @@ export default (state=[], action) => {
 
 
         case 'CREATE_RESPUESTA':
-            return [action.payload.newObj, ...state];
+            console.log("compa rock", action.payload.newRta)
+            console.log(state)
+            return [action.payload.newRta, ...state];
             // const response = action.payload
             // console.log(response)
             // if(response.error == 0){

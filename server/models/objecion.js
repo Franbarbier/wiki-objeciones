@@ -11,6 +11,7 @@ const objecion = mongoose.Schema({
         default: 'Objeción sin titulo'
     },
     tags: Array,
+    autor: String,
     category: String,
     createdAt : {
         type: Date,

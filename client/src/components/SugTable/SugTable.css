@@ -1,0 +1,115 @@
+
+#SugTable-view .table{
+    margin-top: 5%;
+}
+#SugTable-view .tr>div{
+    height: 9vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    padding: 0 2%;
+}
+#SugTable-view .tr:nth-child(odd){
+    background-color: #e7e7e7;
+}
+#SugTable-view .th{
+    padding: 0 1%;
+    font-size: 0.9em;
+    text-align: left;
+    font-weight: 600;
+}
+#SugTable-view .td{
+    padding: 0 1%;
+    /* border-right: 1px solid #fff;
+    height: 100%; */
+}
+#SugTable-view .td p{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    font-size: 0.8em;
+}
+#SugTable-view .td p{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    font-size: 0.8em;
+}
+#SugTable-view .sug-cell{
+    width: 25%;
+}
+#SugTable-view .id-cell{
+    width: 3%;
+}
+#SugTable-view .obj-cell{
+    width: 50%;
+}
+#SugTable-view .cant-cell{
+    width: 5%;
+    text-align: center;
+    font-size: 0.8em;
+}
+#SugTable-view .th.rtas-cell{
+    height: auto!important;
+}
+#SugTable-view .tipo-cell{
+    width: 10%;
+    font-size: 0.8em;
+}
+#SugTable-view .rtas-cell{
+    width: 52%!important;
+    font-size: 0.9em!important;
+    height: 100%!important;
+    display: flex;
+    justify-content: flex-start!important;
+    align-items: flex-start!important;
+    flex-direction: column;
+    position: relative;
+    width: 50%;
+    margin-left: 5%!important;
+    display: flex!important;
+    flex-direction: column!important;
+    justify-content: center!important;
+}
+#SugTable-view .rtas-cell p{
+    margin-bottom: 4%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+}
+#SugTable-view .rtas-cell p:before{
+    content: '·';
+    font-weight: bolder;
+    margin-right: 10px;
+}
+#SugTable-view .key-cell{
+    width: 15%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    overflow: hidden;
+    align-items: center;
+}
+#SugTable-view .key-cell p{
+    display: inline-block!important;
+    width: fit-content!important;
+    font-size: 0.65em!important;
+    margin: 2px 2px;
+    background-color: #d2b9f0;
+    border-radius: 5px;
+    padding: 2px;
+}
+#SugTable-view .cat-cell{
+    width: 8%;
+}

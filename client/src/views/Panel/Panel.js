@@ -15,7 +15,6 @@ const Panel = ({setActiveTab }) => {
 
 
 const [panelInfo, setPanelInfo] = useState("objeciones")
-// const objeciones = useSelector(state => state.objeciones)
 const objeciones = useSelector(state => state.objeciones)
 const sugerencias = useSelector(state => state.sugerencias)
 
@@ -33,7 +32,7 @@ console.log(sugerencias)
                         <div id="table-cont">
                             {panelInfo == "objeciones" ?
 
-                                <ObjTable objeciones={objeciones} />
+                                <ObjTable objeciones={objeciones}/>
                             :
                                 <SugTable sugerencias={sugerencias} />
                             }
