@@ -15,7 +15,7 @@ import './ObjTable.css';
 import ObjInfo from '../ObjInfo/ObjInfo';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import EditRtas from '../EditRtas/EditRtas2';
-import { createRespuesta } from '../../actions/respuestas';
+import { createRespuesta, deleteRespuestas } from '../../actions/respuestas';
 import { NewObj } from '../CreateObj/CreateObj';
 
 
@@ -130,9 +130,9 @@ const ObjTable = ({ objeciones }) => {
     
     const respuestas = useSelector(state => state.respuestas)
 
-    console.log(respuestas)
     function getCantRespuestasDeObj(obj_id) {
         const cantRta = respuestas.filter((rtass)=>rtass.objecion._id == obj_id)
+
         return cantRta.length
     }
 
@@ -237,7 +237,15 @@ const ObjTable = ({ objeciones }) => {
                             <div className='row-opts'
                                 onClick={(e)=>{
                                     e.stopPropagation()
-                                    deleteObjeciones([obj._id], dispatch) 
+                                    deleteObjeciones([obj._id], dispatch)
+                                    const rtasAEliminar = getRespuestasDeObj(obj._id)
+                                    var idsRtasAeliminar = []
+                                    for (let index = 0; index < rtasAEliminar.length; index++) {
+                                        const element = rtasAEliminar[index];
+                                        idsRtasAeliminar.push(element._id)
+                                    }
+                                    deleteRespuestas(idsRtasAeliminar, dispatch)
+
                                 }}>
                                 <img src="/assets/trash.svg"/>
                             </div>
@@ -247,10 +255,7 @@ const ObjTable = ({ objeciones }) => {
                             <RtasDesplegadas respuestas={ getRespuestasDeObj(obj._id) } setAddRtaModal={setAddRtaModal} setObjIdRtas={setObjIdRtas} obj={obj}/>
                             }
 
-                            {/* <div className='delete-btn' onClick={(e)=>{
-                                e.stopPropagation()
-                                deleteObjeciones([obj._id], dispatch) 
-                                }}>DELETE</div> */}
+                         
                                 
                     </div>
 
