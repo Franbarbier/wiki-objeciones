@@ -121,42 +121,9 @@ const Home = ({setActiveTab }) => {
                                         <div>
                                             <h4>{rta.rta}</h4>
                                         </div>
-                                        <div>
-                                            <ul>
-                                                {/* {rta.rtas.map((rta, index)=>(
-                                                    <>
-                                                    {index < 2 &&
-                                                        <li className="rta">
-                                                            <p>{rta}</p>
-                                                            <div className='rtas-option'
-                                                            onClick={ (e)=>{ 
-                                                                e.stopPropagation()
-                                                                var clicked;
-                                                                if (e.target.tagName == "IMG") {
-                                                                  clicked = e.target
-                                                                }else{
-                                                                  clicked = e.target.querySelector('img')
-                                                                }
-                                                                clicked.style.filter = "drop-shadow(0px 0 5px green)"
-                                                                clicked.style.transform = "scale(1.2)"
-                                                                navigator.clipboard.writeText(rta)
-                              
-                                                                setTimeout(() => {
-                                                                clicked.style.filter = "none"
-                                                                clicked.style.transform = "scale(1)"
-                                                                  
-                                                                }, 1000);
-                                                                } }>
-                                                                <img src="/assets/copy.png" />
-                                                            </div>
-                                                        </li>
-                                                    }
-                                                    </>
-                                                ))} */}
-                                            </ul>
-                                            {/* {rta.rtas.length > 2 &&
-                                                <span className="mas-rtas">+{rta.rtas.length -2}</span>
-                                            } */}
+                                        <div className='autor-cont'>
+                                           <span>Autor:</span>
+                                           <span>{rta.autor ? rta.autor : "Anónimo"}</span>
                                         </div>
                                     </div>
                                 </div>

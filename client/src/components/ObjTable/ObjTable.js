@@ -25,7 +25,11 @@ const RtasDesplegadas = ({ respuestas, setAddRtaModal, setObjIdRtas, obj }) => {
     function render(){
         return  (
 
-                <div className="rtas-cell">
+                <div className="rtas-cell" onClick={(e)=>{
+                    e.stopPropagation()
+                    setObjIdRtas(obj)
+                    setAddRtaModal(true)
+                }}>
                     {respuestas.map((rta, index)=>(
                             <motion.p
                                 initial={{ opacity: 0, y: -20 }}
@@ -237,14 +241,18 @@ const ObjTable = ({ objeciones }) => {
                             <div className='row-opts'
                                 onClick={(e)=>{
                                     e.stopPropagation()
-                                    deleteObjeciones([obj._id], dispatch)
-                                    const rtasAEliminar = getRespuestasDeObj(obj._id)
-                                    var idsRtasAeliminar = []
-                                    for (let index = 0; index < rtasAEliminar.length; index++) {
-                                        const element = rtasAEliminar[index];
-                                        idsRtasAeliminar.push(element._id)
+
+                                    if (window.confirm("Desea eliminar esta objecion y sus respeustas?") == true) {
+                                        
+                                        deleteObjeciones([obj._id], dispatch)
+                                        const rtasAEliminar = getRespuestasDeObj(obj._id)
+                                        var idsRtasAeliminar = []
+                                        for (let index = 0; index < rtasAEliminar.length; index++) {
+                                            const element = rtasAEliminar[index];
+                                            idsRtasAeliminar.push(element._id)
+                                        }
+                                        deleteRespuestas(idsRtasAeliminar, dispatch)
                                     }
-                                    deleteRespuestas(idsRtasAeliminar, dispatch)
 
                                 }}>
                                 <img src="/assets/trash.svg"/>

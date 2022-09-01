@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 
 import './ModalNewObj.css';
 import { createSugerencia } from '../../actions/sugerencias';
+import ModalContainer from '../ModalContainer/ModalContainer';
 
 
 
@@ -81,7 +82,10 @@ const ModalNewObj = ({ setModalNewObj }) => {
 
 
   function render(){
-      return  <div id="ModalNewObj-view" onClick={()=>{setModalNewObj(false)}}>
+      return  (
+
+        <ModalContainer tipo="newObj">
+            <div id="ModalNewObj-view" onClick={()=>{setModalNewObj(false)}}>
                 <div onClick={(e)=>{e.stopPropagation()}}>
                     <div>
                         <h3>Envianos una nueva objeción para que la agreguemos</h3>
@@ -112,6 +116,9 @@ const ModalNewObj = ({ setModalNewObj }) => {
                     </div>  
                 </div>             
               </div>
+        </ModalContainer>
+
+            )
 
        }
        

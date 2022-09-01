@@ -24,7 +24,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
   const [tags, setTags] = useState([])
   
   const [objecion, setObjecion] = useState()
-  const [autor, setAutor] = useState()
+ 
   const [category, setCategory] = useState()
   const [rtaSugerida, setRtaSugerida] = useState()
 
@@ -46,7 +46,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
       if (obj.objecionId) {
           setTags(obj.objecionId.tags)
           setObjecion(obj.objecionId.objecion)
-          setAutor(obj.objecionId.autor)
+          
           setRtas(obj.objecionId.rtas)
 
         console.log('estoy alla')
@@ -56,9 +56,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
         if(obj.tags){
           setTags(obj.tags)
         }
-        if (obj.autor) {
-          setAutor(obj.autor)
-        }
+       
         setRtas(obj.rtas)
         setObjecion(obj.objecion)
       }
@@ -79,7 +77,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
       e.preventDefault()
 
       let objecionObj = {
-          objecion, tags, category, _id: thisID, autor
+          objecion, tags, category, _id: thisID
       }
       
 
@@ -103,7 +101,6 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                 setCurrentTag('')
                 setTags([])
                 setObjecion('')
-                setAutor('')
                 setObjSelected(false)
                 deleteSugerencias([sugeId], dispatch2).then(
                   (e)=>console.log('se elimino la suge: ', sugeId)
@@ -120,7 +117,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
     e.preventDefault()
     
     let final_objecion = {
-        objecion, tags, category, autor
+        objecion, tags, category
     }
     
 
@@ -204,10 +201,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                                               setCurrentTag('')
                                           }}>+</button>
                       </div>
-                      <div>
-                          <label>Autor</label>
-                          <input onChange={(e)=>{ setAutor(e.target.value) } } value={autor}/>
-                      </div>
+                     
 
 
                       <div>

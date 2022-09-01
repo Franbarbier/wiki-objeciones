@@ -14,6 +14,7 @@ export const getRespuestas = (filtros=null) => async (dispatch) => {
 
 export const createRespuesta = async (respuesta, dispatch) => {
     try{
+        console.log(respuesta)
         const{data} = await api.createRespuesta(respuesta)
         dispatch({type: CREATE_RESPUESTA, payload:data})
         console.log(data)

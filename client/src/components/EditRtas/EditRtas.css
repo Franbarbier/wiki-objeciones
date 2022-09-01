@@ -37,7 +37,7 @@
     color: #1c1c1c;
     margin-top: 4%;
 }
-.nombre-rta, .contenido-rta, .campo-variaciones textarea{
+.nombre-rta, .contenido-rta, .campo-variaciones textarea, .inputs-rta{
     background-color: #f0f0f0;
     padding: 8px 14px;
     border: 1px solid #ddd;
@@ -45,6 +45,12 @@
     width: calc(100% - 28px);
     font-size: 0.9em;
     resize: none;
+}
+.inputs-rta{
+    width: auto;
+}
+textarea.contenido-rta{
+    height: 15vh;
 }
 .delete-rta{
     width: 14px;

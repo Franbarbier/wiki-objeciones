@@ -9,6 +9,7 @@
 }
 .table-config>input{
     padding: 0 11px;
+    min-width: 40%;
     border: 1px solid #c5c5c5;
     border-radius: 5px;
 }

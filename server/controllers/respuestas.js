@@ -23,7 +23,9 @@ export const getRespuestas = async (req, res)=>{
 
 export const createRespuesta = async(req, res) =>{
     const obj = req.body;
+
     console.log(obj)
+
     const newRta = new Respuesta(obj);
     try{
         await newRta.save();
@@ -46,6 +48,7 @@ export const deleteRespuesta = async (req, res)=>{
 export const updateRespuesta = async (req, res) =>{
 
     const respuesta = req.body;
+    console.log(respuesta)
     const filter = {_id: respuesta._id}
     var respuestaToUpdate = await Respuesta.findOneAndUpdate(filter, respuesta, {new: true})
 

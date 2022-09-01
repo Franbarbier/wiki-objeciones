@@ -73,6 +73,7 @@
 }
 #resultados-cont{
     width: 60%;
+    padding-bottom: 15%;
     margin: auto;
 }
 #resultados-cont>div{
@@ -81,7 +82,7 @@
     grid-template-columns: 45% 45%;
     grid-template-rows: 35vh;
     grid-gap: 7vh 7vh;
-    gap: 11vh 10%;
+    gap: 20vh 10%;
 }
 
 .objecion-card{
@@ -92,7 +93,7 @@
     cursor: pointer;
     transition: .2s;
     position: relative;
-    height: 70%;
+    height: 100%;
     overflow: hidden;
 }
 .objecion-card:hover{
@@ -115,6 +116,11 @@
     font-size: 0.9em;
     color: #1f1f1f;
     font-weight: 300;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 .objecion-card li{
     font-size: 0.8em;
@@ -218,6 +224,28 @@
     border-radius: 5px;
     font-size: 0.9em;
     text-align: right;
+}
+
+.autor-cont{
+    position: absolute;
+    bottom: 4%;
+    font-size: 0.65em;
+    background: #ca9dff;
+    border-radius: 13px;
+
+}
+
+.autor-cont>span:first-child{
+    background: var(--violeta);
+    padding: 4px 8px 4px 13px;
+    border-radius: 13px;
+    color: white;
+}
+.autor-cont>span:last-child{
+    padding: 4px 13px 4px 8px;
+    border-radius: 13px;
+    color: var(--violeta);
+    display: inline-block;
 }
 
 @media (max-width: 800px) {

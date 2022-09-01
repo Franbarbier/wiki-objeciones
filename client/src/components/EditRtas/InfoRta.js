@@ -12,15 +12,16 @@ import { createRespuesta, deleteRespuestas, updateRespuestas } from '../../actio
 const InfoRta = ({ rta, index, setRtasDeObj, rtasDeObj, setIdsDeleted, idsDeleted }) => {
 
     const [estaRta, setEstaRta] = useState(rta)
+    const [bigIndex, setBigIndex] = useState(index)
         
     useEffect(()=>{
-        console.log(estaRta)
-    })
+        setEstaRta(rta)
+    }, [])
    
 
 function changeVariante(val, index) {
     
-    let newTest = {...estaRta};
+    let newTest = {...rta};
     newTest.variaciones[index] = val
     setEstaRta(newTest)
 
@@ -28,28 +29,37 @@ function changeVariante(val, index) {
 
 useEffect(()=>{
     let newRtasObj = [...rtasDeObj]
-    newRtasObj[index] = estaRta
+    newRtasObj[index] = rta
     setRtasDeObj(newRtasObj)
+    
 },[estaRta])
 
 
  function render(){
       return  (
-        <div className='info-rta'>
+        <div className='info-rta' key={"info-rta"+index}>
              <div>
                 <span>Nombre de la respuesta</span>
-                <input onChange={(e)=>{ setEstaRta( {...estaRta, nombre: e.target.value} ) }} className='nombre-rta' value={estaRta.nombre}/>
+                <input onChange={(e)=>{ 
+                    let newRta = [...rtasDeObj];
+                    newRta[index].nombre = e.target.value
+                    setRtasDeObj(newRta)
+                    }} className='nombre-rta' value={rta.nombre}  key={"info-rta-nombre"+index}/>
               </div>
 
 
               <div>
               <span>Respuesta</span>
-                <textarea onChange={(e)=>{ setEstaRta({...estaRta, rta: e.target.value}) }} value={estaRta.rta} className='contenido-rta'></textarea>
+                <textarea onChange={(e)=>{ 
+                     let newRta = [...rtasDeObj];
+                     newRta[index].rta = e.target.value
+                     setRtasDeObj(newRta)
+                 }} value={rta.rta} className='contenido-rta' key={"info-rta-rta"+index}></textarea>
 
                 <div
                    className='agregar-variante'
                    onClick={ ()=>{
-                       let newRta = {...estaRta}
+                       let newRta = {...rta}
                        newRta.variaciones.push('')
                        setEstaRta(newRta)
                     } }
@@ -59,9 +69,9 @@ useEffect(()=>{
                 </div>
               
             
-                    {estaRta.variaciones.length > 0 && <span className='variac-tit'>Variantes</span> }
-                    {estaRta.variaciones.map((variante, index)=>(
-                        <div key={"variacion-cont"+index} className='campo-variaciones'>                        
+                    {rta.variaciones.length > 0 && <span className='variac-tit'>Variantes</span> }
+                    {rta.variaciones.map((variante, index)=>(
+                        <div key={"variacion-cont"+bigIndex+index} className='campo-variaciones'>                        
                             <textarea value={variante}
                             onChange={(e)=>{ changeVariante(e.target.value, index) }}
                             key={'variante'+index}
@@ -69,8 +79,10 @@ useEffect(()=>{
                             <img
                                 className='close-variac'
                                 onClick={()=>{
-                                    let newRta = {...estaRta}
-                                    newRta.variaciones.splice(index,1);
+
+                                    let newRta = [...rtasDeObj];
+                                    newRta[index].variaciones.splice(index,1);
+                                    
                                     setEstaRta(newRta)
                                 }}
                                 src="./assets/close.png"
@@ -79,17 +91,28 @@ useEffect(()=>{
                     ))}
            
                 </div>
+                <div>
+                    <span>Autor</span>
+                    <input className='inputs-rta' onChange={(e)=>{ 
+                         let newRta = [...rtasDeObj];
+                         newRta[index].autor = e.target.value
+                         setRtasDeObj(newRta)
+                     }} value={rta.autor} key={"info-rta-rta"+index}/>
+                </div>
                 
-                        <div className="delete-rta"
-                                onClick={()=>{
-                                setRtasDeObj( rtasDeObj.filter((rtass)=>rtass != rta ) )
-                                if (rta._id) {
-                                    setIdsDeleted( [...idsDeleted, rta._id] )
-                                }
-                                }}
-                            >
-                                <img src="/assets/trash.svg"/>
-                            </div>
+                <div className="delete-rta"
+                        onClick={()=>{
+                            let newRtasDeObj = [...rtasDeObj]
+                            newRtasDeObj.splice(index,1);
+                            console.log(newRtasDeObj)
+                            setRtasDeObj( newRtasDeObj)
+                            if (rta._id) {
+                                setIdsDeleted( [...idsDeleted, rta._id] )
+                            }
+                        }}
+                    >
+                        <img src="/assets/trash.svg"/>
+                    </div>
                     
                 
             {/* <br />

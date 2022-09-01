@@ -17,19 +17,24 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
     
   const dispatch = useDispatch()
   const respuestas = useSelector(state => state.respuestas.filter((rtass)=>rtass.objecion._id == objecion._id ))
-
-  const [rtasDeObj, setRtasDeObj] = useState(respuestas)
-
+  
+  useEffect(()=>{
+    setRtasDeObj(respuestas)
+  }, [])
+  
   const [idsDeleted, setIdsDeleted] = useState([])
-
+  
   const [variaciones, setVariaciones] = useState([])
-
+  
   
   const newRtaData = {
     nombre: '',
     rta: '',
+    autor: '',
     variaciones : []
   }
+  
+  const [rtasDeObj, setRtasDeObj] = useState(respuestas)
 
   function handleEditRtas(index, type, value){
     
@@ -50,6 +55,8 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
 
   function handleCambios() {
 
+    if (window.confirm("Desea guardar los cambios generados?") == true) {
+
       rtasDeObj.map( rta => {
 
         rta.objecion = objecion._id
@@ -60,8 +67,9 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
           
         }
 
-        console.log(rta)
+        console.log(rta._id)
         if (!rta._id) {
+          console.log('esta se deberia crear', rta)
           createRespuesta(rta, dispatch).then(
             (e)=> 
               console.log(e)      
@@ -90,21 +98,43 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
         }
 
 
-
+        
       })
-
+      
+    }
   }
 
 
 
   useEffect(()=>{
     console.log(rtasDeObj)
-  })
+  }, [rtasDeObj])
 
 
 
 
+// Esto venia del otro componente
+// const [estaRta, setEstaRta] = useState(rta)
+// const [bigIndex, setBigIndex] = useState(index)
+    
+// useEffect(()=>{
+//     setEstaRta(rta)
+// }, [])
 
+
+// function changeVariante(val, index) {
+
+// let newTest = {...estaRta};
+// newTest.variaciones[index] = val
+// setEstaRta(newTest)
+
+// }
+
+// useEffect(()=>{
+// let newRtasObj = [...rtasDeObj]
+// newRtasObj[index] = estaRta
+// setRtasDeObj(newRtasObj)
+// },[estaRta])
 
 
   function render(){
@@ -128,9 +158,18 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
                           <span className="label-rtas">Respuestas</span>
                           {/* Map */}
                           {rtasDeObj.map((rta, index)=>(
-                              <InfoRta rta={rta} index={index} setRtasDeObj={setRtasDeObj} rtasDeObj={rtasDeObj}   idsDeleted={idsDeleted} setIdsDeleted={setIdsDeleted} />
+                              <InfoRta rta={rta} index={index} setRtasDeObj={setRtasDeObj} rtasDeObj={rtasDeObj} idsDeleted={idsDeleted} setIdsDeleted={setIdsDeleted} />
                           ))}
-                          
+                          {/* {rtasDeObj.map((rta, index)=>(
+                               <div className='info-rta' key={"info-rta"+index}>
+                                <div>
+                                    <span>Nombre de la respuesta</span>
+                                    <input className='nombre-rta' value={rta.nombre}  key={"info-rta-nombre"+index}/>
+                                  </div>
+                                </div>
+                            ))} */}
+                  
+                  
                             <button
                               id="add-rta-btn"
                               onClick={ ()=>{ setRtasDeObj([...rtasDeObj, newRtaData]) } }

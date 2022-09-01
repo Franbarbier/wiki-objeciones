@@ -10,6 +10,7 @@ const respuesta = mongoose.Schema({
     rta: String,
     nombre: String,
     variaciones: Array,
+    autor: String,
     createdAt : {
         type: Date,
         default: new Date()

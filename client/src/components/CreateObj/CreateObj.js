@@ -23,11 +23,12 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
     const [tags, setTags] = useState([])
     
     const [objecion, setObjecion] = useState('')
-    const [autor, setAutor] = useState('')
+    
 
     const [createRta, setCreateRta] = useState({
         nombre : '',
         rta: '',
+        autor: '',
         variaciones: []
     })
     const [ifCreateRta, setIfCreateRta] = useState(false)
@@ -38,7 +39,7 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
     function hagaseLaObj(e){
         e.preventDefault()
         let final_objecion = {
-            objecion, rtas, tags, autor
+            objecion, rtas, tags
         }
         
         
@@ -65,7 +66,8 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
                     setCreateRta({
                             nombre : '',
                             rta: '',
-                            variaciones: []
+                            variaciones: [],
+                            autor : ''
                         })
 
             
@@ -155,14 +157,9 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
                                                 setCurrentTag('')
                                             }}>+</button>
                         </div>
+                        
 
-                        <div>
-                            <label>Autor</label>
-                            <input onChange={(e)=>{ 
-                                setAutor(e.target.value)
-                            } } value={autor} />
-                        </div>
-
+                        
                         <div>
                             {!ifCreateRta ?
                             <button className="nueva-rta-btn" onClick={(e)=>{
@@ -229,6 +226,14 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
 
                                             
                                         </div>
+                        <div>
+                            <span>Autor</span>
+                            <input className='inputs-rta' onChange={(e)=>{ 
+                                            let newRta = {...createRta}
+                                            newRta.autor = e.target.value
+                                            setCreateRta(newRta)
+                                         }} value={createRta.autor} />
+                        </div>
                                         {/* <p onClick={(e)=>{
                                             setCreateRta(false)
                                             }}>Descartar respuesta</p> */}
