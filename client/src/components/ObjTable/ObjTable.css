@@ -154,6 +154,10 @@
     justify-content: space-between;
     padding: 0 2%;
 }
+#ObjTable-view .tr>div.opened{
+    height: auto!important;
+    padding: 2%;
+}
 #ObjTable-view .tr:nth-child(odd){
     background-color: #e7e7e7;
 }
@@ -190,16 +194,16 @@
     height: auto!important;
 }
 .rtas-cell{
-    width: 52%!important;
-    font-size: 0.8em!important;
+    width: 81%!important;
+    font-size: 0.9em!important;
     height: 100%!important;
     display: flex;
     justify-content: flex-start!important;
     align-items: flex-start!important;
     flex-direction: column;
     position: relative;
-    width: 50%;
-    margin-left: 10%;
+    margin-top: 20px;
+    margin-left: 5%;
 }
 .rtas-cell p{
     margin-bottom: 4%;
@@ -208,7 +212,9 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-
+}
+.respuestas-desplegadas:hover{
+    font-weight: 600;
 }
 .rtas-cell p:before{
     content: '·';

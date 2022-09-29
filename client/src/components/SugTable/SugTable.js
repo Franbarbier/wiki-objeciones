@@ -47,38 +47,38 @@ const SugTable = ({ sugerencias }) => {
                             <div className="id-cell th">Id</div>
                             <div className="sug-cell th">Objecion</div>
                             <div className="cant-cell th">Cant.</div>
-                            <div className="rtas-cell th">Respuestas</div>
+                            <div className="rtasSuge-cell th">Respuestas</div>
                             <div className="tipo-cell th">Tipo</div>
                         </div>
                     </div>
                     {sugerencias.map((suge, index)=>(
 
                         <div className='tr' onClick={()=>{setSugSelected(suge)}}>
-                            <div>
+                             <div>
                                 <div className="id-cell td"><p>{index + 1}</p></div>
                                 {suge.type == 0 && 
                                 <div className="sug-cell td" title={suge.objecion }><p>{suge.objecion }</p></div>
-                            }
-
-                                {suge.type == 1 && 
-                                <div className="sug-cell td" title={ suge.objecionId.objecion }><p>{ suge.objecionId.objecion }</p></div>
                                 }
-
+                            
+                                {suge.type == 1 && 
+                                <div className="sug-cell td" title={ suge.objecionId && suge.objecionId.objecion }><p>{ suge.objecionId && suge.objecionId.objecion }</p></div>
+                                }
+                                
                                 <div className="cant-cell td">{ suge.rtas.length}</div>
+                                
                                 <div className="rtas-cell td">{suge.rtas.map((rta)=>(
-                                        <p>{rta}</p>
+                                        <p>{rta.nombre}</p>
                                     ))}
                                     {suge.rtas.length == 0 &&  <p><i>No sugirieron respuestas.</i></p>}    
                                 </div>
                                 <div className="tipo-cell td">{suge.type == 0 ? "Objeción" : 'Respuesta'}</div>
                                
-
                                 <div className='delete-btn' onClick={(e)=>{
                                     e.stopPropagation() 
                                     deleteSugerencias([suge._id], dispatch)
                                     }}>DELETE</div>
                                 
-                            </div>
+                            </div> 
                         </div>
                         ))
                     }

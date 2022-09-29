@@ -20,21 +20,29 @@ import { NewObj } from '../CreateObj/CreateObj';
 
 
 
-const RtasDesplegadas = ({ respuestas, setAddRtaModal, setObjIdRtas, obj }) => {
+const RtasDesplegadas = ({ respuestas, setAddRtaModal, setObjIdRtas, obj, setRtaData }) => {
 
     function render(){
         return  (
 
                 <div className="rtas-cell" onClick={(e)=>{
                     e.stopPropagation()
-                    setObjIdRtas(obj)
-                    setAddRtaModal(true)
+                    // setObjIdRtas(obj)
+                    // setAddRtaModal(true)
                 }}>
                     {respuestas.map((rta, index)=>(
                             <motion.p
+                                className="respuestas-desplegadas"
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.2, delay: (index / 20) }}                                        
+                                transition={{ duration: 0.2, delay: (index / 20) }}
+                                
+                                onClick={(e)=>{
+                                    setRtaData(rta)
+                                    setObjIdRtas(obj)
+                                    setAddRtaModal(true)
+                                }}
+
                             ><i>{rta.nombre}</i></motion.p>
                         ))}
                         <>{respuestas.length == 0 &&
@@ -50,6 +58,10 @@ const RtasDesplegadas = ({ respuestas, setAddRtaModal, setObjIdRtas, obj }) => {
                                 e.stopPropagation()
                                 setObjIdRtas(obj)
                                 setAddRtaModal(true)
+                                setRtaData({nombre: '',
+                                rta: '',
+                                autor: '',
+                                variaciones : [ ]})
                             }}
                         >
                             <button>+</button>
@@ -79,6 +91,8 @@ const ObjTable = ({ objeciones }) => {
     const [objSelected, setObjSelected] = useState(false)
     const [addRtaModal, setAddRtaModal] = useState(false)
     const [objIdRtas, setObjIdRtas] = useState(false)
+    const [rtaData, setRtaData] = useState(false)
+    
     const [objExist, setObjExist] = useState([])
     
     const [buscador, setBuscador] = useState()
@@ -215,13 +229,21 @@ const ObjTable = ({ objeciones }) => {
                         </div>
                     </div>
                     {objetas.map((obj, index)=>(
-                       <div className='tr' onClick={ ()=>{ setArrow( arrow != index ? index : -1 ) }}>
-                        <div>
+                       <div className={'tr'} onClick={ ()=>{ setArrow( arrow != index ? index : -1 ) }}>
+                        <div className={arrow == index && 'opened'}>
                             <div className="id-cell td"><p>{index + 1}</p></div>
                             <div className="arrow-cont">
                                 <img className={arrow == index ? "arrowAbierta" : "arrowCerrada"} src="/assets/arrowsin.png" />
                             </div>
-                            <div className="obj-cell td"><p title={obj.objecion}>{obj.objecion}</p></div>
+                            <div className="obj-cell td">
+                                
+                                <p title={obj.objecion}>{obj.objecion}</p>
+                                <div>
+                                    {arrow == index &&
+                                        <RtasDesplegadas setRtaData={setRtaData} respuestas={ getRespuestasDeObj(obj._id) } setAddRtaModal={setAddRtaModal} setObjIdRtas={setObjIdRtas} obj={obj}/>
+                                    }
+                                </div>
+                            </div>
                         
                             <div className="cant-cell td"><p>{getCantRespuestasDeObj(obj._id)}</p></div>
                             {/* <div className="rtas-cell td">
@@ -258,10 +280,10 @@ const ObjTable = ({ objeciones }) => {
                                 <img src="/assets/trash.svg"/>
                             </div>
                         </div>
-
-                            {arrow == index &&
-                            <RtasDesplegadas respuestas={ getRespuestasDeObj(obj._id) } setAddRtaModal={setAddRtaModal} setObjIdRtas={setObjIdRtas} obj={obj}/>
-                            }
+                                {/* {arrow == index &&
+                                        <RtasDesplegadas respuestas={ getRespuestasDeObj(obj._id) } setAddRtaModal={setAddRtaModal} setObjIdRtas={setObjIdRtas} obj={obj}/>
+                                    }
+                             */}
 
                          
                                 
@@ -273,7 +295,7 @@ const ObjTable = ({ objeciones }) => {
                         <ObjInfo checkIfExist={checkIfExist} objecion={objSelected} setObjSelected={setObjSelected}/>
                     }
                     {addRtaModal &&
-                        <EditRtas objecion={objIdRtas} setAddRtaModal={setAddRtaModal} />
+                        <EditRtas objecion={objIdRtas} setAddRtaModal={setAddRtaModal} rta={rtaData} setRtaData={setRtaData} />
                     }
 
                 </div>

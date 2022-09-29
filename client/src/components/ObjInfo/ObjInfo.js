@@ -30,6 +30,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
 
 
   const [createRta, setCreateRta] = useState({
+      autor : '',
       nombre : '',
       rta: '',
       variaciones: []
@@ -37,9 +38,17 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
   const [ifCreateRta, setIfCreateRta] = useState(false)
   
     useEffect(()=>{
-        console.log(tags)
-        console.log(obj)
-    })
+        console.log(createRta)
+    }, [createRta])
+
+    useEffect(()=>{
+     if (obj.rtas.length > 0) {
+      setCreateRta({...createRta, rta : obj.rtas[0].rta, nombre : obj.rtas[0].nombre})
+
+
+     }
+    }, [])
+
 
     useEffect(()=>{
       
@@ -67,6 +76,22 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
   const dispatch2 = useDispatch()
 
   console.log(sugeId)
+  
+
+  function handleAddRtas(e){
+    e.preventDefault()
+
+    let newRtaACrear = {...createRta}
+    newRtaACrear.objecion = obj.objecionId._id
+    createRespuesta(newRtaACrear, dispatch2).then(
+      (e)=>
+          console.log(e)
+      ).catch( (e) =>{
+          console.log('error:::', e.error)
+      } )
+
+  }
+
   function handleEditObj(e){
 
       var thisID = obj._id
@@ -162,9 +187,8 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                     <form>
                       <div>
                           <label>Objeción</label>
-                          <textarea onChange={(e)=>{ setObjecion(e.target.value) } } value={objecion}></textarea>
+                          <textarea onChange={(e)=>{ setObjecion(e.target.value) } } disabled={ obj.type ? true : false} value={objecion}></textarea>
                       </div>
-                      
                       <div>
                           <label>Key words</label>
                           <ul className='ul-editable'>
@@ -172,7 +196,6 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                             {tags && 
                               <>
                               {tags.map((tag, index)=>(
-                                    // <li data-index={index}>{tag}</li>
                                     <li>
                                       <input data-index={index}
                                         onChange={ (e)=>{
@@ -184,28 +207,24 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                                         } }
                                         value={tag}
                                         key={`tags${index}`}
+                                        disabled={ obj.type ? true : false}
                                       />
-                                      <div onClick={()=>{ 
-                                        setTags( tags.filter(tagi =>  tagi != tag ) )
-                                      }}><img src="/assets/close.png" /></div>
+
                                     </li>
                                 ))}
                                 </>
                               }
                               
                           </ul>
-                          <input type="text" onChange={(e)=>{ setCurrentTag(e.target.value) } } value={currentTag} />
-                          <button onClick={(e)=>{
-                                              e.preventDefault()
-                                              setTags([...tags, currentTag])
-                                              setCurrentTag('')
-                                          }}>+</button>
+
                       </div>
                      
 
 
                       <div>
-                            {!ifCreateRta ?
+                        {console.log(obj.rtas.length)}
+                            {/* {!ifCreateRta && obj.rtas.length == 0 ? */}
+                            {!ifCreateRta && obj.rtas.length == 0 ?
                             <button className="nueva-rta-btn" onClick={(e)=>{
                                 e.preventDefault()
                                 setIfCreateRta(true)
@@ -281,7 +300,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                       {suge ?
                       <>
                         {obj.objecionId ?
-                          <button onClick={handleEditObj} id="create-obj">Guardar cambios</button>
+                          <button onClick={handleAddRtas} id="create-obj">Añadir respuesta</button>
                         :
                           <button onClick={handleCreateObj} id="create-obj">Crear Objecion</button>
                         }
@@ -312,7 +331,7 @@ const ObjInfo = ({ objecion, setObjSelected, suge=false, sugeId=null }) => {
 
   function render(){
       return  (
-        <ModalContainer tipo="objInfo">
+        <ModalContainer tipo="objInfo" closeModal={ ()=>{ setObjSelected(false) } }>
                 <div id="ObjInfo-view">
                     <div>
                       <div className='close-mod'>

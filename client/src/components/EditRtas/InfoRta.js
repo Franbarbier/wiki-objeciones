@@ -67,9 +67,9 @@ useEffect(()=>{
                   <p>+</p>
                   
                 </div>
-              
-            
+                          
                     {rta.variaciones.length > 0 && <span className='variac-tit'>Variantes</span> }
+
                     {rta.variaciones.map((variante, index)=>(
                         <div key={"variacion-cont"+bigIndex+index} className='campo-variaciones'>                        
                             <textarea value={variante}

@@ -16,7 +16,13 @@ const AddRta = ({ setNewRta, index, rtaa, newRta }) => {
  
 function handleNewRta(e){
   let copyRtas = [...newRta]
-  copyRtas[index] = e.target.value
+  copyRtas[index].rta = e.target.value
+  setNewRta(copyRtas) 
+}
+
+function handleNewRtaName(e){
+  let copyRtas = [...newRta]
+  copyRtas[index].nombre = e.target.value
   setNewRta(copyRtas) 
 }
 
@@ -25,6 +31,9 @@ function render(){
     return  <div id="add-rta">
               <div>
                   <label>RESPUESTA {index + 1}</label>
+                  <input onChange={ (e)=>{handleNewRtaName(e)} } placeholder="Nombre de la respuesta" />
+                  <br />
+                  <br />
                   <textarea onChange={ (e)=>{handleNewRta(e)} } placeholder="Sugerir respuesta"></textarea>
                   <div className='deleteRta'
                   onClick={()=>{ 
@@ -50,7 +59,7 @@ const ModalNewObj = ({ setModalNewObj }) => {
   const dispatch = useDispatch()
 
   const [newObj, setNewObj] = useState('')
-  const [newRta, setNewRta] = useState([])
+  const [newRta, setNewRta] = useState([{}])
 
     useEffect(()=>{
      
@@ -60,7 +69,7 @@ const ModalNewObj = ({ setModalNewObj }) => {
     
 
     setNewObj('')
-    setNewRta([])
+    setNewRta([{}])
     setModalNewObj(false)
 
     
@@ -84,8 +93,8 @@ const ModalNewObj = ({ setModalNewObj }) => {
   function render(){
       return  (
 
-        <ModalContainer tipo="newObj">
-            <div id="ModalNewObj-view" onClick={()=>{setModalNewObj(false)}}>
+        <ModalContainer tipo="newObj" closeModal={ ()=>{ setModalNewObj(false) } }>
+            <div id="ModalNewObj-view">
                 <div onClick={(e)=>{e.stopPropagation()}}>
                     <div>
                         <h3>Envianos una nueva objeción para que la agreguemos</h3>
@@ -110,7 +119,7 @@ const ModalNewObj = ({ setModalNewObj }) => {
                           </div>
 
                        
-                        <div id="close-mod" onClick={ ()=>{ setModalNewObj(false) } }> 
+                        <div className="close-mod" onClick={ ()=>{ setModalNewObj(false) } }> 
                           <img src="/assets/close.png" />
                         </div>
                     </div>  

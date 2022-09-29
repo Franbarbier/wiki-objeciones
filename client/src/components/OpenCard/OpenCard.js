@@ -12,7 +12,7 @@ import './OpenCard.css';
 
 
 
-const AddRta = ({ setNewRta, id_objecion }) => {
+const AddRta = ({ setNewRta, id_objecion, newRta }) => {
   
   const [rtaSugerida, setRtaSugerida] = useState('')
 
@@ -20,13 +20,14 @@ const AddRta = ({ setNewRta, id_objecion }) => {
 
   async function handleSendSugerencia(){
 
-        if(rtaSugerida != ''){
+
+        if(newRta.rta != ''){
           const onSuccess = () => ( 
             alert("Gracias por sugerir una respuesta! La vamos a ver cuanto antes."),
             setNewRta(false) )
           await createSugerencia({
             objecionId: id_objecion,
-            rtas: [rtaSugerida],
+            rtas: [newRta],
             type: 1
           }, useDispatch2)
           onSuccess()
@@ -36,10 +37,18 @@ const AddRta = ({ setNewRta, id_objecion }) => {
   }
 
 
+function handleEditNombre(e){
+  setNewRta({...newRta, nombre : e})
+}
+function handleEditRta(e){
+  setNewRta({...newRta, rta : e})
+}
+
 function render(){
     return  <div id="add-rta">
               <div>
-                  <textarea onChange={(e)=>{ setRtaSugerida(e.target.value) }} placeholder="Envianos tu sugerencia para agregarla a esta objeción"></textarea>
+                  <input onChange={(e)=>{ handleEditNombre(e.target.value) }} placeholder="Nombre para la respuesta sugerida" />
+                  <textarea onChange={(e)=>{ handleEditRta(e.target.value) }} placeholder="Respuesta sugerida"></textarea>
                   <>
                     <button className="cancel-newrta" onClick={ ()=>{ setNewRta(false) } }>Cancelar</button>
                     <button className="send-newrta" onClick={(e)=>{ handleSendSugerencia() }}>Enviar sugerencia</button>
@@ -58,9 +67,11 @@ function render(){
 const OpenCard = ({ rta, setOpenObjecion }) => {
     
     // const dispatch = useDispatch()
-    console.log(rta)
-
+    
     const [newRta, setNewRta] = useState(false)
+    useEffect(()=>{
+      console.log(newRta)
+    }, [newRta])
 
   function render(){
       return  (
@@ -121,7 +132,7 @@ const OpenCard = ({ rta, setOpenObjecion }) => {
                               </div>
                             </li>
                           ))}
-                          { newRta && <AddRta id_objecion={rta.objecion._id} setNewRta={setNewRta} />}
+                          { newRta && <AddRta id_objecion={rta.objecion._id} setNewRta={setNewRta} newRta={newRta} />}
                         </ul>
                         { !newRta &&  <button id="new-rta" onClick={ ()=>{
                                     setNewRta(true)

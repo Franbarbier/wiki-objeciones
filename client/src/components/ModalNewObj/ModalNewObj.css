@@ -27,7 +27,7 @@
     display: block;
     margin-top: 5%;
 }
-#ModalNewObj-view textarea{
+#ModalNewObj-view textarea, #ModalNewObj-view input{
     /* margin: 3% 0; */
     width: 94%;
     padding: 3%;
@@ -35,6 +35,13 @@
     border: 1px solid #ddd;
     resize: none;
     border-radius: 5px;
+}
+
+#ModalNewObj-view input{
+    padding: 1.5%;
+    width: 97%;
+    
+
 }
 
 #ModalNewObj-view>div>div{
@@ -126,9 +133,12 @@
     margin-top: 10%;
 }
 
-
+#ModalNewObj-view .close-mod{
+    top: -36px;
+    right: -36px;
+}
 @media (max-width: 800px){
-#close-mod{
+#ModalNewObj-view .close-mod{
     right: -13px;
     top: -13px;
 }

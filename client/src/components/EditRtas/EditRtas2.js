@@ -13,15 +13,10 @@ import InfoRta from './InfoRta';
 
 
 
-const EditRtas = ({ objecion, setAddRtaModal }) => {
+const EditRtas = ({ objecion, setAddRtaModal, rta, setRtaData }) => {
     
   const dispatch = useDispatch()
-  const respuestas = useSelector(state => state.respuestas.filter((rtass)=>rtass.objecion._id == objecion._id ))
-  
-  useEffect(()=>{
-    setRtasDeObj(respuestas)
-  }, [])
-  
+   
   const [idsDeleted, setIdsDeleted] = useState([])
   
   const [variaciones, setVariaciones] = useState([])
@@ -31,10 +26,10 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
     nombre: '',
     rta: '',
     autor: '',
-    variaciones : []
+    variaciones : [ ]
   }
   
-  const [rtasDeObj, setRtasDeObj] = useState(respuestas)
+  const [rtasDeObj, setRtasDeObj] = useState([rta])
 
   function handleEditRtas(index, type, value){
     
@@ -113,33 +108,11 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
 
 
 
-// Esto venia del otro componente
-// const [estaRta, setEstaRta] = useState(rta)
-// const [bigIndex, setBigIndex] = useState(index)
-    
-// useEffect(()=>{
-//     setEstaRta(rta)
-// }, [])
-
-
-// function changeVariante(val, index) {
-
-// let newTest = {...estaRta};
-// newTest.variaciones[index] = val
-// setEstaRta(newTest)
-
-// }
-
-// useEffect(()=>{
-// let newRtasObj = [...rtasDeObj]
-// newRtasObj[index] = estaRta
-// setRtasDeObj(newRtasObj)
-// },[estaRta])
 
 
   function render(){
       return  (
-        <ModalContainer tipo="editRtas">
+        <ModalContainer tipo="editRtas" closeModal={()=>{setAddRtaModal(false)}}>
                 <div id="EditRtas-view">
                     <div>
                       <div className='close-mod'>
@@ -155,8 +128,9 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
                             <h4>{objecion.objecion}</h4>
                         </div>
                         <div>
-                          <span className="label-rtas">Respuestas</span>
+                          {/* <span className="label-rtas">Respuestas</span> */}
                           {/* Map */}
+                          {console.log(rta)}
                           {rtasDeObj.map((rta, index)=>(
                               <InfoRta rta={rta} index={index} setRtasDeObj={setRtasDeObj} rtasDeObj={rtasDeObj} idsDeleted={idsDeleted} setIdsDeleted={setIdsDeleted} />
                           ))}
@@ -170,16 +144,21 @@ const EditRtas = ({ objecion, setAddRtaModal }) => {
                             ))} */}
                   
                   
-                            <button
+                            {/* <button
                               id="add-rta-btn"
                               onClick={ ()=>{ setRtasDeObj([...rtasDeObj, newRtaData]) } }
                             >Añadir respuesta</button>
-
-                          </div>
+                            */}
+                          </div> 
 
                           <div>
                             <button id="guardar-cambios-btn" onClick={handleCambios}>Guardar cambios</button>
-                            <button id="descartar-cambios-btn" onClick={()=>{setAddRtaModal(false)}}>Descartar cambios</button>
+                            <button id="descartar-cambios-btn" onClick={()=>{
+                                if (window.confirm("Estas a punto de Descartar los Cambios de Esta Respuesta ¿Quieres Cnew-obj-btnsontinuar?")) {
+                                  setAddRtaModal(false)
+                                  setRtaData(false)
+                                }
+                              }}>Descartar cambios</button>
                           </div>
                       </div>
 

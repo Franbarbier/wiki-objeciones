@@ -104,7 +104,7 @@
     justify-content: center;
 }
 #add-rta>div{ width: 100%; }
-#add-rta textarea{
+#add-rta textarea, #OpenCard-view #add-rta input{
     display: block;
     width: 70%;
     padding: 3%;
@@ -114,11 +114,15 @@
     border-radius: 7px;
 }
 #OpenCard-view #add-rta textarea{
-    margin: 15% auto;
+    margin: auto;
     margin-bottom: 5%;
     height: 90px;
     color: slategray;
-    
+
+}
+#OpenCard-view #add-rta input{
+    margin: 10% auto 5%;
+    color: slategray;
 }
 #OpenCard-view #add-rta>div button{
     margin: 3% auto;
