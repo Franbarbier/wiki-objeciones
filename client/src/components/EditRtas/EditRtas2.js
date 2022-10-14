@@ -19,8 +19,8 @@ const EditRtas = ({ objecion, setAddRtaModal, rta, setRtaData }) => {
    
   const [idsDeleted, setIdsDeleted] = useState([])
   
-  const [variaciones, setVariaciones] = useState([])
-  
+  const [variaciones, setVariaciones] = useState([])  
+  const [modoDelete, setModoDelete] = useState(false)
   
   const newRtaData = {
     nombre: '',
@@ -28,6 +28,7 @@ const EditRtas = ({ objecion, setAddRtaModal, rta, setRtaData }) => {
     autor: '',
     variaciones : [ ]
   }
+  console.log(objecion)
   
   const [rtasDeObj, setRtasDeObj] = useState([rta])
 
@@ -62,17 +63,16 @@ const EditRtas = ({ objecion, setAddRtaModal, rta, setRtaData }) => {
           
         }
 
-        console.log(rta._id)
         if (!rta._id) {
-          console.log('esta se deberia crear', rta)
-          createRespuesta(rta, dispatch).then(
-            (e)=> 
-              console.log(e)      
+
+          createRespuesta(rta, dispatch, objecion).then(
+            (e)=>
+              alert("Respuesta creada con éxito.")
             ).catch( (e) =>{
               console.log('error:::', e.error)
           } )
         } else {
-          updateRespuestas(rta, dispatch).then(
+          updateRespuestas(rta, dispatch, objecion).then(
             (e)=> 
               console.log(e)      
             ).catch( (e) =>{
@@ -80,21 +80,21 @@ const EditRtas = ({ objecion, setAddRtaModal, rta, setRtaData }) => {
           } )
         }
 
-        if (idsDeleted.length > 0) {
-          deleteRespuestas(idsDeleted, dispatch).then(
-            (e)=> {
-              console.log(e)
-              setAddRtaModal(false)
-            }).catch( (e) =>{
-              console.log('error:::', e.error)
-          } )
-        }else{
-          setAddRtaModal(false)
-        }
-
-
+      })       
         
-      })
+        
+      if (idsDeleted.length > 0) {
+        console.log(idsDeleted)
+        deleteRespuestas(idsDeleted, dispatch).then(
+          (e)=> {
+            console.log(e)
+            setAddRtaModal(false)
+          }).catch( (e) =>{
+            console.log('error:::', e.error)
+        } )
+      }else{
+        setAddRtaModal(false)
+      }
       
     }
   }
@@ -104,11 +104,7 @@ const EditRtas = ({ objecion, setAddRtaModal, rta, setRtaData }) => {
   useEffect(()=>{
     console.log(rtasDeObj)
   }, [rtasDeObj])
-
-
-
-
-
+  
 
   function render(){
       return  (
@@ -130,31 +126,28 @@ const EditRtas = ({ objecion, setAddRtaModal, rta, setRtaData }) => {
                         <div>
                           {/* <span className="label-rtas">Respuestas</span> */}
                           {/* Map */}
-                          {console.log(rta)}
                           {rtasDeObj.map((rta, index)=>(
-                              <InfoRta rta={rta} index={index} setRtasDeObj={setRtasDeObj} rtasDeObj={rtasDeObj} idsDeleted={idsDeleted} setIdsDeleted={setIdsDeleted} />
+                              <InfoRta setModoDelete={setModoDelete} rta={rta} index={index} setRtasDeObj={setRtasDeObj} rtasDeObj={rtasDeObj} idsDeleted={idsDeleted} setIdsDeleted={setIdsDeleted} />
                           ))}
-                          {/* {rtasDeObj.map((rta, index)=>(
-                               <div className='info-rta' key={"info-rta"+index}>
-                                <div>
-                                    <span>Nombre de la respuesta</span>
-                                    <input className='nombre-rta' value={rta.nombre}  key={"info-rta-nombre"+index}/>
-                                  </div>
-                                </div>
-                            ))} */}
-                  
-                  
-                            {/* <button
-                              id="add-rta-btn"
-                              onClick={ ()=>{ setRtasDeObj([...rtasDeObj, newRtaData]) } }
-                            >Añadir respuesta</button>
-                            */}
-                          </div> 
+                          
+                          </div>
+                          {modoDelete &&
+                            <div>
+                              <strong>Se eliminará la siguiente respuesta:</strong>
+                              <br />
+                              <i style={{'color':'#747474'}}>{modoDelete}</i>
+                              <br />
+                              <br />
+                              <p>Desea continuar?</p>
+                              <br />
+                            </div>
+                          }
 
                           <div>
+                            
                             <button id="guardar-cambios-btn" onClick={handleCambios}>Guardar cambios</button>
                             <button id="descartar-cambios-btn" onClick={()=>{
-                                if (window.confirm("Estas a punto de Descartar los Cambios de Esta Respuesta ¿Quieres Cnew-obj-btnsontinuar?")) {
+                                if (window.confirm("Estas a punto de Descartar los Cambios de Esta Respuesta ¿Quieres Continuar?")) {
                                   setAddRtaModal(false)
                                   setRtaData(false)
                                 }

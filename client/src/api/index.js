@@ -8,8 +8,8 @@ import axios from 'axios';
 // }
 const headers = ''
 
-// const ENDPOINT = 'http://localhost:5000/';
-const ENDPOINT = 'https://wiki-objs.herokuapp.com/';
+const ENDPOINT = 'http://localhost:5000/';
+// const ENDPOINT = 'https://wiki-objs.herokuapp.com/';
 
 
 const url_objeciones = ENDPOINT+'objeciones'
@@ -31,4 +31,11 @@ export const getRespuestas = (filtros) => axios.get(url_respuestas, {...filtros,
 export const createRespuesta = (respuesta) => axios.post(url_respuestas, respuesta );
 export const deleteRespuestas = (id) => axios.delete(`${url_respuestas}/${id}`, {headers});
 export const updateRespuesta = (respuesta) => axios.patch(`${url_respuestas}/`, respuesta, {headers});
+
+const url_users = ENDPOINT+'users'
+export const createUser = (user) => axios.post(`${url_users}/new`, user );
+export const getUsers = (filtros) => axios.get(url_users+'/', {...filtros, headers});
+export const deleteUser = (id) => axios.delete(`${url_users}/${id}`, {headers});
+// export const updateObjecion = (objecion) => axios.patch(`${url_objeciones}/`, objecion, {headers});
+// export const getOrdenesCliente = (id_cliente) => axios.get(`${url_clientes}/ordenes/${id_cliente}`, {headers});
 

@@ -330,13 +330,34 @@
     padding: 5px 10px;
     font-size: 0.8em;
     color: #1c1c1c;
+    /* display: flex;
+    justify-content: space-between; */
+    cursor: pointer;
+}
+#alert-info>div{
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+}
+#alert-info>div img{
+    margin-right: 10px;
+}
+#alert-info i{
+    font-size: 0.9em;
+
+}
+#alert-detail button{
+    padding: 4px 10px;
+    border: var(--violeta) 1px solid;
+    background: #7f45c457;
+    color: var(--violeta);
+    font-weight: 500;
+    border-radius: 4px;
     cursor: pointer;
 }
 #alert-detail>div{
     border-radius: 3px;
-    padding: 5px 10px;
+    padding: 12px 10px;
     background-color: rgb(255, 245, 208);
     border-bottom: 1px solid rgb(255 214 66);
 }

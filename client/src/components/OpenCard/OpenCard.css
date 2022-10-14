@@ -48,7 +48,7 @@
 #OpenCard-view ul li>div{
     position: absolute;
     width: 16px;
-    right: 0%;
+    right: -5%;
     top: 20%;
     opacity: 0;
     cursor: pointer;
@@ -61,6 +61,16 @@
 }
 #OpenCard-view ul li>div img{
     width: 100%;
+}
+.rta-rta textarea{
+    background-color: #f0f0f0;
+    padding: 8px 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(100% - 28px);
+    font-size: 0.9em;
+    resize: none;
+    height: 30vh;
 }
 
 #OpenCard-view #close-mod{

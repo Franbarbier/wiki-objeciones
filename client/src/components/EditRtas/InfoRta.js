@@ -9,7 +9,8 @@ import { createRespuesta, deleteRespuestas, updateRespuestas } from '../../actio
 
 
 
-const InfoRta = ({ rta, index, setRtasDeObj, rtasDeObj, setIdsDeleted, idsDeleted }) => {
+
+const InfoRta = ({ rta, index, setRtasDeObj, rtasDeObj, setIdsDeleted, idsDeleted,setModoDelete }) => {
 
     const [estaRta, setEstaRta] = useState(rta)
     const [bigIndex, setBigIndex] = useState(index)
@@ -18,6 +19,7 @@ const InfoRta = ({ rta, index, setRtasDeObj, rtasDeObj, setIdsDeleted, idsDelete
         setEstaRta(rta)
     }, [])
    
+    console.log(rta)
 
 function changeVariante(val, index) {
     
@@ -50,6 +52,7 @@ useEffect(()=>{
 
               <div>
               <span>Respuesta</span>
+
                 <textarea onChange={(e)=>{ 
                      let newRta = [...rtasDeObj];
                      newRta[index].rta = e.target.value
@@ -82,7 +85,6 @@ useEffect(()=>{
 
                                     let newRta = [...rtasDeObj];
                                     newRta[index].variaciones.splice(index,1);
-                                    
                                     setEstaRta(newRta)
                                 }}
                                 src="./assets/close.png"
@@ -104,7 +106,7 @@ useEffect(()=>{
                         onClick={()=>{
                             let newRtasDeObj = [...rtasDeObj]
                             newRtasDeObj.splice(index,1);
-                            console.log(newRtasDeObj)
+                            setModoDelete(rta.rta)
                             setRtasDeObj( newRtasDeObj)
                             if (rta._id) {
                                 setIdsDeleted( [...idsDeleted, rta._id] )
@@ -114,9 +116,6 @@ useEffect(()=>{
                         <img src="/assets/trash.svg"/>
                     </div>
                     
-                
-            {/* <br />
-            <br /> */}
         </div>
       )
 

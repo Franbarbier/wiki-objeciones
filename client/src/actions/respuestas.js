@@ -12,11 +12,14 @@ export const getRespuestas = (filtros=null) => async (dispatch) => {
     }
 }
 
-export const createRespuesta = async (respuesta, dispatch) => {
+export const createRespuesta = async (respuesta, dispatch, obj) => {
     try{
-        console.log(respuesta)
         const{data} = await api.createRespuesta(respuesta)
+        
+        data.newRta.objecion = obj
+        
         dispatch({type: CREATE_RESPUESTA, payload:data})
+
         console.log(data)
         return data
     }catch(error){
@@ -24,9 +27,10 @@ export const createRespuesta = async (respuesta, dispatch) => {
     }
 }
 
-export const updateRespuestas = async (respuesta, dispatch) => {
+export const updateRespuestas = async (respuesta, dispatch, obj) => {
     try{
         const {data} = await api.updateRespuesta(respuesta)
+        data.objecion = obj
         dispatch({type: UPDATE_RESPUESTA, payload:data})
         console.log(data)
     }catch(error){

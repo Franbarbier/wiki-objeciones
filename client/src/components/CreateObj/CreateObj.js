@@ -6,23 +6,24 @@ import { Link } from 'react-router-dom';
 // import {motion} from 'framer-motion/dist/es/index'
 import { motion } from "framer-motion"
 
-import { createObjecion, deleteObjeciones } from '../../actions/objeciones';
+import { createObjecion, deleteObjeciones, updateObjeciones } from '../../actions/objeciones';
 
 // import PencilIcon from './assets/pencil.svg';
 
 
 import ModalContainer from '../ModalContainer/ModalContainer';
 import { createRespuesta } from '../../actions/respuestas';
+import EditRtas from '../EditRtas/EditRtas2';
 
-export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
+export const NewObj = ({ setNewRta, checkIfExist, objExist, objSelected=false, setObjSelected, setObjIdRtas, setAddRtaModal,setRtaData, setObjExist }) => {
 
 
     const [currentRta, setCurrentRta] = useState('')
     const [rtas, setRtas] = useState([])
     const [currentTag, setCurrentTag] = useState('')
-    const [tags, setTags] = useState([])
     
-    const [objecion, setObjecion] = useState('')
+    const [tags, setTags] = useState(objSelected ? objSelected.tags : [])
+    const [objecion, setObjecion] = useState(objSelected ? objSelected.objecion : '')
     
 
     const [createRta, setCreateRta] = useState({
@@ -32,6 +33,7 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
         variaciones: []
     })
     const [ifCreateRta, setIfCreateRta] = useState(false)
+
     
     const dispatch2 = useDispatch()
 
@@ -39,7 +41,7 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
     function hagaseLaObj(e){
         e.preventDefault()
         let final_objecion = {
-            objecion, rtas, tags
+            objecion, tags
         }
         
         
@@ -80,6 +82,30 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
 
     }
 
+    function editarObj(e){
+        e.preventDefault()
+
+        var thisID = objSelected._id
+
+
+      let objecionObj = {
+          objecion, tags, _id: thisID
+      }
+      
+
+      updateObjeciones({objecionObj}, dispatch2).then(
+              (e)=>{ 
+
+                setCurrentTag('')
+                setTags([])
+                setObjecion('')
+                setObjSelected(false)
+
+              }).catch( (e) =>{
+                console.log('error:::', e.error)
+            } )
+    }
+
     useEffect(()=>{
         console.log(createRta)
     }, [createRta])
@@ -93,18 +119,33 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
                     {objExist.length > 0 &&
                         <aside id="exist-cont">
                             <div id="alert-info">
-                                <p>Hay {objExist.length} objeciones que pueden estar relacionadas.</p>
-                                <span>+</span>
+                                <div>
+                                    <img src="/assets/alerta.png" width="24px" />
+                                    <div>
+                                        <strong>Atención! Puede, que estes creando una objeción que ya existe.</strong>
+                                        <br />
+                                        <span>Si es así, por favor, no la crees de nuevo, Mejor agrega tu respuesta a la objeción que ya existe en la base de datos.</span>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <i>Hay {objExist.length} objeciones que pueden estar relacionadas.</i>
+                                {/* <span>+</span> */}
                             </div>
                             <div id="alert-detail">
                                 {objExist.map((exist, index)=>(
                                     <div key={'exist'+index}>
                                         <p>{exist.objecion}</p>
-                                        <ul>
-                                            {exist.tags.map((tag)=>(
-                                                <li>{tag}</li>
-                                            ))}
-                                        </ul>
+                                        <button onClick={ ()=>{
+                                            setNewRta(false)
+                                            setObjIdRtas(exist)
+                                            console.log(exist)
+                                            setRtaData({nombre: '',
+                                                        rta: '',
+                                                        autor: '',
+                                                        variaciones : [ ]})
+                                            setAddRtaModal(true)
+                                        } } >+ Agregar Respuesta a esta Objeción</button>
                                     </div>
                                 ))}
                             </div>
@@ -116,6 +157,7 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
                     <img onClick={ (e)=>{
                             e.stopPropagation()
                             setNewRta(false)
+                            setObjExist([])
                         }} src="/assets/close.png"/>
                     </div>
                   <div>
@@ -158,7 +200,8 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
                                             }}>+</button>
                         </div>
                         
-
+                                    
+                        {!objSelected &&
                         
                         <div>
                             {!ifCreateRta ?
@@ -240,16 +283,25 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist }) => {
                         </div>
                         }
                     </div>
+                        }
+
 
 
                        
-                        
-                        <button onClick={hagaseLaObj} id="create-obj">Crear</button>
-                        <button  onClick={()=>{setNewRta(false)} } id="rene">Descartar cambios</button>
+                        {!objSelected ? 
+                            <button onClick={hagaseLaObj} id="create-obj">Crear</button>
+                        :
+                            <button onClick={editarObj} id="create-obj">Guardar cambios</button>
+                        }
+                        <button  onClick={()=>{
+                            setNewRta(false)
+                            setObjExist([])
+                        } } id="rene">Descartar cambios</button>
                       </form>
 
                   </div>             
                 </div>
+               
                 </ModalContainer>
                 )
     

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -67,11 +67,26 @@ function render(){
 const OpenCard = ({ rta, setOpenObjecion }) => {
     
     // const dispatch = useDispatch()
-    
     const [newRta, setNewRta] = useState(false)
+
+    const textarea = useRef(null);
+    
     useEffect(()=>{
       console.log(newRta)
     }, [newRta])
+
+    function textAreaAdjust(element) {
+      element.style.height = "1px";
+      element.style.height = (5+element.scrollHeight)+"px";
+    }
+
+    useEffect(() => {
+      // inputRef.current.focus();
+      console.log(textarea.current)
+      textarea.current.style.height = "1px";
+      textarea.current.style.height = (5+textarea.current.scrollHeight)+"px";
+    }, [])
+
 
   function render(){
       return  (
@@ -82,8 +97,8 @@ const OpenCard = ({ rta, setOpenObjecion }) => {
                         <h5>{rta.objecion.objecion}</h5>
                         <h3>{rta.nombre}</h3>
                         <ul>
-                            <li> 
-                              <p>{rta.rta}</p>
+                            <li className="rta-rta"> 
+                              <textarea ref={textarea} disabled>{rta.rta}</textarea>
                               <div onClick={ (e)=>{ 
                                   e.stopPropagation()
                                   var clicked;

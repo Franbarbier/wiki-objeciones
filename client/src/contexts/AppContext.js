@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getObjeciones } from '../actions/objeciones';
 import { getSugerencias } from '../actions/sugerencias';
 import { getRespuestas } from '../actions/respuestas';
+import { getUsers } from '../actions/users';
 
 
 const AppContext = React.createContext();
@@ -18,10 +19,11 @@ export function AppProvider(props){
     const [loadingObjeciones, setLoadingObjeciones] = useState(false)
     const [loadingSugerencias, setLoadingSugerencias] = useState(false)
     const [loadingRespuestas, setLoadingRespuestas] = useState(false)
+    const [loadingUsers, setLoadingUsers] = useState(false)
     
     const [notifications, setNotifications] = useState([])
     
-    const setters = [setLoadingObjeciones, setLoadingSugerencias, setLoadingRespuestas]
+    const setters = [setLoadingObjeciones, setLoadingSugerencias, setLoadingRespuestas, setLoadingUsers]
 
     
     useEffect(()=>{
@@ -35,7 +37,8 @@ export function AppProvider(props){
             setAllLoading(true)
             dispatch(getObjeciones()).then(()=>setLoadingObjeciones(false))        
             dispatch(getSugerencias()).then(()=>setLoadingSugerencias(false))  
-            dispatch(getRespuestas()).then(()=>setLoadingRespuestas(false))  
+            dispatch(getRespuestas()).then(()=>setLoadingRespuestas(false))
+            dispatch(getUsers()).then(()=>setLoadingUsers(false))
         }
     }, [pathname])
 
@@ -47,11 +50,11 @@ export function AppProvider(props){
 
     const value = useMemo(()=>{
         return ({
-            loading: {objeciones: loadingObjeciones, sugerencias: loadingSugerencias, respuestas: loadingRespuestas},
+            loading: {objeciones: loadingObjeciones, sugerencias: loadingSugerencias, respuestas: loadingRespuestas, users: loadingUsers},
             notifications,
             setNotifications
         })
-    }, [loadingObjeciones, notifications, loadingSugerencias, loadingRespuestas])
+    }, [loadingObjeciones, notifications, loadingSugerencias, loadingRespuestas, loadingUsers])
 
     // console.log(value)
 

@@ -9,6 +9,7 @@ import cors from 'cors';
 import objecionesRoutes from './routes/objeciones.js';
 import sugerenciasRoutes from './routes/sugerencias.js';
 import respuestasRoutes from './routes/respuestas.js';
+import usersRoutes from './routes/users.js';
 
 
 const app = express()
@@ -24,6 +25,7 @@ app.use(cors({
 app.use('/sugerencias', sugerenciasRoutes)
 app.use('/objeciones', objecionesRoutes)
 app.use('/respuestas', respuestasRoutes)
+app.use('/users', usersRoutes)
 
 app.get('/', (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');

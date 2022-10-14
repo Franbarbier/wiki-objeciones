@@ -42,11 +42,14 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
     }, [createRta])
 
     useEffect(()=>{
-     if (obj.rtas.length > 0) {
-      setCreateRta({...createRta, rta : obj.rtas[0].rta, nombre : obj.rtas[0].nombre})
-
-
-     }
+      if (suge) {
+        
+        if (obj.rtas.length > 0) {
+          setCreateRta({...createRta, rta : obj.rtas[0].rta, nombre : obj.rtas[0].nombre})
+          
+          
+        }
+      }
     }, [])
 
 
@@ -222,14 +225,8 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
 
 
                       <div>
-                        {console.log(obj.rtas.length)}
                             {/* {!ifCreateRta && obj.rtas.length == 0 ? */}
-                            {!ifCreateRta && obj.rtas.length == 0 ?
-                            <button className="nueva-rta-btn" onClick={(e)=>{
-                                e.preventDefault()
-                                setIfCreateRta(true)
-                                }}>Agregarle respuesta</button>
-                            :
+                            {!ifCreateRta && sugeId &&
                             <div className='info-rta'>
                                     <div>
                                         <span>Nombre de la respuesta</span>
@@ -280,6 +277,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                                                             let newRta = {...createRta}
                                                             newRta.variaciones.splice(index,1);
                                                             setCreateRta(newRta)
+                                                            
                                                         }}
                                                         src="./assets/close.png"
                                                     />
@@ -296,7 +294,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                         }
                     </div>
 
-
+                      {console.log(suge)}
                       {suge ?
                       <>
                         {obj.objecionId ?
@@ -311,6 +309,14 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                       <button  onClick={(e)=>{
                                   e.preventDefault()
                                   setObjSelected(false)
+                                  if(suge){
+                                    if(window.confirm("Desea eliminar la sugerencia?")){
+
+                                      deleteSugerencias([sugeId], dispatch2).then(
+                                        (e)=>console.log('se elimino la suge: ', sugeId)
+                                        ).catch((e)=> console.log(e.error) )
+                                      }
+                                  }
                                 } } id="rene">Descartar</button>
                     </form>
 
@@ -338,6 +344,7 @@ const ObjInfo = ({ objecion, setObjSelected, suge=false, sugeId=null }) => {
                         <img onClick={ (e)=>{
                               e.stopPropagation()
                               setObjSelected(false)
+                              
                             }} src="/assets/close.png"/>
                       </div>
                       <div>

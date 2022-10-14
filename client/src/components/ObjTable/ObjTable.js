@@ -99,8 +99,6 @@ const ObjTable = ({ objeciones }) => {
 
     const dispatch = useDispatch()
 
-
-
     useEffect(()=>{
         if (buscador != "") {
          var searchResult = []
@@ -145,6 +143,7 @@ const ObjTable = ({ objeciones }) => {
         setObjetas(objeciones);
     }, [objeciones])
      
+
     
     const respuestas = useSelector(state => state.respuestas)
 
@@ -156,8 +155,26 @@ const ObjTable = ({ objeciones }) => {
 
     function getRespuestasDeObj(obj_id) {
         const respuestas_asociadas = respuestas.filter((rtass)=>rtass.objecion._id == obj_id)
+        console.log(respuestas, respuestas_asociadas)
         return respuestas_asociadas
     }
+
+
+    
+    
+
+
+
+    // const selectNumCompletedTodos = createSelector(
+    //     (state) => state.todos,
+    //     (todos) => todos.filter((todo) => todo.completed).length
+    //   )
+      
+    // const CompletedTodosCounter = () => {
+    //     const numCompletedTodos = useSelector(selectNumCompletedTodos)
+    //     return <div>{numCompletedTodos}</div>
+    // }
+      
 
 
 
@@ -206,8 +223,9 @@ const ObjTable = ({ objeciones }) => {
                             <input placeholder="Buscar objecion" onChange={(e)=>{setBuscador(e.target.value)}} value={buscador}/>
                         </>
                         :
-                        <NewObj setNewRta={setNewRta} checkIfExist={checkIfExist} objExist={objExist} />
+                        <NewObj setObjExist={setObjExist} setNewRta={setNewRta} setRtaData={setRtaData} setObjIdRtas={setObjIdRtas} setAddRtaModal={setAddRtaModal} checkIfExist={checkIfExist} objExist={objExist} />
                     }
+
                     <div>
 
                     </div>
@@ -229,7 +247,7 @@ const ObjTable = ({ objeciones }) => {
                         </div>
                     </div>
                     {objetas.map((obj, index)=>(
-                       <div className={'tr'} onClick={ ()=>{ setArrow( arrow != index ? index : -1 ) }}>
+                       <div className={'tr'} onClick={ ()=>{ setArrow( arrow != index ? index : -1 ) }} key={"obecion-row-"+index}>
                         <div className={arrow == index && 'opened'}>
                             <div className="id-cell td"><p>{index + 1}</p></div>
                             <div className="arrow-cont">
@@ -280,19 +298,15 @@ const ObjTable = ({ objeciones }) => {
                                 <img src="/assets/trash.svg"/>
                             </div>
                         </div>
-                                {/* {arrow == index &&
-                                        <RtasDesplegadas respuestas={ getRespuestasDeObj(obj._id) } setAddRtaModal={setAddRtaModal} setObjIdRtas={setObjIdRtas} obj={obj}/>
-                                    }
-                             */}
-
-                         
+                        
                                 
                     </div>
 
                     ))}
 
                     {objSelected &&
-                        <ObjInfo checkIfExist={checkIfExist} objecion={objSelected} setObjSelected={setObjSelected}/>
+                        // <ObjInfo checkIfExist={checkIfExist} objecion={objSelected} setObjSelected={setObjSelected}/>
+                        <NewObj setNewRta={setNewRta} checkIfExist={checkIfExist} objExist={objExist} objSelected={objSelected} setObjSelected={setObjSelected}/>
                     }
                     {addRtaModal &&
                         <EditRtas objecion={objIdRtas} setAddRtaModal={setAddRtaModal} rta={rtaData} setRtaData={setRtaData} />

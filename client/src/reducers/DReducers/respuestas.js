@@ -8,8 +8,8 @@ export default (state=[], action) => {
 
         case 'CREATE_RESPUESTA':
             console.log("compa rock", action.payload.newRta)
-            console.log(state)
-            return [...state, action.payload.newRta];
+            
+            return [action.payload.newRta ,...state];
             // const response = action.payload
             // console.log(response)
             // if(response.error == 0){

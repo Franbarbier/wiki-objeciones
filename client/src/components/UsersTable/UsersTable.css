@@ -1,0 +1,86 @@
+
+#UsersTable-view .table{
+    margin-top: 5%;
+}
+#UsersTable-view .tr>div{
+    height: 9vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    padding: 0 2%;
+}
+#UsersTable-view .tr:nth-child(odd){
+    background-color: #e7e7e7;
+}
+#UsersTable-view .th{
+    padding: 0 1%;
+    font-size: 0.9em;
+    text-align: left;
+    font-weight: 600;
+}
+
+#UsersTable-view .td p{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    font-size: 0.8em;
+}
+#UsersTable-view .td p{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    font-size: 0.8em;
+}
+
+
+#UsersTable-view .sug-cell{
+    width: 25%;
+}
+#UsersTable-view .id-cell{
+    width: 3%;
+}
+#UsersTable-view .obj-cell{
+    width: 50%;
+}
+#UsersTable-view .cant-cell{
+    width: 5%;
+    text-align: center;
+    font-size: 0.8em;
+}
+#UsersTable-view .th.rtas-cell{
+    height: auto!important;
+}
+#UsersTable-view .tipo-cell{
+    width: 10%;
+    font-size: 0.8em;
+}
+.user-name-cell{
+    width: 25%;
+}
+.user-mail-cell{
+    width: 40%;
+}
+.delete-cell{
+    width: 10%;
+    text-align: center;
+}
+.delete-user{
+    font-size: 0.8em;
+    color: #898989;
+}
+.tr:hover .delete-user{
+    color: #585858;
+}
+
+.delete-user:hover{
+    color:#2f2f2f;
+    font-weight: 600
+}

@@ -9,6 +9,8 @@ import './Home.css';
 import OpenCard from '../../components/OpenCard/OpenCard';
 import Notifications from '../../components/Notificactions/Notifications';
 import ModalNewObj from '../../components/ModalNewObj/ModalNewObj';
+import EditRtas from '../../components/EditRtas/EditRtas2';
+import SugRtaModal from '../../components/SugRtaModal/SugRtaModal';
 
 
 const Home = ({setActiveTab }) => {
@@ -22,9 +24,13 @@ const Home = ({setActiveTab }) => {
     const [openNotifications, setOpenNotifications] = useState(false)
     
     const respuestas = useSelector(state => state.respuestas)
+    const objeciones = useSelector(state => state.objeciones)
     const [buscador, setBuscador] = useState([])
 
-    
+    const [objExist, setObjExist] = useState([])
+    const [objSelected, setObjSelected] = useState(false)
+    const [addRtaModal, setAddRtaModal] = useState(false)
+    const [rtaData, setRtaData] = useState(false)
     // useEffect(()=>{
     //     console.log(respuestas)
     //     setBuscador(respuestas)
@@ -80,6 +86,40 @@ const Home = ({setActiveTab }) => {
 
     }
     
+
+    function checkIfExist(value) {
+        if (value.length > 4) {
+            
+
+           var searchResult = []
+
+            for (let index = 0; index < objeciones.length; index++) {
+                const element = objeciones[index];
+                var tieneTag = false
+                element.tags.find(element => {
+                    if (element.toLowerCase().includes(value.toLowerCase())) {
+                        tieneTag = true
+                    }
+                });
+               var tieneObj = false
+                if (element.objecion.toLowerCase().includes(value.toLowerCase())) {
+                    tieneObj = true
+                }
+
+
+                if (tieneTag || tieneObj) {
+                    // return element
+                    searchResult.push(element);
+
+                }
+               }
+            }else{
+                setObjExist([])
+                return false;
+            }
+
+            setObjExist(searchResult)
+    }
 
 
   function render(){
@@ -162,7 +202,14 @@ const Home = ({setActiveTab }) => {
                     </div>
                 </div>
                 {modalNewObj &&
-                    <ModalNewObj setModalNewObj={setModalNewObj}/>
+                    <ModalNewObj setModalNewObj={setModalNewObj} setObjSelected={setObjSelected} objExist={objExist} setObjExist={setObjExist} setRtaData={setRtaData} checkIfExist={checkIfExist}/>
+                }
+                {addRtaModal &&
+                    <EditRtas objecion={objSelected} setObjSelected={setObjSelected} setAddRtaModal={setAddRtaModal} rta={rtaData} setRtaData={setRtaData} />
+                }
+                {objSelected &&
+                    <SugRtaModal objecion={objSelected} />
+
                 }
               </div>
 

@@ -31,9 +31,7 @@ const App = () => {
     return (
       <>
 
-      {/* { !user.mail ?
-        <Login setUser={setUser} />
-      : */}
+      
         <Router>
           <AppProvider>
           <ScrollToTop/>
@@ -49,7 +47,7 @@ const App = () => {
             </Routes>
             </AppProvider>
         </Router>
-        {/* } */}
+       
       </>
     );
   }
