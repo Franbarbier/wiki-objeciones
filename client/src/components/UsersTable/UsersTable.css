@@ -11,6 +11,18 @@
     justify-content: space-between;
     padding: 0 2%;
 }
+#UsersTable-view .table-config>button{
+    border: var(--violeta) 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--violeta);
+    color: #fff;
+    padding: 8px 25px;
+    font-size: 0.9em;
+    transition: .2s;
+    /* font-weight: 500; */
+    /* letter-spacing: 2px; */
+}
 #UsersTable-view .tr:nth-child(odd){
     background-color: #e7e7e7;
 }
@@ -83,4 +95,52 @@
 .delete-user:hover{
     color:#2f2f2f;
     font-weight: 600
+}
+.save-user-change{
+    padding: 8px 25px;
+    border: var(--violeta) 1px solid;
+    background: #7f45c457;
+    color: var(--violeta);
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-top: 5%;
+}
+.discard-user-change{
+    border: #777 1px solid!important;
+    background: transparent!important;
+    color: #777!important;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 25px;
+    margin-left: 3.5%;
+    font-size: 0.85em;
+    transition: .2s;
+}
+#UserModal>section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.inputs-cont{
+    width: 45%;
+    display: inline-block;
+    margin-bottom: 8%;
+}
+.inputs-cont label{
+    font-size: 0.8em;
+    display: block;
+    color: #2f2f2f;
+
+}
+.inputs-cont input{
+    background-color: #f0f0f0;
+    border: none;
+    border-bottom: 1px solid #585858;
+    padding: 8px 12px;
+    border-radius: 3px;
+    width: 95%;
+
 }

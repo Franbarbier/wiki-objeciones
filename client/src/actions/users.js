@@ -1,4 +1,4 @@
-import {DELETE_USER, FETCH_ALL_USERS, LOGIN, VERIFY_USER} from '../constants/actionTypes';
+import {DELETE_USER, FETCH_ALL_USERS, LOGIN, UPDATE_USER, VERIFY_USER} from '../constants/actionTypes';
 import * as api from '../api';
 
 // export const login = (user) => async (dispatch) => {
@@ -25,6 +25,16 @@ export const createNewUser = async (user, dispatch) => {
         // dispatch({type: CREATE_USER, payload:data})
         console.log(data)
         return data
+    }catch(error){
+        console.log(error)
+    }
+}
+export const updateUser = async (user, id, dispatch) => {
+    try{
+        const updateData = {user, id}
+        const {data} = await api.updateUser(updateData)
+        // dispatch({type: UPDATE_USER, payload:data})
+        console.log(data)
     }catch(error){
         console.log(error)
     }

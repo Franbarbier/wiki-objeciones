@@ -38,6 +38,22 @@ export const createUser = async (req, res) =>{
     }
 }
 
+export const updateUser = async (req, res) =>{
+
+    const user = req.body.user;
+    const id = req.body.id;
+    const filter = {_id: id}
+    var userToUpdate = await User.findOneAndUpdate(filter, user, {new: true})
+
+    try{                            
+        res.status(201).json(userToUpdate)
+            
+    }catch(error){
+        res.status(409).json({message: error.message})
+    }
+
+}
+
 export const getAllUsers = async (req, res)=>{
     
 

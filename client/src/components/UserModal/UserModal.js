@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { motion } from "framer-motion"
 
 import './UserModal.css';
-import { createNewUser } from '../../actions/users';
+import { createNewUser, updateUser } from '../../actions/users';
 import ModalContainer from '../ModalContainer/ModalContainer';
 
 
@@ -42,6 +42,16 @@ const UserModal = ({ user, setUserModal, createUser, setCreateUser}) => {
           } )
     }
 
+    function handleEditUser() {
+        updateUser({mail, name: nombre, password}, user._id, dispatch).then(
+            (e)=> 
+              console.log(e)
+            ).catch( (e) =>{
+              console.log('error:::', e.error)
+              alert('Hubo un error, por favor intentalo de nuevo.')
+          } )
+    }
+
   function render(){
       return  (
 
@@ -59,30 +69,35 @@ const UserModal = ({ user, setUserModal, createUser, setCreateUser}) => {
                         }
                     </div>
                     <br />
-                    <div>
-                        <label>Nombre</label>
-                        <input type="text" value={nombre} onChange={ (e)=>{ setNombre(e.target.value) } }/>
-                    </div>
-                    <div>
-                        <label>Mail</label>
-                        <input type="email" value={mail} onChange={ (e)=>{ setMail(e.target.value) } }/>
-                    </div>
-                    <div>
-                        <label>Contraseña</label>
-                        <input type="password" value={password} onChange={ (e)=>{ setPassword(e.target.value) } }/>
-                    </div>
-                    <div>
-                        <label>Repetir contraseña</label>
-                        <input type="password" value={passwordBis} onChange={ (e)=>{ setPasswordBis(e.target.value) } }/>
-                    </div>
-                    <br />
+                    <section>
+                        <div className="inputs-cont">
+                            <label>Nombre</label>
+                            <input type="text" value={nombre} onChange={ (e)=>{ setNombre(e.target.value) } }/>
+                        </div>
+                        <div className="inputs-cont">
+                            <label>Mail</label>
+                            <input type="email" value={mail} onChange={ (e)=>{ setMail(e.target.value) } }/>
+                        </div>
+                        <div className="inputs-cont">
+                            <label>Contraseña</label>
+                            <input type="password" value={password} onChange={ (e)=>{ setPassword(e.target.value) } }/>
+                        </div>
+                        <div className="inputs-cont">
+                            <label>Repetir contraseña</label>
+                            <input type="password" value={passwordBis} onChange={ (e)=>{ setPasswordBis(e.target.value) } }/>
+                        </div>
+                    </section>
+
                     <div>
                         {createUser ?
-                            <button onClick={ ()=>{ handleCreateNewUser() } }>Crear usuario</button>
+                            <button className='save-user-change' onClick={ ()=>{ handleCreateNewUser() } }>Crear usuario</button>
                         :
-                            <button>Guardar cambios</button>
+                            <button className='save-user-change' onClick={ ()=>{ handleEditUser() } }>Guardar cambios</button>
                         }
-                        <button>Descartar cambios</button>
+                        <button className='discard-user-change' onClick={ ()=>{
+                                        setUserModal(false)
+                                        setCreateUser(false)
+                                    } }>Descartar cambios</button>
                     </div>
                 </div>             
               </div>

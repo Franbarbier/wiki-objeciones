@@ -29,10 +29,57 @@ const UsersTable = ({ sugerencias }) => {
     const [userModal, setUserModal] = useState(false)
     const [userSelected, setUserSelected] = useState(emptyUser)
     const [createUser, setCreateUser] = useState(false)
-    
-    const users = useSelector(state => state.users)
 
+    const users = useSelector(state => state.users)
+    
     console.log(users)
+
+    useEffect(()=>{
+        setUserSearch(users)
+    }, [users])
+    
+
+    const [buscador, setBuscador] = useState()
+    const [userSearch, setUserSearch] = useState([])
+
+
+    useEffect(()=>{
+        if (buscador != "") {
+         var searchResult = []
+            
+         console.log(users)
+
+         let newBuscador = buscador || '';
+ 
+             for (let index = 0; index < users.length; index++) {
+                 const element = users[index] || '';
+                 var tieneName = false
+                 if (element.name.toLowerCase().includes(newBuscador.toLowerCase())) {
+                    tieneName = true
+                }
+
+                var tieneMail = false
+                 if (element.mail.toLowerCase().includes(newBuscador.toLowerCase())) {
+                     tieneMail = true
+                 }
+ 
+ 
+                 if (tieneName || tieneMail) {
+                     // return element
+                     searchResult.push(element);
+ 
+                 }
+                }
+                console.log(searchResult)
+             setUserSearch(searchResult)
+        }else{
+             setUserSearch(users)
+        }
+
+
+     }, [buscador])
+
+
 
   function render(){
       return  <div id="UsersTable-view">
@@ -42,6 +89,7 @@ const UsersTable = ({ sugerencias }) => {
                         setCreateUser(true)
                         setUserSelected(emptyUser)
                     }}>New User</button>
+                    <input type="text" onChange={(e)=>{ setBuscador(e.target.value) }} value={buscador} placeholder="Buscar usuario" />
                 </div>
                 
                 <div className='table'>
@@ -53,9 +101,12 @@ const UsersTable = ({ sugerencias }) => {
                             <div className="th delete-cell"></div>
                         </div>
                     </div>
-                    {users.map((user, index)=>(
+                    {userSearch.map((user, index)=>(
 
-                        <div className='tr' onClick={()=>{}}>
+                        <div className='tr' onClick={()=>{
+                            setUserModal(true)
+                            setUserSelected(user)
+                        }}>
                             <div>
                                 <div className="id-cell td"><p>{index + 1}</p></div>
                                 
