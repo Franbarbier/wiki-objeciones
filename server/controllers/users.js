@@ -1,13 +1,16 @@
 import User from '../models/user.js';
-// import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 export const login = async (req, res) =>{
     const user = req.body
+    console.log(user)
     try{
         var userLogin = await User.find({
-                                        mail: user.mail,
+                                        mail: user.username,
                                         password: user.password,
                                     }).exec()
+
+
         if(userLogin.length>0){
             const token = jwt.sign({user: userLogin}, 'secretkey')
             res.status(200).json({error:0, token, user:userLogin[0]})
@@ -19,12 +22,33 @@ export const login = async (req, res) =>{
     }
 }
 
+export const isAdmin = async (req, res) =>{
+    const user = req.body
+
+    try{
+        var userLogin = await User.find({
+                                        mail: user.mail,
+                                        name: user.name,
+                                    }).exec()
+
+
+
+        if(userLogin.length>0 && userLogin[0].level == 9){
+            
+            res.status(200).json({error:0, level : "admin"})
+        }else{
+            res.json({error: 1, message: "Access not granted."})
+        }
+    }catch(error){
+        res.status(404).json({message: error.message})
+    }
+}
+
 export const createUser = async (req, res) =>{
     const user = req.body
     const newUser = new User(user);
     
     try{
-        console.log(user)
         // if (newSugerencia.type == 0) {
             await newUser.save();
         // }else if(newSugerencia.type == 1){

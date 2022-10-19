@@ -1,28 +1,41 @@
-import {DELETE_USER, FETCH_ALL_USERS, LOGIN, UPDATE_USER, VERIFY_USER} from '../constants/actionTypes';
+import {CREATE_USER, DELETE_USER, FETCH_ALL_USERS, LOGIN, UPDATE_USER, VERIFY_USER} from '../constants/actionTypes';
 import * as api from '../api';
 
-// export const login = (user) => async (dispatch) => {
-//     try{
-//         const{data} = await api.login(user)
-//         dispatch({type: LOGIN, payload:data})
-//     }catch(error){
-//         console.log(error)
-//     }
+export const login = (user) => async (dispatch) => {
+    try{
+        const{data} = await api.login(user)
+        // dispatch({type: LOGIN, payload:data})
+        console.log(data)
+        return data
+    }catch(error){
+        console.log(error)
+    }
 
-// }
+}
 
-// export const logout = () => {
+export const isAdmin = (user) => async (dispatch) => {
+    try{
+        const{data} = await api.isAdmin(user)
+        // dispatch({type: LOGIN, payload:data})
+        return data
+    }catch(error){
+        console.log(error)
+    }
+
+}
+
+export const logout = () => {
     
-//     localStorage.setItem('token', "")
-//     localStorage.setItem('user', "")
-//     window.location.href = "/login"
+    localStorage.setItem('token', "")
+    localStorage.setItem('user', "")
+    window.location.href = "/login"
 
-// }
+}
 
 export const createNewUser = async (user, dispatch) => {
     try{
-        const{data} = await api.createUser(user)
-        // dispatch({type: CREATE_USER, payload:data})
+        const {data} = await api.createUser(user)
+        dispatch({type: CREATE_USER, payload:data})
         console.log(data)
         return data
     }catch(error){
@@ -33,7 +46,7 @@ export const updateUser = async (user, id, dispatch) => {
     try{
         const updateData = {user, id}
         const {data} = await api.updateUser(updateData)
-        // dispatch({type: UPDATE_USER, payload:data})
+        dispatch({type: UPDATE_USER, payload:data})
         console.log(data)
     }catch(error){
         console.log(error)
@@ -44,7 +57,6 @@ export const getUsers = (filtros=null) => async (dispatch) => {
     try{
         const{data} = await api.getUsers(filtros)
         dispatch({type: FETCH_ALL_USERS, payload:data})
-        console.log(data)
         return data;
     }catch(error){
         console.log(error.message)

@@ -10,35 +10,65 @@ import Notifications from '../../components/Notificactions/Notifications';
 import ObjTable from '../../components/ObjTable/ObjTable';
 import SugTable from '../../components/SugTable/SugTable';
 import UsersTable from '../../components/UsersTable/UsersTable';
+import { isAdmin } from '../../actions/users';
 
 
-const Panel = ({setActiveTab }) => {
+
+const PanelAccess = ({ panelInfo, setPanelInfo, objeciones, sugerencias}) =>{
+    return(
+        <div>
+            <div id="tab-selection">
+                <ul>
+                    <li onClick={ ()=>{setPanelInfo("objeciones")} } className={ panelInfo == "objeciones" && 'selectedTab'} >OBJECIONES</li>
+                    <li onClick={ ()=>{setPanelInfo("sugerencias")} } className={ panelInfo == "sugerencias" && 'selectedTab'} >SUGERENCIAS</li>
+                    <li onClick={ ()=>{setPanelInfo("usuarios")} } className={ panelInfo == "usuarios" && 'selectedTab'} >USUARIOS</li>
+                </ul>
+            </div>
+            <div id="table-cont">
+                {panelInfo == "objeciones" && <ObjTable objeciones={objeciones}/> }
+                {panelInfo == "sugerencias" && <SugTable sugerencias={sugerencias} /> }
+                {panelInfo == "usuarios" && <UsersTable /> }
+
+            </div>
+
+        </div>
+    )
+}
+const Panel = ({setActiveTab, user }) => {
 
 
 const [panelInfo, setPanelInfo] = useState("objeciones")
+const [access, setAccess] = useState(1)
 const objeciones = useSelector(state => state.objeciones)
 const sugerencias = useSelector(state => state.sugerencias)
 
+const dispatch = useDispatch()
 
+useEffect(()=>{
+    
+        dispatch(isAdmin(user)).then(
+          (e)=>{
+              console.log(e)
+              setAccess(e.error)
+          }).catch( (e) =>{
+              alert("No tienes los permisos requeridos para acceder.")
+          } )
+      
+}, [])
+
+
+console.log(access)
 
   function render(){
       return  <div id="Panel-view">
-                    <div>
-                        <div id="tab-selection">
-                            <ul>
-                                <li onClick={ ()=>{setPanelInfo("objeciones")} } className={ panelInfo == "objeciones" && 'selectedTab'} >OBJECIONES</li>
-                                <li onClick={ ()=>{setPanelInfo("sugerencias")} } className={ panelInfo == "sugerencias" && 'selectedTab'} >SUGERENCIAS</li>
-                                <li onClick={ ()=>{setPanelInfo("usuarios")} } className={ panelInfo == "usuarios" && 'selectedTab'} >USUARIOS</li>
-                            </ul>
-                        </div>
-                        <div id="table-cont">
-                            {panelInfo == "objeciones" && <ObjTable objeciones={objeciones}/> }
-                            {panelInfo == "sugerencias" && <SugTable sugerencias={sugerencias} /> }
-                            {panelInfo == "usuarios" && <UsersTable /> }
-
-                        </div>
-
-                    </div>
+                    {access == 1 ?
+                        ()=>{
+                            // alert('No tienes los permisos para ingresar a esta seccion.')
+                            window.location.href = 'https://inspiring-fox-bddd44.netlify.app/'
+                        }
+                        :
+                        <PanelAccess panelInfo={panelInfo} setPanelInfo={setPanelInfo} objeciones={objeciones} sugerencias={sugerencias} /> 
+                    }
               </div>
 
        }

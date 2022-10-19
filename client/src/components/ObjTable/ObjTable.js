@@ -103,7 +103,6 @@ const ObjTable = ({ objeciones }) => {
         if (buscador != "") {
          var searchResult = []
             
-         console.log(objeciones)
 
          let newBuscador = buscador || '';
  
@@ -112,7 +111,6 @@ const ObjTable = ({ objeciones }) => {
                  var tieneTag = false
                  if (element.tags.length> 0) {
                      element.tags.find(element => {
-                        console.log(element)
                          if (element.toLowerCase().includes(newBuscador.toLowerCase())) {
                          tieneTag = true
                      }
@@ -131,7 +129,6 @@ const ObjTable = ({ objeciones }) => {
  
                  }
                 }
-                console.log(searchResult)
              setObjetas(searchResult)
         }else{
              setObjetas(objeciones)
@@ -155,7 +152,6 @@ const ObjTable = ({ objeciones }) => {
 
     function getRespuestasDeObj(obj_id) {
         const respuestas_asociadas = respuestas.filter((rtass)=>rtass.objecion._id == obj_id)
-        console.log(respuestas, respuestas_asociadas)
         return respuestas_asociadas
     }
 
