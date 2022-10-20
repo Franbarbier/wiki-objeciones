@@ -15,7 +15,7 @@ import { deleteSugerencias } from '../../actions/sugerencias';
 
 
 
-const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
+const NewObj = ({ obj, cerrarObjSelected, suge, sugeId }) => {
 
 
   const [currentRta, setCurrentRta] = useState('')
@@ -24,6 +24,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
   const [tags, setTags] = useState([])
   
   const [objecion, setObjecion] = useState()
+  const [autor, setAutor] = useState()
  
   const [category, setCategory] = useState()
   const [rtaSugerida, setRtaSugerida] = useState()
@@ -42,10 +43,11 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
     }, [createRta])
 
     useEffect(()=>{
+    
       if (suge) {
         
         if (obj.rtas.length > 0) {
-          setCreateRta({...createRta, rta : obj.rtas[0].rta, nombre : obj.rtas[0].nombre})
+          setCreateRta({...createRta, rta : obj.rtas[0].rta, nombre : obj.rtas[0].nombre, autor : obj.autor})
           
           
         }
@@ -60,6 +62,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
           setObjecion(obj.objecionId.objecion)
           
           setRtas(obj.objecionId.rtas)
+          setAutor(obj.objecionId.autor)
 
         console.log('estoy alla')
           setRtaSugerida(obj.rtas[0])
@@ -71,6 +74,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
        
         setRtas(obj.rtas)
         setObjecion(obj.objecion)
+        setAutor(obj.autor)
       }
 
     },[])
@@ -87,9 +91,12 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
     let newRtaACrear = {...createRta}
     newRtaACrear.objecion = obj.objecionId._id
     createRespuesta(newRtaACrear, dispatch2).then(
-      (e)=>
-          console.log(e)
-      ).catch( (e) =>{
+      (e)=>{
+        deleteSugerencias([sugeId], dispatch2).then(
+          (e)=>console.log('se elimino la suge: ', sugeId)
+        ).catch((e)=> console.log(e.error) )
+          cerrarObjSelected()
+      }).catch( (e) =>{
           console.log('error:::', e.error)
       } )
 
@@ -129,7 +136,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                 setCurrentTag('')
                 setTags([])
                 setObjecion('')
-                setObjSelected(false)
+                cerrarObjSelected()
                 deleteSugerencias([sugeId], dispatch2).then(
                   (e)=>console.log('se elimino la suge: ', sugeId)
                 ).catch((e)=> console.log(e.error) )
@@ -149,15 +156,16 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
     }
     
 
-    console.log(final_objecion)
+    console.log(final_objecion, createRta)
+
 
     createObjecion(final_objecion, dispatch2).then(
             (e)=> {
 
-              if(createRta.rta.length && ifCreateRta){
+              if(createRta.rta){
                 let newRtaACrear = {...createRta}
                 newRtaACrear.objecion = e.newObj._id
-                createRespuesta(newRtaACrear, dispatch2).then(
+                createRespuesta(newRtaACrear, dispatch2, e.newObj._id).then(
                   (e)=>
                       console.log(e)
                   ).catch( (e) =>{
@@ -169,8 +177,10 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
               setCurrentTag('')
               setTags([])
               setObjecion('')
+              setAutor('')
               setCategory('')
-              setObjSelected(false)
+              cerrarObjSelected()
+              
               deleteSugerencias([sugeId], dispatch2).then(
                 (e)=>console.log('se elimino la suge: ', sugeId)
               ).catch((e)=> console.log(e.error) )
@@ -294,7 +304,14 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                         }
                     </div>
 
-                      {console.log(suge)}
+                      <div>
+                          <label>Autor</label>
+                          <input type="text" onChange={(e)=>{
+                            let newRta = {...createRta}
+                            newRta.autor = e.target.value
+                            setCreateRta(newRta)
+                          }} value={createRta.autor} />
+                      </div>
                       {suge ?
                       <>
                         {obj.objecionId ?
@@ -308,7 +325,7 @@ const NewObj = ({ obj, setObjSelected, suge, sugeId }) => {
                       }
                       <button  onClick={(e)=>{
                                   e.preventDefault()
-                                  setObjSelected(false)
+                                  cerrarObjSelected()
                                   if(suge){
                                     if(window.confirm("Desea eliminar la sugerencia?")){
 
@@ -333,7 +350,9 @@ const ObjInfo = ({ objecion, setObjSelected, suge=false, sugeId=null }) => {
     
     // const dispatch = useDispatch()
 
-   
+   function cerrarObjSelected() {
+    setObjSelected(false)
+   }
 
   function render(){
       return  (
@@ -348,7 +367,7 @@ const ObjInfo = ({ objecion, setObjSelected, suge=false, sugeId=null }) => {
                             }} src="/assets/close.png"/>
                       </div>
                       <div>
-                        <NewObj setObjSelected={setObjSelected} obj={objecion} suge={suge} sugeId={sugeId}/>
+                        <NewObj cerrarObjSelected={cerrarObjSelected} obj={objecion} suge={suge} sugeId={sugeId}/>
                       </div>
 
                     </div>

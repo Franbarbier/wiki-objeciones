@@ -24,12 +24,12 @@ export const getRespuestas = async (req, res)=>{
 export const createRespuesta = async(req, res) =>{
     const obj = req.body;
 
-    console.log(obj)
+    console.log("que onda", obj)
 
     const newRta = new Respuesta(obj);
     try{
         await newRta.save();
-        console.log('pareciera que se subio', newRta)
+        console.log('pareciera que se subio la rta', newRta)
         res.status(201).json({newRta})
     }catch(error){
         res.status(409).json({message: error.message})

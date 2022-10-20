@@ -16,6 +16,7 @@ const sugerencia = mongoose.Schema({
         type: Array,
         default: []
     },
+    autor: String,
     createdAt : {
         type: Date,
         default: new Date()

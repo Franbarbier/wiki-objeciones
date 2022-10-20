@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -41,7 +42,6 @@ const [panelInfo, setPanelInfo] = useState("objeciones")
 const [access, setAccess] = useState(1)
 const objeciones = useSelector(state => state.objeciones)
 const sugerencias = useSelector(state => state.sugerencias)
-
 const dispatch = useDispatch()
 
 useEffect(()=>{
@@ -61,14 +61,11 @@ console.log(access)
 
   function render(){
       return  <div id="Panel-view">
-                    {access == 1 ?
-                        ()=>{
-                            // alert('No tienes los permisos para ingresar a esta seccion.')
-                            window.location.href = 'https://inspiring-fox-bddd44.netlify.app/'
-                        }
-                        :
+                    {/* {access == 1 ? */}
+                         {/* <Navigate to="/" /> */}
+                        {/* : */}
                         <PanelAccess panelInfo={panelInfo} setPanelInfo={setPanelInfo} objeciones={objeciones} sugerencias={sugerencias} /> 
-                    }
+                    {/*} */}
               </div>
 
        }

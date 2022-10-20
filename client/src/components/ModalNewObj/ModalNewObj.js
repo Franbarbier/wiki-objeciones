@@ -74,6 +74,7 @@ const ModalNewObj = ({ setModalNewObj, objExist, setObjExist, checkIfExist, setR
 
     
     createSugerencia({
+      autor: localStorage.getItem('user'),
       objecion : newObj,
       rtas : newRta,
       type : 0

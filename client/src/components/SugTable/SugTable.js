@@ -85,7 +85,7 @@ const SugTable = ({ sugerencias }) => {
                    
 
                     {sugSelected &&
-                        <ObjInfo objecion={sugSelected} suge={true} sugeId={sugSelected._id} setObjSelected={setSugSelected}/>
+                        <ObjInfo objecion={sugSelected} suge={true} sugeId={sugSelected._id}  setObjSelected={setSugSelected}/>
                     }
 
                 </div>

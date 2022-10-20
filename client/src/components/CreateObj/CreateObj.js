@@ -25,6 +25,7 @@ export const NewObj = ({ setNewRta, checkIfExist, objExist, objSelected=false, s
     const [tags, setTags] = useState(objSelected ? objSelected.tags : [])
     const [objecion, setObjecion] = useState(objSelected ? objSelected.objecion : '')
     
+    
 
     const [createRta, setCreateRta] = useState({
         nombre : '',

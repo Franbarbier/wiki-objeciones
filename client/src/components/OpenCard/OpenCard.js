@@ -26,6 +26,7 @@ const AddRta = ({ setNewRta, id_objecion, newRta }) => {
             alert("Gracias por sugerir una respuesta! La vamos a ver cuanto antes."),
             setNewRta(false) )
           await createSugerencia({
+            autor: localStorage.getItem('user'),
             objecionId: id_objecion,
             rtas: [newRta],
             type: 1

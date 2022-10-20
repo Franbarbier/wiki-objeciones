@@ -20,7 +20,7 @@ export const createRespuesta = async (respuesta, dispatch, obj) => {
         
         dispatch({type: CREATE_RESPUESTA, payload:data})
 
-        console.log(data)
+
         return data
     }catch(error){
         console.log(error)
@@ -32,7 +32,7 @@ export const updateRespuestas = async (respuesta, dispatch, obj) => {
         const {data} = await api.updateRespuesta(respuesta)
         data.objecion = obj
         dispatch({type: UPDATE_RESPUESTA, payload:data})
-        console.log(data)
+
     }catch(error){
         console.log(error)
     }
