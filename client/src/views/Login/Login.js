@@ -12,8 +12,8 @@ const Login = () => {
  
   const dispatch = useDispatch()
 
-  const [username, setUsername] = useState('mailo@mail.com')
-  const [password, setPassword] = useState('contracontra')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
 
 

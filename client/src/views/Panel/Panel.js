@@ -39,7 +39,7 @@ const Panel = ({setActiveTab, user }) => {
 
 
 const [panelInfo, setPanelInfo] = useState("objeciones")
-const [access, setAccess] = useState(1)
+const [access, setAccess] = useState(false)
 const objeciones = useSelector(state => state.objeciones)
 const sugerencias = useSelector(state => state.sugerencias)
 const dispatch = useDispatch()
@@ -61,11 +61,8 @@ console.log(access)
 
   function render(){
       return  <div id="Panel-view">
-                    {/* {access == 1 ? */}
-                         {/* <Navigate to="/" /> */}
-                        {/* : */}
-                        <PanelAccess panelInfo={panelInfo} setPanelInfo={setPanelInfo} objeciones={objeciones} sugerencias={sugerencias} /> 
-                    {/*} */}
+                        {access == 0 && <PanelAccess panelInfo={panelInfo} setPanelInfo={setPanelInfo} objeciones={objeciones} sugerencias={sugerencias} /> }
+                        {access == 1 && <Navigate to="/" /> }
               </div>
 
        }

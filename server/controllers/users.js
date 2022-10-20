@@ -33,12 +33,12 @@ export const isAdmin = async (req, res) =>{
 
 
 
-        if(userLogin.length>0 ){
-        // if(userLogin.length>0 && userLogin[0].level == 9){
+        // if(userLogin.length>0 ){
+        if(userLogin.length>0 && userLogin[0].level == 9){
             
-            res.status(200).json({error:0, level : "admin"})
+            res.status(200).json({error: 0, level : "admin"})
         }else{
-            res.json({error: 0, message: "Access not granted."})
+            res.json({error: 1, message: "Access not granted."})
         }
     }catch(error){
         res.status(404).json({message: error.message})
