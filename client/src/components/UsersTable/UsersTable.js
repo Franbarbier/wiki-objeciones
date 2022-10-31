@@ -125,8 +125,17 @@ const UsersTable = ({ sugerencias }) => {
                                 <div className="tipo-cell td">{suge.type == 0 ? "Objeción" : 'Respuesta'}</div>
                              */}
                                 <div className='delete-user delete-cell' onClick={(e)=>{
-                                    e.stopPropagation() 
-                                    deleteUser(user._id, dispatch)
+                                    e.stopPropagation()
+                                    if (window.confirm(`Desea eliminar a ${user.name}`)) {
+                                        
+                                        deleteUser(user._id, dispatch).then(
+                                        (e)=>{
+                                            alert("Usuario eliminado con éxito!")
+                                        }).catch( (e) =>{
+                                            alert("Hubo un error al eliminar este usuario :(")
+                                        } )
+                                    }
+
                                     }}>DELETE</div>
                                 
                             </div> 

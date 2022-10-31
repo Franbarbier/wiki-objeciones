@@ -5,7 +5,10 @@ export default (state=[], action) => {
         case 'FETCH_ALL_USERS':
             return action.payload;
         case 'CREATE_USER':
-            return [action.payload, ...state];
+            return [action.payload.newUser, ...state];
+        case 'DELETE_USER':
+            var id_deleted = action.payload.id
+            return state.filter((user)=> user._id != id_deleted);
         case 'LOGIN':
             const response = action.payload
 

@@ -208,7 +208,7 @@ const Home = ({setActiveTab }) => {
                     <EditRtas objecion={objSelected} setObjSelected={setObjSelected} setAddRtaModal={setAddRtaModal} rta={rtaData} setRtaData={setRtaData} />
                 }
                 {objSelected &&
-                    <SugRtaModal objecion={objSelected} />
+                    <SugRtaModal objecion={objSelected} setObjSelected={setObjSelected} />
 
                 }
               </div>

@@ -34,9 +34,11 @@ const UserModal = ({ user, setUserModal, createUser, setCreateUser}) => {
         )
 
         createNewUser({mail, name: nombre, password}, dispatch).then(
-            (e)=> 
-              console.log(e)
-            ).catch( (e) =>{
+            (e)=> {
+                alert('Usuario creado con éxito!')
+                setUserModal(false)
+                setCreateUser(false)
+            }).catch( (e) =>{
               console.log('error:::', e.error)
               alert('Hubo un error, por favor intentalo de nuevo.')
           } )
@@ -44,9 +46,11 @@ const UserModal = ({ user, setUserModal, createUser, setCreateUser}) => {
 
     function handleEditUser() {
         updateUser({mail, name: nombre, password}, user._id, dispatch).then(
-            (e)=> 
-              console.log(e)
-            ).catch( (e) =>{
+            (e)=> {
+                alert('Cambios guardados con éxito!')
+                setUserModal(false)
+                setCreateUser(false)
+            }).catch( (e) =>{
               console.log('error:::', e.error)
               alert('Hubo un error, por favor intentalo de nuevo.')
           } )

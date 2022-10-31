@@ -35,8 +35,9 @@ export const logout = () => {
 export const createNewUser = async (user, dispatch) => {
     try{
         const {data} = await api.createUser(user)
-        dispatch({type: CREATE_USER, payload:data})
+        
         console.log(data)
+        dispatch({type: CREATE_USER, payload:data})
         return data
     }catch(error){
         console.log(error)

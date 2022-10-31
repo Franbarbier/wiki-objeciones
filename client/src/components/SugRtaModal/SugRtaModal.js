@@ -13,7 +13,7 @@ import { createSugerencia } from '../../actions/sugerencias';
 
 
 
-const SugRtaModal = ({ objecion, setAddRtaModal }) => {
+const SugRtaModal = ({ objecion, setAddRtaModal, setObjSelected }) => {
     
   const [rtaSugerida, setRtaSugerida] = useState({
     nombre: '',
@@ -57,13 +57,13 @@ const SugRtaModal = ({ objecion, setAddRtaModal }) => {
 
   function render(){
       return  (
-        <ModalContainer tipo="sugRta">
+        <ModalContainer tipo="sugRta" closeModal={ ()=>{ setObjSelected(false) } }>
                 <div id="SugRta-view">
                     <div>
                       <div className='close-mod'>
                         <img onClick={ (e)=>{
                               e.stopPropagation()
-                              setAddRtaModal(false)
+                              setObjSelected(false)
                             }} src="/assets/close.png"/>
                       </div>
                      
@@ -100,7 +100,7 @@ const SugRtaModal = ({ objecion, setAddRtaModal }) => {
 
                           <div>
                             <button id="guardar-cambios-btn" onClick={()=>{ sendSuge() } }>Enviar sugerencia</button>
-                            <button id="descartar-cambios-btn" onClick={()=>{setAddRtaModal(false)}}>Descartar</button>
+                            <button id="descartar-cambios-btn" onClick={()=>{setObjSelected(false)}}>Descartar</button>
                           </div>
                       </div>
 
