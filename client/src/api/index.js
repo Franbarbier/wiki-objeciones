@@ -13,7 +13,7 @@ const ENDPOINT = 'https://wikiback-5auuyy00h-franbarbier.vercel.app/';
 
 const url_users = ENDPOINT+'users'
 // export const createUser = (user) => axios.post(`${url_users}/new`, user );
-export const getUsers = () => axios.get(url_users, {...filtros, headers});
+export const createUser = () => axios.get(url_users, {...filtros, headers});
 export const deleteUser = (id) => axios.delete(`${url_users}/${id}`, {headers});
 export const updateUser = (updateData) => axios.patch(`${url_users}`, updateData, {headers});
 export const login = (user) => axios.post(`${url_users}/login`, user );
