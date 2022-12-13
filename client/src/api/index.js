@@ -9,7 +9,7 @@ const headers = {
 // const headers = ''
 
 // const ENDPOINT = 'http://localhost:5000/';
-const ENDPOINT = 'https://wiki-objs.herokuapp.com/';
+const ENDPOINT = 'https://wikiback-5auuyy00h-franbarbier.vercel.app/';
 
 const url_users = ENDPOINT+'users'
 export const createUser = (user) => axios.post(`${url_users}/new`, user );
