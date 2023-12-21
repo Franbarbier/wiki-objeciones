@@ -54,12 +54,12 @@ const UsersTable = ({ sugerencias }) => {
              for (let index = 0; index < users.length; index++) {
                  const element = users[index] || '';
                  var tieneName = false
-                 if (element.name.toLowerCase().includes(newBuscador.toLowerCase())) {
+                 if (element?.name?.toLowerCase().includes(newBuscador?.toLowerCase())) {
                     tieneName = true
                 }
 
                 var tieneMail = false
-                 if (element.mail.toLowerCase().includes(newBuscador.toLowerCase())) {
+                 if (element?.mail?.toLowerCase().includes(newBuscador?.toLowerCase())) {
                      tieneMail = true
                  }
  
